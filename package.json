@@ -1,0 +1,52 @@
+{
+  "name": "@oxylian/capacitor-facebook-login",
+  "version": "1.0.0-alpha.1",
+  "description": "Facebook Login plugin for Capacitor",
+  "main": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf ./dist",
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "author": {
+    "name": "Sébastian Dejonghe",
+    "email": "sebastian@oxylian.com"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@capacitor/core": "1.0.0-beta.8"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.2"
+  },
+  "files": [
+    "android/",
+    "dist/",
+    "ios/",
+    "OxylianCapacitorFacebookLogin.podspec"
+  ],
+  "keywords": [
+    "capacitor",
+    "plugin",
+    "native",
+    "facebook",
+    "login"
+  ],
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    },
+    "android": {
+      "src": "android"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oxylian/capacitor-facebook-login"
+  },
+  "bugs": {
+    "url": "https://github.com/oxylian/capacitor-facebook-login/issues"
+  }
+}
