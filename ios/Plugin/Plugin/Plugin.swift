@@ -1,11 +1,12 @@
 import Foundation
 import Capacitor
 import FacebookCore
-import FBSDKLoginKit
+import FacebookLogin
 
 @objc(FacebookLogin)
 public class FacebookLogin: CAPPlugin {
-    private let sdkManager: FBSDKLoginManager = FBSDKLoginManager()
+    private let loginManager = LoginManager()
+    
     private let dateFormatter = ISO8601DateFormatter()
     
     override public func load() {
@@ -14,6 +15,7 @@ public class FacebookLogin: CAPPlugin {
         } else {
             dateFormatter.formatOptions = [.withInternetDateTime]
         }
+        
     }
 
     private func dateToJS(_ date: Date) -> String {
@@ -21,27 +23,34 @@ public class FacebookLogin: CAPPlugin {
     }
     
     @objc func login(_ call: CAPPluginCall) {
-        let permissions = call.getArray("permissions", String.self)
+        guard let permissions = call.getArray("permissions", String.self) else {
+            call.error("Missing permissions argument")
+            return;
+        }
         
-        sdkManager.logIn(withReadPermissions: permissions, from: bridge.viewController, handler: { (result, error) -> Void in
-            if let error = error {
-                FBSDKLoginManager().logOut()
-                
-                call.reject("FBSDKLoginManager.logIn failed", error)
-            } else if let result = result {
-                if result.isCancelled {
-                    call.reject("Cancelled by user")
-                } else {
+        let perm = permissions.map { ReadPermission.custom($0) }
+        
+        DispatchQueue.main.async {
+            self.loginManager.logIn(readPermissions: perm, viewController: self.bridge.viewController) { loginResult in
+                switch loginResult {
+                case .failed(let error):
+                    print(error)
+                    call.reject("LoginManager.logIn failed", error)
+                    
+                case .cancelled:
+                    print("User cancelled login")
+                    call.success()
+                    
+                case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                    print("Logged in")
                     return self.getCurrentAccessToken(call)
                 }
-            } else {
-                call.reject("FBSDKLoginManager.logIn: no result");
             }
-        })
+        }
     }
     
     @objc func logout(_ call: CAPPluginCall) {
-        FBSDKLoginManager().logOut()
+        loginManager.logOut()
         
         call.success()
     }

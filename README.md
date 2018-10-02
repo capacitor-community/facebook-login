@@ -55,6 +55,16 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 
 ## iOS configuration
 
+In file `AppDelegate.swift` add or replace the following:
+
+```
+import FacebookCore
+[...]
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+}
+```
+
 Add the following in the `info.plist` file:
 
 ```xml
