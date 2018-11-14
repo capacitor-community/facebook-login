@@ -63,6 +63,14 @@ import FacebookCore
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
   return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 }
+
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+  if CAPBridge.handleOpenUrl(url, options) {
+    return true;
+  }
+    
+  return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+}
 ```
 
 Add the following in the `info.plist` file:
