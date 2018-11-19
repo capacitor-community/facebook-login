@@ -1,6 +1,6 @@
 {
   "name": "@oxylian/capacitor-facebook-login",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "Facebook Login plugin for Capacitor",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
