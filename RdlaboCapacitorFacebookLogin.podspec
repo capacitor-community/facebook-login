@@ -1,7 +1,7 @@
 
   Pod::Spec.new do |s|
-    s.name = 'OxylianCapacitorFacebookLogin'
-    s.version = '1.0.0-alpha.5'
+    s.name = 'RdlaboCapacitorFacebookLogin'
+    s.version = '1.0.0-beta.13.0.2'
     s.summary = 'Facebook Login plugin for Capacitor'
     s.license = 'Apache-2.0'
     s.homepage = 'https://github.com/rdlabo/capacitor-facebook-login'
