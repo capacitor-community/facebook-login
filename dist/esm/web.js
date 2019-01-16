@@ -21,7 +21,12 @@ export class FacebookLoginWeb extends WebPlugin {
             return new Promise((resolve, reject) => {
                 FB.login((response) => {
                     console.debug('FB.login', response);
-                    resolve(response);
+                    if (response.status === 'connected') {
+                        resolve(response.authResponse);
+                    }
+                    else {
+                        reject(response);
+                    }
                 }, { scope: options.permissions.join(',') });
             });
         });

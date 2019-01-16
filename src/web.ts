@@ -50,7 +50,11 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
       FB.login((response) => {
         console.debug('FB.login', response);
 
-        resolve(response);
+        if (response.status === 'connected') {
+          resolve(response.authResponse);
+        } else {
+          reject(response)
+        }
       }, { scope: options.permissions.join(',') });  
     });
   }
