@@ -1,4 +1,4 @@
-package com.oxylian.capacitor.plugin.facebook;
+package com.rdlabo.capacitor.plugin.facebook;
 
 import android.content.Intent;
 import android.util.Log;

@@ -1,10 +1,10 @@
 # capacitor-facebook-login
-Facebook Login plugin for Capacitor
+Facebook Login plugin for Capacitor. This repository fork from @oxylian/capacitor-facebook-login.
 
 ## Installation
 
 ```bash
-npm i --save @oxylian/capacitor-facebook-login
+npm i --save @rdlabo/capacitor-facebook-login
 ```
 
 ## Android configuration
@@ -14,7 +14,7 @@ In file `MainActivity.java`, add the plugin to the initialization list:
 ```java
 this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
   [...]
-  add(com.oxylian.capacitor.plugin.facebook.FacebookLogin.class);
+  add(com.rdlabo.capacitor.plugin.facebook.FacebookLogin.class);
   [...]
 }});
 ```
