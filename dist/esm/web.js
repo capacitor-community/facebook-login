@@ -22,7 +22,11 @@ export class FacebookLoginWeb extends WebPlugin {
                 FB.login((response) => {
                     console.debug('FB.login', response);
                     if (response.status === 'connected') {
-                        resolve(response.authResponse);
+                        resolve({
+                            accessToken: {
+                                token: response.authResponse.accessToken
+                            }
+                        });
                     }
                     else {
                         reject(response);
