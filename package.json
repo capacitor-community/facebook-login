@@ -1,6 +1,6 @@
 {
-  "name": "@oxylian/capacitor-facebook-login",
-  "version": "1.0.0-alpha.5",
+  "name": "@rdlabo/capacitor-facebook-login",
+  "version": "1.0.0-alpha.13",
   "description": "Facebook Login plugin for Capacitor",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -11,12 +11,11 @@
     "prepublishOnly": "npm run build"
   },
   "author": {
-    "name": "Sébastian Dejonghe",
-    "email": "sebastian@oxylian.com"
+    "name": "Masahiko Sakakibara"
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@capacitor/core": "1.0.0-beta.11"
+    "@capacitor/core": "1.0.0-beta.13"
   },
   "devDependencies": {
     "typescript": "^2.6.2"
@@ -44,9 +43,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oxylian/capacitor-facebook-login"
+    "url": "https://github.com/rdlabo/capacitor-facebook-login"
   },
   "bugs": {
-    "url": "https://github.com/oxylian/capacitor-facebook-login/issues"
+    "url": "https://github.com/rdlabo/capacitor-facebook-login/issues"
   }
 }
