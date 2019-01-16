@@ -16,7 +16,15 @@ export interface AccessToken {
 }
 
 export interface FacebookLoginResponse {
-  accessToken: AccessToken | null;
+  status: 'connected' | 'authorization_expired' | 'not_authorized' | string;
+  authResponse: {
+    accessToken: string;
+    data_access_expiration_time: number;
+    expiresIn: number;
+    reauthorize_required_in: number;
+    signedRequest: number;
+    userID: number;
+  }
   recentlyGrantedPermissions: string[];
   recentlyDeniedPermissions: string[];
 }
