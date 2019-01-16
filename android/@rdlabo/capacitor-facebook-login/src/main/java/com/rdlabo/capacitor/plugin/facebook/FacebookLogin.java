@@ -32,7 +32,13 @@ public class FacebookLogin extends Plugin {
      * Convert date to ISO 8601 format.
      */
     private String dateToJson(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        SimpleDateFormat simpleDateFormat;
+
+        try {
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        } catch (Exception e) {
+            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
+        }
 
         return simpleDateFormat.format(date);
     }
