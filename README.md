@@ -9,7 +9,7 @@ npm i --save @rdlabo/capacitor-facebook-login
 
 ## Android configuration
 
-In file `MainActivity.java`, add the plugin to the initialization list:
+In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
 
 ```java
 this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
@@ -19,7 +19,7 @@ this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
 }});
 ```
 
-In file `AndroidManifest.xml`, add the following XML elements in `//manifest/application` :
+In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
 
 ```xml
 <meta-data android:name="com.facebook.sdk.ApplicationId"
@@ -42,7 +42,7 @@ In file `AndroidManifest.xml`, add the following XML elements in `//manifest/app
 </activity>
 ```
 
-In file `res/values/strings.xml` add the following lines :
+In file `android/app/src/main/res/values/strings.xml` add the following lines :
 
 ```
 <string name="facebook_app_id">[APP_ID]</string>
@@ -55,7 +55,7 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 
 ## iOS configuration
 
-In file `AppDelegate.swift` add or replace the following:
+In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
 ```
 import FacebookCore
@@ -73,7 +73,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpe
 }
 ```
 
-Add the following in the `info.plist` file:
+Add the following in the `ios/App/App/info.plist` file:
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -120,7 +120,17 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 ```
 
+```js
+// Init Capacitor
+import { registerWebPlugin } from '@capacitor/core';
+import { FacebookLogin } from '@rdlabo/capacitor-facebook-login';
+...
+registerWebPlugin(FacebookLogin);
+```
+
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
+And you must confirm return type at https://github.com/rdlabo/capacitor-facebook-login/blob/master/src/web.ts#L55-L57
+not same type for default web facebook loginn!
 
 ## API
 
