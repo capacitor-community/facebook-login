@@ -1,5 +1,7 @@
+[![npm version](https://badge.fury.io/js/%40rdlabo%2Fcapacitor-facebook-login.svg)](https://badge.fury.io/js/%40rdlabo%2Fcapacitor-facebook-login)
+
 # capacitor-facebook-login
-Facebook Login plugin for Capacitor. This repository fork from @oxylian/capacitor-facebook-login.
+Facebook Login plugin for Capacitor. This repository fork from `@oxylian/capacitor-facebook-login` .
 
 ## Installation
 
@@ -131,7 +133,7 @@ registerWebPlugin(FacebookLogin);
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
 And you must confirm return type at https://github.com/rdlabo/capacitor-facebook-login/blob/master/src/web.ts#L55-L57
-not same type for default web facebook loginn!
+not same type for default web facebook login!
 
 ## API
 
