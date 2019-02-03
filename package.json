@@ -1,6 +1,6 @@
 {
   "name": "@rdlabo/capacitor-facebook-login",
-  "version": "1.0.0-beta.13.3",
+  "version": "1.0.0-beta.17",
   "description": "Facebook Login plugin for Capacitor",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -15,7 +15,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@capacitor/core": "1.0.0-beta.13"
+    "@capacitor/core": "^1.0.0-beta.17"
   },
   "devDependencies": {
     "typescript": "^2.6.2"
