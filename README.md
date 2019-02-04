@@ -66,7 +66,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
   return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 }
 
-func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
   if CAPBridge.handleOpenUrl(url, options) {
     return SDKApplicationDelegate.shared.application(app, open: url, options: options)
   }
