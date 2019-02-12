@@ -7,7 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { WebPlugin } from '@capacitor/core';
-;
 export class FacebookLoginWeb extends WebPlugin {
     constructor() {
         super({
@@ -29,7 +28,11 @@ export class FacebookLoginWeb extends WebPlugin {
                         });
                     }
                     else {
-                        reject(response);
+                        reject({
+                            accessToken: {
+                                token: null
+                            }
+                        });
                     }
                 }, { scope: options.permissions.join(',') });
             });
@@ -49,20 +52,28 @@ export class FacebookLoginWeb extends WebPlugin {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
                 FB.getLoginStatus((response) => {
-                    console.debug('FB.getLoginStatus', response);
-                    const result = {
-                        accessToken: {
-                            applicationId: null,
-                            declinedPermissions: [],
-                            expires: null,
-                            isExpired: null,
-                            lastRefresh: null,
-                            permissions: [],
-                            token: response.authResponse.accessToken,
-                            userId: response.authResponse.userID
-                        }
-                    };
-                    resolve(result);
+                    if (response.status !== 'connected') {
+                        const result = {
+                            accessToken: {
+                                applicationId: null,
+                                declinedPermissions: [],
+                                expires: null,
+                                isExpired: null,
+                                lastRefresh: null,
+                                permissions: [],
+                                token: response.authResponse.accessToken,
+                                userId: response.authResponse.userID
+                            }
+                        };
+                        resolve(result);
+                    }
+                    else {
+                        reject({
+                            accessToken: {
+                                token: null
+                            }
+                        });
+                    }
                 });
             });
         });

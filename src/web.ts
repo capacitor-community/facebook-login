@@ -33,7 +33,7 @@ declare global {
   interface Window {
     fbAsyncInit: Function;
   }
-};
+}
 
 export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   constructor() {
@@ -57,7 +57,11 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
             }
           });
         } else {
-          reject(response)
+          reject({
+            accessToken: {
+              token: null
+            }
+          })
         }
       }, { scope: options.permissions.join(',') });  
     });
@@ -76,22 +80,27 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   async getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse> {
     return new Promise<FacebookCurrentAccessTokenResponse>((resolve, reject) => {
       FB.getLoginStatus((response) => {
-        console.debug('FB.getLoginStatus', response);
-
-        const result: FacebookCurrentAccessTokenResponse = {
-          accessToken: {
-            applicationId: null,
-            declinedPermissions: [],
-            expires: null,
-            isExpired: null,
-            lastRefresh: null,
-            permissions: [],
-            token: response.authResponse.accessToken,
-            userId: response.authResponse.userID
-          }
-        };
-
-        resolve(result);
+        if (response.status !== 'connected') {
+          const result: FacebookCurrentAccessTokenResponse = {
+            accessToken: {
+              applicationId: null,
+              declinedPermissions: [],
+              expires: null,
+              isExpired: null,
+              lastRefresh: null,
+              permissions: [],
+              token: response.authResponse.accessToken,
+              userId: response.authResponse.userID
+            }
+          };
+          resolve(result);
+        } else {
+          reject({
+            accessToken: {
+              token: null
+            }
+          });
+        }
       });
     });
   }
