@@ -52,7 +52,7 @@ export class FacebookLoginWeb extends WebPlugin {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
                 FB.getLoginStatus((response) => {
-                    if (response.status !== 'connected') {
+                    if (response.status === 'connected') {
                         const result = {
                             accessToken: {
                                 applicationId: null,

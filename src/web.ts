@@ -80,7 +80,7 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   async getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse> {
     return new Promise<FacebookCurrentAccessTokenResponse>((resolve, reject) => {
       FB.getLoginStatus((response) => {
-        if (response.status !== 'connected') {
+        if (response.status === 'connected') {
           const result: FacebookCurrentAccessTokenResponse = {
             accessToken: {
               applicationId: null,
