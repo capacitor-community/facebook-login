@@ -46,7 +46,7 @@ In file `android/app/src/main/AndroidManifest.xml`, add the following XML elemen
 
 In file `android/app/src/main/res/values/strings.xml` add the following lines :
 
-```
+```xml
 <string name="facebook_app_id">[APP_ID]</string>
 <string name="fb_login_protocol_scheme">fb[APP_ID]</string>
 ```
@@ -59,7 +59,7 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 
 In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
-```
+```java
 import FacebookCore
 [...]
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -103,7 +103,7 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 
 ## Web configuration
 
-```js
+```ts
 window.fbAsyncInit = function() {
   FB.init({
     appId: '[APP_ID]',
@@ -123,7 +123,7 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 ```
 
-```js
+```ts
 // Init Capacitor
 import { registerWebPlugin } from '@capacitor/core';
 import { FacebookLogin } from '@rdlabo/capacitor-facebook-login';
@@ -139,7 +139,7 @@ not same type for default web facebook login!
 
 ### Login
 
-```js
+```ts
 const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
 
 const result = await Plugins.FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
@@ -154,13 +154,13 @@ if (result.accessToken) {
 
 ### Logout
 
-```js
+```ts
 await Plugins.FacebookLogin.logout();
 ```
 
 ### CurrentAccessToken
 
-```js
+```ts
 const result = await Plugins.FacebookLogin.getCurrentAccessToken();
 
 if (result.accessToken) {
