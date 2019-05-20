@@ -123,6 +123,14 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 ```
 
+```ts
+// Init Capacitor
+import { registerWebPlugin } from '@capacitor/core';
+import { FacebookLogin } from '@rdlabo/capacitor-facebook-login';
+...
+registerWebPlugin(FacebookLogin);
+```
+
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
 And you must confirm return type at https://github.com/rdlabo/capacitor-facebook-login/blob/master/src/web.ts#L55-L57
 not same type for default web facebook login!
