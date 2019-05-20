@@ -1,8 +1,9 @@
 node_modules/
 .DS_Store
-.idea/
+.idea/*
 ios/Plugin/Pods/
 ios/Plugin/Plugin.xcodeproj/xcuserdata/sakakibara.xcuserdatad/xcschemes/xcschememanagement.plist
 ios/Plugin/Plugin.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 ios/Plugin/Plugin.xcworkspace/xcuserdata/sakakibara.xcuserdatad/UserInterfaceState.xcuserstate
 ios/Plugin/Pods/Manifest.lock
+dist/

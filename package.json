@@ -5,25 +5,25 @@
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "build": "npm i && npm run clean && tsc",
+    "build": "npm run clean && tsc",
     "clean": "rm -rf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "author": {
-    "name": "Masahiko Sakakibara"
-  },
+  "author": "Masahiko Sakakibara",
   "license": "Apache-2.0",
   "dependencies": {
-    "@capacitor/core": "1.0.0-beta.24"
+    "@capacitor/core": "1.0.0-beta.25"
   },
   "devDependencies": {
-    "typescript": "^2.6.2"
+    "typescript": "^3.2.4",
+    "@capacitor/ios": "latest",
+    "@capacitor/android": "latest"
   },
   "files": [
-    "android/",
     "dist/",
     "ios/",
+    "android/",
     "RdlaboCapacitorFacebookLogin.podspec"
   ],
   "keywords": [

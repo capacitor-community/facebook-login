@@ -68,12 +68,8 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   }
 
   async logout(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      FB.logout((response) => {
-        console.debug('FB.logout', response);
-
-        resolve();
-      });
+    return new Promise<void>((resolve) => {
+      FB.logout(() => resolve());
     });
   }
 
@@ -109,3 +105,6 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
 const FacebookLogin = new FacebookLoginWeb();
 
 export { FacebookLogin };
+
+import { registerWebPlugin } from '@capacitor/core';
+registerWebPlugin(FacebookLogin);
