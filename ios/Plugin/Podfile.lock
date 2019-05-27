@@ -1,0 +1,56 @@
+PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - Capacitor (0.0.113):
+    - CapacitorCordova (= 0.0.113)
+    - GCDWebServer (~> 3.0)
+  - CapacitorCordova (0.0.113)
+  - FacebookCore (0.5.0):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.37)
+  - FacebookLogin (0.5.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.37)
+    - FBSDKLoginKit (~> 4.37)
+  - FBSDKCoreKit (4.44.1):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.44.1):
+    - FBSDKCoreKit
+  - GCDWebServer (3.5.2):
+    - GCDWebServer/Core (= 3.5.2)
+  - GCDWebServer/Core (3.5.2)
+
+DEPENDENCIES:
+  - Capacitor
+  - FacebookCore (~> 0.5.0)
+  - FacebookLogin (~> 0.5.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Bolts
+    - Capacitor
+    - CapacitorCordova
+    - FacebookCore
+    - FacebookLogin
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - GCDWebServer
+
+SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Capacitor: b37060b0b2685257bedbc69e49a54a74ef30fb9a
+  CapacitorCordova: a923a32bc7ad5f1f3d69664ca86ff69580343ed3
+  FacebookCore: 74288d0add931d361b1596beae787ab72c438249
+  FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
+  FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
+  FBSDKLoginKit: 54ae59987f2a8703021557c90a9aebb9e5c2bef6
+  GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
+
+PODFILE CHECKSUM: 574bcf40413bdeb43bf153a80d15c2be59b47c8e
+
+COCOAPODS: 1.7.0
