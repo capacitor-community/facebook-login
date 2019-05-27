@@ -8,8 +8,8 @@ target 'Plugin' do
   # Pods for IonicRunner
   pod 'Capacitor'
 
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
+	pod 'FacebookCore', '~> 0.5.0'
+	pod 'FacebookLogin', '~> 0.5.0'
 end
 
 target 'PluginTests' do
