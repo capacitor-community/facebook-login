@@ -101,6 +101,22 @@ Add the following in the `ios/App/App/info.plist` file:
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/ios
 
+### If unresolved identifier 'LoginManager'
+
+This is https://github.com/facebook/facebook-swift-sdk/issues/458 bug.
+Please use version 0.5.0 of FacebookCore and FacebookLogin. You can check using version at `ios/App/Podfile.lock`.
+
+```Podfile.lock
+  - FacebookCore (0.5.0):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.37)
+  - FacebookLogin (0.5.0):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.5)
+    - FBSDKCoreKit (~> 4.37)
+    - FBSDKLoginKit (~> 4.37)
+```
+
 ## Web configuration
 
 ```ts
