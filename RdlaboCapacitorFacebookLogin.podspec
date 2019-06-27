@@ -1,7 +1,7 @@
 
   Pod::Spec.new do |s|
     s.name = 'RdlaboCapacitorFacebookLogin'
-    s.version = '1.0.0-beta.25'
+    s.version = '1.0.2'
     s.summary = 'Facebook Login plugin for Capacitor'
     s.license = 'Apache-2.0'
     s.homepage = 'https://github.com/rdlabo/capacitor-facebook-login'
@@ -10,5 +10,6 @@
     s.source_files = 'ios/Plugin/Plugin/**/*.{swift,h,m,c,cc,mm,cpp}'
     s.ios.deployment_target  = '11.0'
     s.dependency 'Capacitor'
+    s.dependency 'FacebookCore'
     s.dependency 'FacebookLogin'
   end

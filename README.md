@@ -16,7 +16,7 @@ In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to t
 ```java
 this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
   [...]
-  add(com.rdlabo.capacitor.plugin.facebook.FacebookLogin.class);
+  add(jp.rdlabo.capacitor.plugin.facebook.FacebookLogin.class);
   [...]
 }});
 ```
