@@ -6,7 +6,7 @@ Facebook Login plugin for Capacitor. This repository fork from `@oxylian/capacit
 ## Installation
 
 ```bash
-npm i --save @rdlabo/capacitor-facebook-login
+$ npm i --save @rdlabo/capacitor-facebook-login
 ```
 
 ## Android configuration
