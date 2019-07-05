@@ -3,6 +3,18 @@
 # capacitor-facebook-login
 Facebook Login plugin for Capacitor. This repository fork from `@oxylian/capacitor-facebook-login` .
 
+## DONATE THIS PROJECT
+Thanks for considering donate.
+
+If this plugin help you, please share your app income. This help developing this plugin.This also help me easily determine how much time I would spend on the projects each month.
+
+|  | TYPE | AMOUNT | LINK |
+|:--:|:--:|:--:|:--:|
+| PayPal.me | Once | Any | [Donate](https://www.paypal.me/rdlabo) |
+| Paypal | Subscription | $15/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JHYSDYQB29MLC) |
+| Paypal | Subscription | $30/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RCJ8A3KXG928A) |
+| Paypal | Subscription | $50/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=U2RQUKRPDA35C) |
+
 ## Installation
 
 ```bash
