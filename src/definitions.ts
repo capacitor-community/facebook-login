@@ -1,6 +1,6 @@
-declare global {
+declare module "@capacitor/core" {
   interface PluginRegistry {
-    FacebookLogin?: FacebookLoginPlugin;
+    FacebookLogin: FacebookLoginPlugin;
   }
 }
 
