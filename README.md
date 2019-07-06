@@ -3,6 +3,8 @@
 # capacitor-facebook-login
 Facebook Login plugin for Capacitor. This repository fork from `@oxylian/capacitor-facebook-login` .
 
+Implement tutorial is [rdlabo/capacitor-facebook-login-tutorial](https://github.com/rdlabo/capacitor-facebook-login-tutorial)
+
 ## DONATE THIS PROJECT
 Thanks for considering donate.
 
