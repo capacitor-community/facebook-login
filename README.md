@@ -171,9 +171,12 @@ not same type for default web facebook login!
 ### Login
 
 ```ts
-const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+import { Plugins } from '@capacitor/core';
+import { FacebookLoginResponse } from '@rdlabo/capacitor-facebook-login';
+const { FacebookLogin } = Plugins;
 
-const result = await Plugins.FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
+const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+const result = await <FacebookLoginResponse>FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
 
 if (result.accessToken) {
   // Login successful.
@@ -186,13 +189,20 @@ if (result.accessToken) {
 ### Logout
 
 ```ts
-await Plugins.FacebookLogin.logout();
+import { Plugins } from '@capacitor/core';
+const { FacebookLogin } = Plugins;
+
+await FacebookLogin.logout();
 ```
 
 ### CurrentAccessToken
 
 ```ts
-const result = await Plugins.FacebookLogin.getCurrentAccessToken();
+import { Plugins } from '@capacitor/core';
+import { FacebookLoginResponse } from '@rdlabo/capacitor-facebook-login';
+const { FacebookLogin } = Plugins;
+
+const result = await <FacebookLoginResponse>FacebookLogin.getCurrentAccessToken();
 
 if (result.accessToken) {
   console.log(`Facebook access token is ${result.accessToken.token}`);
