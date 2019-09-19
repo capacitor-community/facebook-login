@@ -11,7 +11,6 @@
 __ios/App/App/AppDelegate.swift__
 ```diff
   import FacebookCore
-+ import FacebookCore
 + import FBSDKCoreKit
 
 - SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
