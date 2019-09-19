@@ -75,15 +75,18 @@ In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
 ```java
 import FacebookCore
+import FacebookCore
+import FBSDKCoreKit
 [...]
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-  SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+  FBSDKCoreKit.ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+
   return true
 }
 
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
   if CAPBridge.handleOpenUrl(url, options) {
-    return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+    return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
   }
   else{
     return false
@@ -115,22 +118,6 @@ Add the following in the `ios/App/App/info.plist` file:
 ```
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/ios
-
-### If unresolved identifier 'LoginManager'
-
-This is https://github.com/facebook/facebook-swift-sdk/issues/458 bug.
-Please use version 0.5.0 of FacebookCore and FacebookLogin. You can check using version at `ios/App/Podfile.lock`.
-
-```Podfile.lock
-  - FacebookCore (0.5.0):
-    - Bolts (~> 1.9)
-    - FBSDKCoreKit (~> 4.37)
-  - FacebookLogin (0.5.0):
-    - Bolts (~> 1.9)
-    - FacebookCore (~> 0.5)
-    - FBSDKCoreKit (~> 4.37)
-    - FBSDKLoginKit (~> 4.37)
-```
 
 ## Web configuration
 
