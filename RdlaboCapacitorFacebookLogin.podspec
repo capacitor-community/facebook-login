@@ -2,7 +2,7 @@
     s.name = 'RdlaboCapacitorFacebookLogin'
     s.version = '1.1.0'
     s.summary = 'Facebook Login plugin for Capacitor'
-    s.license = 'Apache-2.0'
+    s.license = 'MIT'
     s.homepage = 'https://github.com/rdlabo/capacitor-facebook-login'
     s.author = 'Masahiko Sakakibara'
     s.source = { :git => 'https://github.com/rdlabo/capacitor-facebook-login', :tag => s.version.to_s }
