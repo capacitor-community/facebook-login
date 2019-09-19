@@ -75,7 +75,6 @@ In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
 ```java
 import FacebookCore
-import FacebookCore
 import FBSDKCoreKit
 [...]
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
