@@ -13,12 +13,12 @@
   "author": "Masahiko Sakakibara",
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "1.4.0"
+    "@capacitor/core": "1.5.1"
   },
   "devDependencies": {
     "typescript": "^3.2.4",
-    "@capacitor/ios": "1.4.0",
-    "@capacitor/android": "1.4.0"
+    "@capacitor/ios": "1.5.1",
+    "@capacitor/android": "1.5.1"
   },
   "files": [
     "dist/",
