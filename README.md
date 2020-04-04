@@ -23,6 +23,11 @@ If this plugin help you, please share your app income. This help developing this
 $ npm i --save @rdlabo/capacitor-facebook-login
 ```
 
+### If you use Capacitor 1.x
+```
+$ npm install --save @rdlabo/capacitor-facebook-login@1.5.0
+```
+
 ## Android configuration
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:

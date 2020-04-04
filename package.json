@@ -1,6 +1,6 @@
 {
   "name": "@rdlabo/capacitor-facebook-login",
-  "version": "1.5.0",
+  "version": "2.0.2",
   "description": "Facebook Login plugin for Capacitor",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

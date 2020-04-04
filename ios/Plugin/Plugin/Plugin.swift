@@ -35,8 +35,8 @@ public class FacebookLogin: CAPPlugin {
                 switch loginResult {
                 case .failed(let error):
                     print(error)
-                    call.reject("LoginManager.logIn failed", error)
-                    
+                    call.reject("LoginManager.logIn failed")
+
                 case .cancelled:
                     print("User cancelled login")
                     call.success()
