@@ -4,9 +4,7 @@
 Facebook Login plugin for Capacitor. This repository fork from `@oxylian/capacitor-facebook-login` .
 
 ## Demo
-[Demo code is here.](https://github.com/rdlabo-team/capacitor-admob/tree/master/demo)
-
-### Screenshots
+[Demo code is here.](https://github.com/rdlabo-team/capacitor-facebook-login/tree/master/demo/angular)
 
 ## DONATE THIS PROJECT
 Thanks for considering donate.
