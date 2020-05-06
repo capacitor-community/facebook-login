@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">capacitor-facebook-login-tutorial</string>
+    <string name="title_activity_main">capacitor-facebook-login-tutorial</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="fileprovider_authority">io.ionic.starter.fileprovider</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
+
+    <string name="facebook_app_id">123456789101112</string>
+    <string name="fb_login_protocol_scheme">fb123456789101112</string>
+</resources>

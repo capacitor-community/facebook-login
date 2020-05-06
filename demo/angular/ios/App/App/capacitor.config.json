@@ -1,0 +1,7 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "capacitor-facebook-login-tutorial",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}
