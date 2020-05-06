@@ -126,7 +126,7 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 
 ## Web configuration
 
-```ts
+```diff
 + window.fbAsyncInit = function() {
 +   FB.init({
 +     appId: '[APP_ID]',
