@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@/app/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-tab1',
