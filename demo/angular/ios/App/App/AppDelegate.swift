@@ -1,6 +1,7 @@
 import UIKit
 import Capacitor
 import FacebookCore
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -10,7 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
-    return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+    FBSDKCoreKit.ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+    return true
   }
 
   func applicationWillResignActive(_ application: UIApplication) {
@@ -39,13 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the app was launched with a url. Feel free to add additional processing here,
     // but if you want the App API to support tracking app url opens, make sure to keep this call
     if CAPBridge.handleOpenUrl(url, options) {
-        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
-    }
-    else{
-        return false
+        return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
+    } else {
+        return false;
     }
   }
-  
+
   func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
     // Called when the app was launched with an activity, including Universal Links.
     // Feel free to add additional processing here, but if you want the App API to support

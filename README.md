@@ -3,7 +3,10 @@
 # capacitor-facebook-login
 Facebook Login plugin for Capacitor. This repository fork from `@oxylian/capacitor-facebook-login` .
 
-Implement tutorial is [rdlabo/capacitor-facebook-login-tutorial](https://github.com/rdlabo/capacitor-facebook-login-tutorial)
+## Demo
+[Demo code is here.](https://github.com/rdlabo-team/capacitor-admob/tree/master/demo)
+
+### Screenshots
 
 ## DONATE THIS PROJECT
 Thanks for considering donate.
@@ -84,16 +87,16 @@ In file `ios/App/App/AppDelegate.swift` add or replace the following:
   [...]
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 +   FBSDKCoreKit.ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-
     return true
   }
 
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+-   return CAPBridge.handleOpenUrl(url, options)
 +   if CAPBridge.handleOpenUrl(url, options) {
 +     return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
 +   }
 +   else{
-    return false
++    return false
 +   }
   }
 ```
