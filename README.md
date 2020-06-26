@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/%40capacitor-community/facebook-login.svg)](https://badge.fury.io/js/%40rdlabo%2Fcapacitor-facebook-login)
+[![npm version](https://badge.fury.io/js/%40capacitor-community%2Ffacebook-login.svg)](https://badge.fury.io/js/%40capacitor-community%2Ffacebook-login)
 
 # capacitor-facebook-login
 Capacitory community plugin for Facebook Login.
