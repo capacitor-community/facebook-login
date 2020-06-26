@@ -6,6 +6,8 @@ Capacitory community plugin for Facebook Login.
 ## Demo
 [Demo code is here.](https://github.com/rdlabo-team/capacitor-facebook-login/tree/master/demo/angular)
 
+※ This will be move to this repository.
+
 ## Maintainers
 
 | Maintainer | GitHub  | Social | Sponsoring Company |
