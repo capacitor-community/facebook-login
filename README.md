@@ -1,27 +1,30 @@
-[![npm version](https://badge.fury.io/js/%40rdlabo%2Fcapacitor-facebook-login.svg)](https://badge.fury.io/js/%40rdlabo%2Fcapacitor-facebook-login)
+[![npm version](https://badge.fury.io/js/%40capacitor-community/facebook-login.svg)](https://badge.fury.io/js/%40rdlabo%2Fcapacitor-facebook-login)
 
 # capacitor-facebook-login
-Facebook Login plugin for Capacitor. This repository fork from `@oxylian/capacitor-facebook-login` .
+Capacitory community plugin for Facebook Login.
 
 ## Demo
 [Demo code is here.](https://github.com/rdlabo-team/capacitor-facebook-login/tree/master/demo/angular)
 
-## DONATE THIS PROJECT
-Thanks for considering donate.
+## Maintainers
 
-If this plugin help you, please share your app income. This help developing this plugin.This also help me easily determine how much time I would spend on the projects each month.
-
-|  | TYPE | AMOUNT | LINK |
-|:--:|:--:|:--:|:--:|
-| PayPal.me | Once | Any | [Donate](https://www.paypal.me/rdlabo) |
-| PayPal | Subscription | $15/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JHYSDYQB29MLC) |
-| PayPal | Subscription | $30/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RCJ8A3KXG928A) |
-| PayPal | Subscription | $50/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=U2RQUKRPDA35C) |
+| Maintainer | GitHub  | Social | Sponsoring Company |
+| --- | --- | --- | --- |
+| Masahiko Sakakibara  | [rdlabo](https://github.com/rdlabo)  | [@rdlabo](https://twitter.com/rdlabo) | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION
+ |
+ 
+Mainteinance Status: Actively Maintained
 
 ## Installation
 
 ```bash
-$ npm i --save @rdlabo/capacitor-facebook-login
+$ npm i --save @capacitor-community/facebook-login
+```
+
+To use yarn
+
+```bash
+yarn add @capacitor-community/facebook-login
 ```
 
 ### If you use Capacitor 1.x
@@ -36,7 +39,7 @@ In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to t
 ```diff
   this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
     [...]
-+   add(jp.rdlabo.capacitor.plugin.facebook.FacebookLogin.class);
++   add(com.getcapacitor.community.facebooklogin.FacebookLogin.class);
     [...]
   }});
 ```
@@ -149,7 +152,7 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 ```ts
   // Init Capacitor
 + import { registerWebPlugin } from '@capacitor/core';
-+ import { FacebookLogin } from '@rdlabo/capacitor-facebook-login';
++ import { FacebookLogin } from '@capacitor-community/facebook-login';
   ...
 + registerWebPlugin(FacebookLogin);
 ```
@@ -158,13 +161,22 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 And you must confirm return type at https://github.com/rdlabo/capacitor-facebook-login/blob/master/src/web.ts#L55-L57
 not same type for default web facebook login!
 
+
+## Supported methods
+
+| Name                  | Android | iOS | Web |
+| :-------------------- | :------ | :-- | :-- |
+| login                 | ✅      | ✅  | ✅ |
+| logout                | ✅      | ✅  | ✅  |
+| getCurrentAccessToken | ✅      | ✅  | ✅  |
+
 ## API
 
 ### Login
 
 ```ts
 import { Plugins } from '@capacitor/core';
-import { FacebookLoginResponse } from '@rdlabo/capacitor-facebook-login';
+import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
 const { FacebookLogin } = Plugins;
 
 const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
@@ -191,7 +203,7 @@ await FacebookLogin.logout();
 
 ```ts
 import { Plugins } from '@capacitor/core';
-import { FacebookLoginResponse } from '@rdlabo/capacitor-facebook-login';
+import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
 const { FacebookLogin } = Plugins;
 
 const result = await <FacebookLoginResponse>FacebookLogin.getCurrentAccessToken();
