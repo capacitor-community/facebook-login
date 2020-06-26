@@ -1,5 +1,5 @@
   Pod::Spec.new do |s|
-    s.name = 'CapacitorFacebookLogin'
+    s.name = 'CapacitorCommunityFacebookLogin'
     s.version = '1.1.0'
     s.summary = 'Facebook Login plugin for Capacitor'
     s.license = 'MIT'
