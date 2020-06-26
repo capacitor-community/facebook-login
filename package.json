@@ -1,37 +1,47 @@
 {
-  "name": "@rdlabo/capacitor-facebook-login",
-  "version": "2.0.3",
-  "description": "Facebook Login plugin for Capacitor",
+  "name": "@capacitor-community/facebook-login",
+  "version": "0.0.1",
+  "description": "A native plugin for Facebook Login",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc",
-    "clean": "rm -rf ./dist",
+    "clean": "rimraf ./dist",
     "watch": "tsc --watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "npm-publish": "np"
   },
-  "author": "Masahiko Sakakibara",
+  "author": "Masahiko Sakakibara <sakakibara@rdlabo.jp>",
   "license": "MIT",
   "dependencies": {
     "@capacitor/core": "latest"
   },
   "devDependencies": {
-    "typescript": "^3.2.4",
+    "@capacitor/android": "latest",
     "@capacitor/ios": "latest",
-    "@capacitor/android": "latest"
+    "husky": "^4.2.5",
+    "np": "^6.2.4",
+    "prettier": "^2.0.5",
+    "prettier-plugin-java": "^0.8.0",
+    "pretty-quick": "^2.0.1",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "files": [
     "dist/",
     "ios/",
     "android/",
-    "RdlaboCapacitorFacebookLogin.podspec"
+    "CapacitorCommunityFacebookLogin.podspec"
   ],
   "keywords": [
     "capacitor",
     "plugin",
-    "native",
-    "facebook",
-    "login"
+    "native"
   ],
   "capacitor": {
     "ios": {
@@ -43,9 +53,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rdlabo/capacitor-facebook-login"
+    "url": "git@github.com:capacitor-community/facebook-login.git"
   },
   "bugs": {
-    "url": "https://github.com/rdlabo/capacitor-facebook-login/issues"
+    "url": "git@github.com:capacitor-community/facebook-login.git/issues"
   }
 }
