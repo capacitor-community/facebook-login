@@ -12,8 +12,7 @@ Capacitory community plugin for Facebook Login.
 
 | Maintainer | GitHub  | Social | Sponsoring Company |
 | --- | --- | --- | --- |
-| Masahiko Sakakibara  | [rdlabo](https://github.com/rdlabo)  | [@rdlabo](https://twitter.com/rdlabo) | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION
- |
+| Masahiko Sakakibara  | [rdlabo](https://github.com/rdlabo)  | [@rdlabo](https://twitter.com/rdlabo) | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION |
  
 Mainteinance Status: Actively Maintained
 
