@@ -19,18 +19,21 @@ Mainteinance Status: Actively Maintained
 ## Installation
 
 ```bash
-$ npm i --save @capacitor-community/facebook-login
+% npm i --save @capacitor-community/facebook-login
+% npx cap update
 ```
 
 To use yarn
 
 ```bash
-yarn add @capacitor-community/facebook-login
+% yarn add @capacitor-community/facebook-login
+% npx cap update
 ```
 
 ### If you use Capacitor 1.x
 ```
-$ npm install --save @rdlabo/capacitor-facebook-login@1.5.0
+% npm install --save @rdlabo/capacitor-facebook-login@1.5.0
+% npx cap update
 ```
 
 ## Android configuration
