@@ -79,6 +79,9 @@ Don't forget to replace `[APP_ID]` by your Facebook application Id.
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/android
 
+### If you have trouble.
+Please restart Android Studio, and do clean build.
+
 ## iOS configuration
 
 In file `ios/App/App/AppDelegate.swift` add or replace the following:
