@@ -28,7 +28,7 @@ public class FacebookLogin: CAPPlugin {
     @objc func login(_ call: CAPPluginCall) {
         guard let permissions = call.getArray("permissions", String.self) else {
             call.error("Missing permissions argument")
-            return;
+            return
         }
 
         let perm = permissions.map { Permission.custom($0) }
