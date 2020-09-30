@@ -2,7 +2,6 @@ package com.getcapacitor.community.facebooklogin;
 
 import android.content.Intent;
 import android.util.Log;
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -22,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
-@NativePlugin(requestCodes = {FacebookLogin.FACEBOOK_SDK_REQUEST_CODE_OFFSET})
+@NativePlugin(requestCodes = { FacebookLogin.FACEBOOK_SDK_REQUEST_CODE_OFFSET })
 public class FacebookLogin extends Plugin {
     CallbackManager callbackManager;
 
@@ -46,7 +45,7 @@ public class FacebookLogin extends Plugin {
     private JSArray collectionToJson(Collection<String> list) {
         JSArray json = new JSArray();
 
-        for (String item: list) {
+        for (String item : list) {
             json.put(item);
         }
 
@@ -73,8 +72,12 @@ public class FacebookLogin extends Plugin {
 
         this.callbackManager = CallbackManager.Factory.create();
 
-        LoginManager.getInstance().registerCallback(callbackManager,
+        LoginManager
+            .getInstance()
+            .registerCallback(
+                callbackManager,
                 new FacebookCallback<LoginResult>() {
+
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(getLogTag(), "LoginManager.onSuccess");
@@ -127,7 +130,8 @@ public class FacebookLogin extends Plugin {
                             saveCall(null);
                         }
                     }
-                });
+                }
+            );
     }
 
     @Override
@@ -141,7 +145,7 @@ public class FacebookLogin extends Plugin {
         }
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void login(PluginCall call) {
         Log.d(getLogTag(), "Entering login()");
 
@@ -174,7 +178,7 @@ public class FacebookLogin extends Plugin {
         saveCall(call);
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void logout(PluginCall call) {
         Log.d(getLogTag(), "Entering logout()");
 
@@ -183,7 +187,7 @@ public class FacebookLogin extends Plugin {
         call.success();
     }
 
-    @PluginMethod()
+    @PluginMethod
     public void getCurrentAccessToken(PluginCall call) {
         Log.d(getLogTag(), "Entering getCurrentAccessToken()");
 
@@ -202,4 +206,3 @@ public class FacebookLogin extends Plugin {
         call.success(ret);
     }
 }
-
