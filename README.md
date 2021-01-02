@@ -97,13 +97,12 @@ import FBSDKCoreKit
   }
 
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
--   return CAPBridge.handleOpenUrl(url, options)
-  if CAPBridge.handleOpenUrl(url, options) {
-    return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
-  }
-  else{
-   return false
-  }
+    if CAPBridge.handleOpenUrl(url, options) {
+      return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
+    }
+    else{
+     return false
+    }
   }
 ```
 
