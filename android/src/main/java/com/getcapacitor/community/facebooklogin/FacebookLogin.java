@@ -2,6 +2,7 @@ package com.getcapacitor.community.facebooklogin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -218,8 +219,6 @@ public class FacebookLogin extends Plugin {
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
-        JSObject ret = new JSObject();
-
         if (accessToken == null) {
             Log.d(getLogTag(), "getProfile: accessToken is null");
             call.error("You're not logged in. Call FacebookLogin.login() first to obtain an access token.");
@@ -234,10 +233,13 @@ public class FacebookLogin extends Plugin {
             return;
         }
 
-        JSArray fields = call.getArray("fields");
         Bundle parameters = new Bundle();
+
         try {
-            parameters.putString("fields", fields.join(","));
+            JSArray fields = call.getArray("fields");
+            String fieldsString = TextUtils.join(",", fields.toList());
+
+            parameters.putString("fields", fieldsString);
         } catch (JSONException e) {
             call.error("Can't handle fields", e);
 
