@@ -29,5 +29,7 @@ export interface FacebookLoginPlugin {
   login(options: { permissions: string[] }): Promise<FacebookLoginResponse>;
   logout(): Promise<void>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
-  getProfile<T extends object>(requiredFields: readonly string[]): Promise<T>;
+  getProfile<T extends object>(options: {
+    requiredFields: readonly string[];
+  }): Promise<T>;
 }

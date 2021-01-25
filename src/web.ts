@@ -137,10 +137,10 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
     );
   }
 
-  async getProfile<T extends object>(
-    requiredFields: readonly string[],
-  ): Promise<T> {
-    const fields = requiredFields.join(',');
+  async getProfile<T extends object>(options: {
+    requiredFields: readonly string[];
+  }): Promise<T> {
+    const fields = options.requiredFields.join(',');
 
     return new Promise<T>((resolve, reject) => {
       FB.api<{ fields: string }, FacebookGetProfileResponse>(
