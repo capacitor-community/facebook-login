@@ -90,7 +90,10 @@ public class FacebookLogin: CAPPlugin {
             return;
         }
 
-        let fields = call.getArray("fields", String.self, defaultUserFields)!;
+        guard let fields = call.getArray("fields", String.self) else {
+            call.error("Missing fields argument");
+            return;
+        }
         let parameters = ["fields": fields.joined(separator: ",")];
         let graphRequest = GraphRequest.init(graphPath: "me", parameters: parameters);
 
