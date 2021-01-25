@@ -240,6 +240,8 @@ public class FacebookLogin extends Plugin {
             parameters.putString("fields", fields.join(","));
         } catch (JSONException e) {
             call.error("Can't handle fields", e);
+
+            return;
         }
 
         GraphRequest graphRequest = GraphRequest.newMeRequest(
