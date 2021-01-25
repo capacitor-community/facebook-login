@@ -30,6 +30,6 @@ export interface FacebookLoginPlugin {
   logout(): Promise<void>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
   getProfile<T extends object>(options: {
-    requiredFields: readonly string[];
+    fields: readonly string[];
   }): Promise<T>;
 }
