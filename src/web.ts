@@ -16,6 +16,16 @@ interface FacebookGetLoginStatusResponse {
   };
 }
 
+interface FacebookError {
+  message: string;
+  type: string;
+  code: number;
+}
+
+interface FacebookGetProfileResponse {
+  error: FacebookError | null;
+}
+
 declare interface Facebook {
   init(options: {
     appId: string;
@@ -30,6 +40,19 @@ declare interface Facebook {
 
   getLoginStatus(
     handle: (response: FacebookGetLoginStatusResponse) => void,
+  ): void;
+
+  api<TResponse>(path: string, callback: (response: TResponse) => void): void;
+  api<TParams extends object, TResponse>(
+    path: string,
+    params: TParams,
+    callback: (response: TResponse) => void,
+  ): void;
+  api<TParams extends object, TResponse>(
+    path: string,
+    method: 'get' | 'post' | 'delete',
+    params: TParams,
+    callback: (response: TResponse) => void,
   ): void;
 }
 
@@ -112,6 +135,28 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
         });
       },
     );
+  }
+
+  async getProfile<T extends object>(
+    requiredFields: readonly string[],
+  ): Promise<T> {
+    const fields = requiredFields.join(',');
+
+    return new Promise<T>((resolve, reject) => {
+      FB.api<{ fields: string }, FacebookGetProfileResponse>(
+        '/me',
+        { fields },
+        response => {
+          if (response.error) {
+            reject(response.error.message);
+
+            return;
+          }
+
+          resolve(<T>response);
+        },
+      );
+    });
   }
 }
 
