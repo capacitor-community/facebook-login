@@ -34,7 +34,7 @@ public class FacebookLogin: CAPPlugin {
         let perm = permissions.map { Permission.custom($0) }
 
         DispatchQueue.main.async {
-            self.loginManager.logIn(permissions: perm, viewController: self.bridge.viewController) { loginResult in
+            self.loginManager.logIn(permissions: perm, viewController: self.bridge?.viewController) { loginResult in
                 switch loginResult {
                 case .failed(let error):
                     print(error)
