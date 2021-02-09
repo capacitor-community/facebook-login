@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/%40capacitor-community%2Ffacebook-login.svg)](https://badge.fury.io/js/%40capacitor-community%2Ffacebook-login)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # capacitor-facebook-login
@@ -232,6 +232,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://www.mapianist.com"><img src="https://avatars.githubusercontent.com/u/7777929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Heo</b></sub></a><br /><a href="https://github.com/capacitor-community/facebook-login/commits?author=leo6104" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/vildhjarta8"><img src="https://avatars.githubusercontent.com/u/2393640?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Artur Tiupa</b></sub></a><br /><a href="https://github.com/capacitor-community/facebook-login/commits?author=vildhjarta8" title="Code">💻</a></td>
   </tr>
 </table>
 
