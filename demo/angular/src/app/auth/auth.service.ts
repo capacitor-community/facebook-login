@@ -9,19 +9,21 @@ export class AuthService {
   constructor(public navCtrl: NavController) {}
 
   async getCurrentState(): Promise<boolean> {
-    const result = await Plugins.FacebookLogin.getCurrentAccessToken();
-
-    try {
-      return result && result.accessToken;
-    } catch (e) {
-      return false;
-    }
+    const result = await Plugins.FacebookLogin.getCurrentAccessToken().catch(() => undefined);
+    return !(result === undefined || !result.hasOwnProperty('accessToken'));
   }
 
   async signIn(): Promise<void> {
-    const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+    const FACEBOOK_PERMISSIONS = [
+      'email',
+      'user_birthday',
+      'user_photos',
+      'user_gender',
+    ];
 
-    const result = await Plugins.FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
+    const result = await Plugins.FacebookLogin.login({
+      permissions: FACEBOOK_PERMISSIONS,
+    });
     if (result && result.accessToken) {
       this.navCtrl.navigateRoot(['/']);
     }

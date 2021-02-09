@@ -12,7 +12,11 @@ import { FacebookLogin } from '@capacitor-community/facebook-login';
   templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  constructor(private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar) {
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+  ) {
     registerWebPlugin(FacebookLogin);
     this.initializeApp();
   }

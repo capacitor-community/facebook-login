@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 @NativePlugin(requestCodes = { FacebookLogin.FACEBOOK_SDK_REQUEST_CODE_OFFSET })
 public class FacebookLogin extends Plugin {
+
     CallbackManager callbackManager;
 
     public static final int FACEBOOK_SDK_REQUEST_CODE_OFFSET = 0xface;
@@ -84,7 +85,6 @@ public class FacebookLogin extends Plugin {
             .registerCallback(
                 callbackManager,
                 new FacebookCallback<LoginResult>() {
-
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(getLogTag(), "LoginManager.onSuccess");
@@ -249,7 +249,6 @@ public class FacebookLogin extends Plugin {
         GraphRequest graphRequest = GraphRequest.newMeRequest(
             accessToken,
             new GraphRequest.GraphJSONObjectCallback() {
-
                 @Override
                 public void onCompleted(JSONObject object, GraphResponse response) {
                     FacebookRequestError requestError = response.getError();
