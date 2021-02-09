@@ -176,6 +176,7 @@ not same type for default web facebook login!
 | login                 | ✅      | ✅  | ✅ |
 | logout                | ✅      | ✅  | ✅  |
 | getCurrentAccessToken | ✅      | ✅  | ✅  |
+| getProfile            | ✅      | ✅  | ✅  |
 
 ## API
 
@@ -220,6 +221,20 @@ if (result.accessToken) {
 } else {
   // Not logged in.
 }
+```
+
+### getProfile
+
+```ts
+import { Plugins } from '@capacitor/core';
+import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+const { FacebookLogin } = Plugins;
+
+const result = await FacebookLogin.getProfile<{
+      email: string;
+    }>({ fields: ['email'] });
+
+console.log(`Facebook user's email is ${result.email}`);
 ```
 
 ## Contributors ✨

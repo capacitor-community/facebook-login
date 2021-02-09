@@ -7,7 +7,10 @@
 </ion-header>
 
 <ion-content>
-  <section padding text-center>
+  <section class="ion-padding ion-text-center">
+    <ion-list>
+      <ion-item><ion-text>{{email}}</ion-text></ion-item>
+    </ion-list>
     <ion-button color="danger" (click)="signOut()">Facebook Logout</ion-button>
   </section>
 </ion-content>

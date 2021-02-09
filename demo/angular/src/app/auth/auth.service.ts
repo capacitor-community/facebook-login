@@ -13,6 +13,18 @@ export class AuthService {
     return !(result === undefined || !result.hasOwnProperty('accessToken'));
   }
 
+  async getEmail(): Promise<string> {
+    const result = await Plugins.FacebookLogin.getProfile<{
+      email: string;
+    }>({
+      fields: ['email'],
+    }).catch(() => undefined);
+    if (result === undefined) {
+      return null;
+    }
+    return result.email;
+  }
+
   async signIn(): Promise<void> {
     const FACEBOOK_PERMISSIONS = [
       'email',
