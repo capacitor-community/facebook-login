@@ -78,4 +78,32 @@ public class FacebookLogin: CAPPlugin {
 
         call.success([ "accessToken": accessTokenToJson(accessToken) ])
     }
+
+    @objc func getProfile(_ call: CAPPluginCall) {
+        guard let accessToken = AccessToken.current else {
+            call.error("You're not logged in. Call FacebookLogin.login() first to obtain an access token.")
+            return
+        }
+
+        if accessToken.isExpired {
+            call.error("AccessToken is expired.")
+            return
+        }
+
+        guard let fields = call.getArray("fields", String.self) else {
+            call.error("Missing fields argument")
+            return
+        }
+        let parameters = ["fields": fields.joined(separator: ",")]
+        let graphRequest = GraphRequest.init(graphPath: "me", parameters: parameters)
+
+        graphRequest.start { (_ connection, _ result, _ error) in
+            if error != nil {
+                call.error("An error has been occured.", error)
+                return
+            }
+
+            call.success(result as! [String: Any])
+        }
+    }
 }

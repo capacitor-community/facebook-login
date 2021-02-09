@@ -1,11 +1,16 @@
 package com.getcapacitor.community.facebooklogin;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookRequestError;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.getcapacitor.JSArray;
@@ -20,6 +25,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @NativePlugin(requestCodes = { FacebookLogin.FACEBOOK_SDK_REQUEST_CODE_OFFSET })
 public class FacebookLogin extends Plugin {
@@ -204,5 +211,68 @@ public class FacebookLogin extends Plugin {
         }
 
         call.success(ret);
+    }
+
+    @PluginMethod
+    public void getProfile(final PluginCall call) {
+        Log.d(getLogTag(), "Entering getProfile()");
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+
+        if (accessToken == null) {
+            Log.d(getLogTag(), "getProfile: accessToken is null");
+            call.error("You're not logged in. Call FacebookLogin.login() first to obtain an access token.");
+
+            return;
+        }
+
+        if (accessToken.isExpired()) {
+            Log.d(getLogTag(), "getProfile: accessToken is expired");
+            call.error("AccessToken is expired.");
+
+            return;
+        }
+
+        Bundle parameters = new Bundle();
+
+        try {
+            JSArray fields = call.getArray("fields");
+            String fieldsString = TextUtils.join(",", fields.toList());
+
+            parameters.putString("fields", fieldsString);
+        } catch (JSONException e) {
+            call.error("Can't handle fields", e);
+
+            return;
+        }
+
+        GraphRequest graphRequest = GraphRequest.newMeRequest(
+            accessToken,
+            new GraphRequest.GraphJSONObjectCallback() {
+
+                @Override
+                public void onCompleted(JSONObject object, GraphResponse response) {
+                    FacebookRequestError requestError = response.getError();
+
+                    if (requestError != null) {
+                        call.error(requestError.getErrorMessage());
+
+                        return;
+                    }
+
+                    try {
+                        JSONObject jsonObject = response.getJSONObject();
+                        JSObject jsObject = JSObject.fromJSONObject(jsonObject);
+
+                        call.success(jsObject);
+                    } catch (JSONException e) {
+                        call.error("Can't create response", e);
+                    }
+                }
+            }
+        );
+
+        graphRequest.setParameters(parameters);
+        graphRequest.executeAsync();
     }
 }
