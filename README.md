@@ -3,6 +3,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+__Please check [branch 'feat/v3'](https://github.com/capacitor-community/facebook-login/tree/feature/v3), if you want use capacitor v3@beta__
+
 # capacitor-facebook-login
 Capacitory community plugin for Facebook Login.
 
