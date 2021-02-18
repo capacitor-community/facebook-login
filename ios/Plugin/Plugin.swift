@@ -1,7 +1,6 @@
 import Foundation
 import Capacitor
-import FacebookCore
-import FacebookLogin
+import FBSDKLoginKit
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
@@ -27,7 +26,7 @@ public class FacebookLogin: CAPPlugin {
 
     @objc func login(_ call: CAPPluginCall) {
         guard let permissions = call.getArray("permissions", String.self) else {
-            call.error("Missing permissions argument")
+            call.reject("Missing permissions argument")
             return
         }
 
@@ -42,7 +41,7 @@ public class FacebookLogin: CAPPlugin {
 
                 case .cancelled:
                     print("User cancelled login")
-                    call.success()
+                    call.resolve()
 
                 case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                     print("Logged in")
@@ -55,7 +54,7 @@ public class FacebookLogin: CAPPlugin {
     @objc func logout(_ call: CAPPluginCall) {
         loginManager.logOut()
 
-        call.success()
+        call.resolve()
     }
 
     private func accessTokenToJson(_ accessToken: AccessToken) -> [String: Any?] {
@@ -72,26 +71,26 @@ public class FacebookLogin: CAPPlugin {
 
     @objc func getCurrentAccessToken(_ call: CAPPluginCall) {
         guard let accessToken = AccessToken.current else {
-            call.success()
+            call.resolve()
             return
         }
 
-        call.success([ "accessToken": accessTokenToJson(accessToken) ])
+        call.resolve([ "accessToken": accessTokenToJson(accessToken) ])
     }
 
     @objc func getProfile(_ call: CAPPluginCall) {
         guard let accessToken = AccessToken.current else {
-            call.error("You're not logged in. Call FacebookLogin.login() first to obtain an access token.")
+            call.reject("You're not logged in. Call FacebookLogin.login() first to obtain an access token.")
             return
         }
 
         if accessToken.isExpired {
-            call.error("AccessToken is expired.")
+            call.reject("AccessToken is expired.")
             return
         }
 
         guard let fields = call.getArray("fields", String.self) else {
-            call.error("Missing fields argument")
+            call.reject("Missing fields argument")
             return
         }
         let parameters = ["fields": fields.joined(separator: ",")]
@@ -99,11 +98,11 @@ public class FacebookLogin: CAPPlugin {
 
         graphRequest.start { (_ connection, _ result, _ error) in
             if error != nil {
-                call.error("An error has been occured.", error)
+                call.reject("An error has been occured.")
                 return
             }
 
-            call.success(result as! [String: Any])
+            call.resolve(result as! [String: Any])
         }
     }
 }

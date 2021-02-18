@@ -2,29 +2,8 @@ import { WebPlugin } from '@capacitor/core';
 import {
   FacebookLoginPlugin,
   FacebookLoginResponse,
-  FacebookCurrentAccessTokenResponse,
+  FacebookCurrentAccessTokenResponse, FacebookGetLoginStatusResponse, FacebookGetProfileResponse,
 } from './definitions';
-
-interface FacebookGetLoginStatusResponse {
-  status: 'connected';
-  authResponse: {
-    accessToken: string;
-    expiresIn: number;
-    reauthorize_required_in: number;
-    signedRequest: string;
-    userID: string;
-  };
-}
-
-interface FacebookError {
-  message: string;
-  type: string;
-  code: number;
-}
-
-interface FacebookGetProfileResponse {
-  error: FacebookError | null;
-}
 
 declare interface Facebook {
   init(options: {
@@ -114,11 +93,11 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
           if (response.status === 'connected') {
             const result: FacebookCurrentAccessTokenResponse = {
               accessToken: {
-                applicationId: null,
+                applicationId: undefined,
                 declinedPermissions: [],
-                expires: null,
-                isExpired: null,
-                lastRefresh: null,
+                expires: undefined,
+                isExpired: undefined,
+                lastRefresh: undefined,
                 permissions: [],
                 token: response.authResponse.accessToken,
                 userId: response.authResponse.userID,
@@ -159,10 +138,3 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
     });
   }
 }
-
-const FacebookLogin = new FacebookLoginWeb();
-
-export { FacebookLogin };
-
-import { registerWebPlugin } from '@capacitor/core';
-registerWebPlugin(FacebookLogin);

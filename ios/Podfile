@@ -1,4 +1,4 @@
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 def capacitor_pods
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -9,10 +9,12 @@ end
 
 target 'Plugin' do
   capacitor_pods
-  pod 'FacebookCore', '0.9.0'
-  pod 'FacebookLogin', '0.9.0'
+  pod 'FBSDKCoreKit', '8.2.0'
+  pod 'FBSDKLoginKit', '8.2.0'
 end
 
 target 'PluginTests' do
   capacitor_pods
+  pod 'FBSDKCoreKit', '8.2.0'
+  pod 'FBSDKLoginKit', '8.2.0'
 end

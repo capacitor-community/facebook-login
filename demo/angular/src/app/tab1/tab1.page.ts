@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
 import { AuthService } from '../auth/auth.service';
-import {Plugins} from '@capacitor/core';
 
 @Component({
   selector: 'app-tab1',

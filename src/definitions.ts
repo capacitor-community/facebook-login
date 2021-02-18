@@ -1,9 +1,3 @@
-declare module '@capacitor/core' {
-  interface PluginRegistry {
-    FacebookLogin: FacebookLoginPlugin;
-  }
-}
-
 export interface AccessToken {
   applicationId?: string;
   declinedPermissions?: string[];
@@ -32,4 +26,25 @@ export interface FacebookLoginPlugin {
   getProfile<T extends object>(options: {
     fields: readonly string[];
   }): Promise<T>;
+}
+
+export interface FacebookGetLoginStatusResponse {
+  status: 'connected';
+  authResponse: {
+    accessToken: string;
+    expiresIn: number;
+    reauthorize_required_in: number;
+    signedRequest: string;
+    userID: string;
+  };
+}
+
+export interface FacebookError {
+  message: string;
+  type: string;
+  code: number;
+}
+
+export interface FacebookGetProfileResponse {
+  error: FacebookError | null;
 }

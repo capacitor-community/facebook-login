@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "cap": "ng build --prod && npx cap update",
+    "cap": "ng build --prod && npx cap copy",
     "lint-staged": "lint-staged",
     "format": "prettier --parser typescript --single-quote --write \"./**/*.ts\""
   },
@@ -43,7 +43,7 @@
     "@angular/compiler": "~11.1.2",
     "@angular/compiler-cli": "~11.1.2",
     "@angular/language-service": "~11.1.2",
-    "@capacitor/cli": "^2.0.0",
+    "@capacitor/cli": "3.0.0-beta.2",
     "@ionic/angular-toolkit": "^3.0.0",
     "@kaizenplatform/prettier-config": "^0.1.0",
     "@types/jasmine": "~3.6.0",

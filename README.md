@@ -112,6 +112,7 @@ import FBSDKCoreKit
 Add the following in the `ios/App/App/info.plist` file inside of the outermost `<dict>`:
 
 ```xml
+
 <key>CFBundleURLTypes</key>
 <array>
   <dict>
@@ -124,7 +125,7 @@ Add the following in the `ios/App/App/info.plist` file inside of the outermost `
 <key>FacebookAppID</key>
 <string>[APP_ID]</string>
 <key>FacebookDisplayName</key>
-<string>Wimlov</string>
+<string>[DISPLAY_NAME]</string>
 <key>LSApplicationQueriesSchemes</key>
 <array>
   <string>fbapi</string>
