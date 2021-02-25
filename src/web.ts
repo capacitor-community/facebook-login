@@ -160,9 +160,9 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   }
 }
 
-const FacebookLogin = new FacebookLoginWeb();
-
+import { registerPlugin } from '@capacitor/core';
+const FacebookLogin = registerPlugin<FacebookLoginPlugin>('FacebookLogin', {
+  web: new FacebookLoginWeb(),
+});
 export { FacebookLogin };
 
-import { registerWebPlugin } from '@capacitor/core';
-registerWebPlugin(FacebookLogin);

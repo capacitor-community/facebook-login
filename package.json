@@ -18,13 +18,13 @@
   "author": "Masahiko Sakakibara <sakakibara@rdlabo.jp>",
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "^2.0.0"
+    "@capacitor/core": "^3.0.0-beta.3"
   },
   "prettier": "@ionic/prettier-config",
   "swiftlint": "@ionic/swiftlint-config",
   "devDependencies": {
-    "@capacitor/android": "^2.0.0",
-    "@capacitor/ios": "^2.0.0",
+    "@capacitor/android": "^3.0.0-beta.3",
+    "@capacitor/ios": "^3.0.0-beta.3",
     "@ionic/prettier-config": "^1.0.0",
     "@ionic/swiftlint-config": "^1.0.2",
     "husky": "^4.2.5",
@@ -34,7 +34,7 @@
     "pretty-quick": "^2.0.1",
     "rimraf": "^3.0.0",
     "swiftlint": "^1.0.1",
-    "typescript": "^3.2.4"
+    "typescript": "^4.2.2"
   },
   "husky": {
     "hooks": {
