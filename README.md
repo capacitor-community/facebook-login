@@ -93,7 +93,7 @@ Please restart Android Studio, and do clean build.
 In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
 ```swift
-import FacebookCore
+import FBSDKCoreKit
 import FBSDKCoreKit
   [...]
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -103,7 +103,12 @@ import FBSDKCoreKit
 
   func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
     if CAPBridge.handleOpenUrl(url, options) {
-      return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
+        return FBSDKCoreKit.ApplicationDelegate.shared.application(
+            app,
+            open: url,
+            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+        )
     }
     else{
      return false
@@ -130,8 +135,22 @@ Add the following in the `ios/App/App/info.plist` file inside of the outermost `
 <key>LSApplicationQueriesSchemes</key>
 <array>
   <string>fbapi</string>
+  <string>fbapi20130214</string>
+  <string>fbapi20130410</string>
+  <string>fbapi20130702</string>
+  <string>fbapi20131010</string>
+  <string>fbapi20131219</string>
+  <string>fbapi20140410</string>
+  <string>fbapi20140116</string>
+  <string>fbapi20150313</string>
+  <string>fbapi20150629</string>
+  <string>fbapi20160328</string>
+  <string>fbauth</string>
+  <string>fb-messenger-share-api</string>
   <string>fbauth2</string>
+  <string>fbshareextension</string>
 </array>
+
 ```
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/ios

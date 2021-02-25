@@ -1,7 +1,6 @@
 import Foundation
 import Capacitor
-import FacebookCore
-import FacebookLogin
+import FBSDKLoginKit
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
