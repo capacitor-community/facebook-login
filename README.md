@@ -39,6 +39,10 @@ To use yarn
 % npx cap update
 ```
 
+### If you used Plugin 1.x
+Plugin v2 has break changes. Please check how to update:
+https://github.com/capacitor-community/facebook-login/commit/4168982acf8454e3ac9ef7c51f5d68f46801422c
+
 ## Android configuration
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
