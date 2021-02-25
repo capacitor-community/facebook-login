@@ -9,8 +9,8 @@ end
 
 target 'Plugin' do
   capacitor_pods
-  pod 'FacebookCore', '0.9.0'
-  pod 'FacebookLogin', '0.9.0'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
 end
 
 target 'PluginTests' do
