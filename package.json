@@ -1,6 +1,6 @@
 {
   "name": "@capacitor-community/facebook-login",
-  "version": "3.0.0-1",
+  "version": "3.0.0-2",
   "description": "A native plugin for Facebook Login",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
