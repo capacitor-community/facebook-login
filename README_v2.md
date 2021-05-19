@@ -4,7 +4,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # ✅ Please check
-This is development README for Capacitor v3. If you use v1 or v2, please check [./README_v2.md](README_v2.md)
+This is development README for Capacitor v1-2. If you use v3 please check [README.md](README.md)
 
 # capacitor-facebook-login
 Capacitory community plugin for Facebook Login.
@@ -17,32 +17,39 @@ Capacitory community plugin for Facebook Login.
 | Maintainer | GitHub  | Social | Sponsoring Company |
 | --- | --- | --- | --- |
 | Masahiko Sakakibara  | [rdlabo](https://github.com/rdlabo)  | [@rdlabo](https://twitter.com/rdlabo) | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION |
-
+ 
 Mainteinance Status: Actively Maintained
 
 ## Installation
 
 ```bash
-% npm i --save @capacitor-community/facebook-login@next
+% npm i --save @capacitor-community/facebook-login
 % npx cap update
 ```
 
-### If you used Plugin 1.x
-Plugin v2 has break changes. Please check how to update:
-https://github.com/capacitor-community/facebook-login/commit/4168982acf8454e3ac9ef7c51f5d68f46801422c
+To use yarn
+
+```bash
+% yarn add @capacitor-community/facebook-login
+% npx cap update
+```
+
+### If you use Capacitor 1.x
+```
+% npm install --save @rdlabo/capacitor-facebook-login@1.5.0
+% npx cap update
+```
 
 ## Android configuration
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
 
 ```java
-public class MainActivity extends BridgeActivity {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        registerPlugin(com.getcapacitor.community.facebooklogin.FacebookLogin.class);
-    }
-}
+this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+  [...]
+  add(com.getcapacitor.community.facebooklogin.FacebookLogin.class);
+  [...]
+}});
 ```
 
 In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
@@ -87,42 +94,22 @@ Please restart Android Studio, and do clean build.
 In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
 ```swift
-import UIKit
-import Capacitor
+import FacebookCore
 import FBSDKCoreKit
+  [...]
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+  FBSDKCoreKit.ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+    return true
+  }
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        FBSDKCoreKit.ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions: launchOptions
-        )
-
-        return true
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    if CAPBridge.handleOpenUrl(url, options) {
+      return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
     }
-
-    ...
-
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        // Called when the app was launched with a url. Feel free to add additional processing here,
-        // but if you want the App API to support tracking app url opens, make sure to keep this call
-        if (FBSDKCoreKit.ApplicationDelegate.shared.application(
-            app,
-            open: url,
-            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-        )) {
-            return true;
-        } else {
-            return ApplicationDelegateProxy.shared.application(app, open: url, options: options)
-        }
+    else{
+     return false
     }
-}
+  }
 ```
 
 Add the following in the `ios/App/App/info.plist` file inside of the outermost `<dict>`:
@@ -145,22 +132,8 @@ Add the following in the `ios/App/App/info.plist` file inside of the outermost `
 <key>LSApplicationQueriesSchemes</key>
 <array>
   <string>fbapi</string>
-  <string>fbapi20130214</string>
-  <string>fbapi20130410</string>
-  <string>fbapi20130702</string>
-  <string>fbapi20131010</string>
-  <string>fbapi20131219</string>
-  <string>fbapi20140410</string>
-  <string>fbapi20140116</string>
-  <string>fbapi20150313</string>
-  <string>fbapi20150629</string>
-  <string>fbapi20160328</string>
-  <string>fbauth</string>
-  <string>fb-messenger-share-api</string>
   <string>fbauth2</string>
-  <string>fbshareextension</string>
 </array>
-
 ```
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/ios
@@ -187,9 +160,18 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 ```
 
+```ts
+  // Init Capacitor
+import { registerWebPlugin } from '@capacitor/core';
+import { FacebookLogin } from '@capacitor-community/facebook-login';
+  ...
+registerWebPlugin(FacebookLogin);
+```
+
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
 And you must confirm return type at https://github.com/rdlabo/capacitor-facebook-login/blob/master/src/web.ts#L55-L57
 not same type for default web facebook login!
+
 
 ## Supported methods
 
@@ -205,7 +187,9 @@ not same type for default web facebook login!
 ### Login
 
 ```ts
-import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { Plugins } from '@capacitor/core';
+import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+const { FacebookLogin } = Plugins;
 
 const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
 const result = await <FacebookLoginResponse>FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
@@ -221,7 +205,8 @@ if (result.accessToken) {
 ### Logout
 
 ```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
+import { Plugins } from '@capacitor/core';
+const { FacebookLogin } = Plugins;
 
 await FacebookLogin.logout();
 ```
@@ -229,7 +214,9 @@ await FacebookLogin.logout();
 ### CurrentAccessToken
 
 ```ts
-import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { Plugins } from '@capacitor/core';
+import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+const { FacebookLogin } = Plugins;
 
 const result = await <FacebookLoginResponse>FacebookLogin.getCurrentAccessToken();
 
@@ -243,7 +230,9 @@ if (result.accessToken) {
 ### getProfile
 
 ```ts
-import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { Plugins } from '@capacitor/core';
+import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+const { FacebookLogin } = Plugins;
 
 const result = await FacebookLogin.getProfile<{
       email: string;
