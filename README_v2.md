@@ -23,14 +23,7 @@ Mainteinance Status: Actively Maintained
 ## Installation
 
 ```bash
-% npm i --save @capacitor-community/facebook-login
-% npx cap update
-```
-
-To use yarn
-
-```bash
-% yarn add @capacitor-community/facebook-login
+% npm i --save @capacitor-community/facebook-login@^2.0.0
 % npx cap update
 ```
 

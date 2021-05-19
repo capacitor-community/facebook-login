@@ -1,16 +1,21 @@
-[![npm version](https://badge.fury.io/js/%40capacitor-community%2Ffacebook-login.svg)](https://badge.fury.io/js/%40capacitor-community%2Ffacebook-login)
+<p align="center"><br><img src="https://user-images.githubusercontent.com/236501/85893648-1c92e880-b7a8-11ea-926d-95355b8175c7.png" width="128" height="128" /></p>
+<h3 align="center">AdMob</h3>
+<p align="center"><strong><code>@capacitor-community/facebook-login</code></strong></p>
+<p align="center">
+  Capacitor community plugin for native Facebook Login.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/maintenance/yes/2021?style=flat-square" />
+  <!-- <a href="https://github.com/capacitor-community/example/actions?query=workflow%3A%22CI%22"><img src="https://img.shields.io/github/workflow/status/capacitor-community/example/CI?style=flat-square" /></a> -->
+  <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/l/@capacitor-community/facebook-login?style=flat-square" /></a>
+<br>
+  <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/dw/@capacitor-community/facebook-login?style=flat-square" /></a>
+  <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/v/@capacitor-community/facebook-login?style=flat-square" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+<a href="#contributors-"><img src="https://img.shields.io/badge/all%20contributors-2-orange?style=flat-square" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-# ✅ Please check
-This is development README for Capacitor v3. If you use v1 or v2, please check [./README_v2.md](README_v2.md)
-
-# capacitor-facebook-login
-Capacitory community plugin for Facebook Login.
-
-## Demo
-[Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
+</p>
 
 ## Maintainers
 
@@ -20,6 +25,9 @@ Capacitory community plugin for Facebook Login.
 
 Mainteinance Status: Actively Maintained
 
+## Demo
+[Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
+
 ## Installation
 
 ```bash
@@ -27,7 +35,7 @@ Mainteinance Status: Actively Maintained
 % npx cap update
 ```
 
-## Android configuration
+### Android configuration
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
 
@@ -75,10 +83,10 @@ Don't forget to replace `[APP_ID]` by your Facebook application Id.
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/android
 
-### If you have trouble.
+#### If you have trouble.
 Please restart Android Studio, and do clean build.
 
-## iOS configuration
+### iOS configuration
 
 In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
@@ -161,7 +169,7 @@ Add the following in the `ios/App/App/info.plist` file inside of the outermost `
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/ios
 
-## Web configuration
+### Web configuration
 
 ```javascript
 window.fbAsyncInit = function() {
@@ -186,15 +194,6 @@ window.fbAsyncInit = function() {
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
 And you must confirm return type at https://github.com/rdlabo/capacitor-facebook-login/blob/master/src/web.ts#L55-L57
 not same type for default web facebook login!
-
-## Supported methods
-
-| Name                  | Android | iOS | Web |
-| :-------------------- | :------ | :-- | :-- |
-| login                 | ✅      | ✅  | ✅ |
-| logout                | ✅      | ✅  | ✅  |
-| getCurrentAccessToken | ✅      | ✅  | ✅  |
-| getProfile            | ✅      | ✅  | ✅  |
 
 ## Example
 
