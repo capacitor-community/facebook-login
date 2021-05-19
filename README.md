@@ -23,13 +23,9 @@ Mainteinance Status: Actively Maintained
 ## Installation
 
 ```bash
-% npm i --save @capacitor-community/facebook-login@next
+% npm i --save @capacitor-community/facebook-login
 % npx cap update
 ```
-
-### If you used Plugin 1.x
-Plugin v2 has break changes. Please check how to update:
-https://github.com/capacitor-community/facebook-login/commit/4168982acf8454e3ac9ef7c51f5d68f46801422c
 
 ## Android configuration
 
@@ -200,7 +196,7 @@ not same type for default web facebook login!
 | getCurrentAccessToken | ✅      | ✅  | ✅  |
 | getProfile            | ✅      | ✅  | ✅  |
 
-## API
+## Example
 
 ### Login
 
@@ -213,8 +209,6 @@ const result = await <FacebookLoginResponse>FacebookLogin.login({ permissions: F
 if (result.accessToken) {
   // Login successful.
   console.log(`Facebook access token is ${result.accessToken.token}`);
-} else {
-  // Cancelled by user.
 }
 ```
 
@@ -235,8 +229,6 @@ const result = await <FacebookLoginResponse>FacebookLogin.getCurrentAccessToken(
 
 if (result.accessToken) {
   console.log(`Facebook access token is ${result.accessToken.token}`);
-} else {
-  // Not logged in.
 }
 ```
 
@@ -251,6 +243,105 @@ const result = await FacebookLogin.getProfile<{
 
 console.log(`Facebook user's email is ${result.email}`);
 ```
+
+## API
+
+<docgen-index>
+
+* [`login(...)`](#login)
+* [`logout()`](#logout)
+* [`getCurrentAccessToken()`](#getcurrentaccesstoken)
+* [`getProfile(...)`](#getprofile)
+* [Interfaces](#interfaces)
+
+</docgen-index>
+
+<docgen-api>
+<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### login(...)
+
+```typescript
+login(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>
+```
+
+| Param         | Type                                    |
+| ------------- | --------------------------------------- |
+| **`options`** | <code>{ permissions: string[]; }</code> |
+
+**Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
+
+--------------------
+
+
+### logout()
+
+```typescript
+logout() => Promise<void>
+```
+
+--------------------
+
+
+### getCurrentAccessToken()
+
+```typescript
+getCurrentAccessToken() => Promise<FacebookCurrentAccessTokenResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#facebookcurrentaccesstokenresponse">FacebookCurrentAccessTokenResponse</a>&gt;</code>
+
+--------------------
+
+
+### getProfile(...)
+
+```typescript
+getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise<T>
+```
+
+| Param         | Type                                        |
+| ------------- | ------------------------------------------- |
+| **`options`** | <code>{ fields: readonly string[]; }</code> |
+
+**Returns:** <code>Promise&lt;T&gt;</code>
+
+--------------------
+
+
+### Interfaces
+
+
+#### FacebookLoginResponse
+
+| Prop                             | Type                                                        |
+| -------------------------------- | ----------------------------------------------------------- |
+| **`accessToken`**                | <code><a href="#accesstoken">AccessToken</a> \| null</code> |
+| **`recentlyGrantedPermissions`** | <code>string[]</code>                                       |
+| **`recentlyDeniedPermissions`**  | <code>string[]</code>                                       |
+
+
+#### AccessToken
+
+| Prop                      | Type                  |
+| ------------------------- | --------------------- |
+| **`applicationId`**       | <code>string</code>   |
+| **`declinedPermissions`** | <code>string[]</code> |
+| **`expires`**             | <code>string</code>   |
+| **`isExpired`**           | <code>boolean</code>  |
+| **`lastRefresh`**         | <code>string</code>   |
+| **`permissions`**         | <code>string[]</code> |
+| **`token`**               | <code>string</code>   |
+| **`userId`**              | <code>string</code>   |
+
+
+#### FacebookCurrentAccessTokenResponse
+
+| Prop              | Type                                                        |
+| ----------------- | ----------------------------------------------------------- |
+| **`accessToken`** | <code><a href="#accesstoken">AccessToken</a> \| null</code> |
+
+</docgen-api>
 
 ## Contributors ✨
 
