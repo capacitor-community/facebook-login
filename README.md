@@ -52,36 +52,20 @@ public class MainActivity extends BridgeActivity {
 In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
 
 ```xml
-<meta-data android:name="com.facebook.sdk.ApplicationId"
-  android:value="@string/facebook_app_id"/>
-
-<activity
-    android:name="com.facebook.FacebookActivity"
-    android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-    android:label="@string/app_name" />
-
-<activity
-    android:name="com.facebook.CustomTabActivity"
-    android:exported="true">
-    <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="@string/fb_login_protocol_scheme" />
-    </intent-filter>
-</activity>
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
 ```
 
 In file `android/app/src/main/res/values/strings.xml` add the following lines :
 
 ```xml
 <string name="facebook_app_id">[APP_ID]</string>
-<string name="fb_login_protocol_scheme">fb[APP_ID]</string>
+<string name="facebook_client_token">[CLIENT_TOKEN]</string>
 ```
 
-Don't forget to replace `[APP_ID]` by your Facebook application Id.
+Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook application Id.
 
-More information can be found here: https://developers.facebook.com/docs/facebook-login/android
+More information can be found here: https://developers.facebook.com/docs/android/getting-started
 
 #### If you have trouble.
 Please restart Android Studio, and do clean build.
@@ -135,36 +119,37 @@ Add the following in the `ios/App/App/info.plist` file inside of the outermost `
 
 <key>CFBundleURLTypes</key>
 <array>
-  <dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>fb[APP_ID]</string>
-    </array>
-  </dict>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>fb[APP_ID]</string>
+        </array>
+    </dict>
 </array>
 <key>FacebookAppID</key>
 <string>[APP_ID]</string>
+<key>FacebookClientToken</key>
+<string>[CLIENT_TOKEN]</string>
 <key>FacebookDisplayName</key>
-<string>[DISPLAY_NAME]</string>
+<string>[APP_NAME]</string>
 <key>LSApplicationQueriesSchemes</key>
 <array>
-  <string>fbapi</string>
-  <string>fbapi20130214</string>
-  <string>fbapi20130410</string>
-  <string>fbapi20130702</string>
-  <string>fbapi20131010</string>
-  <string>fbapi20131219</string>
-  <string>fbapi20140410</string>
-  <string>fbapi20140116</string>
-  <string>fbapi20150313</string>
-  <string>fbapi20150629</string>
-  <string>fbapi20160328</string>
-  <string>fbauth</string>
-  <string>fb-messenger-share-api</string>
-  <string>fbauth2</string>
-  <string>fbshareextension</string>
+    <string>fbapi</string>
+    <string>fbapi20130214</string>
+    <string>fbapi20130410</string>
+    <string>fbapi20130702</string>
+    <string>fbapi20131010</string>
+    <string>fbapi20131219</string>
+    <string>fbapi20140410</string>
+    <string>fbapi20140116</string>
+    <string>fbapi20150313</string>
+    <string>fbapi20150629</string>
+    <string>fbapi20160328</string>
+    <string>fbauth</string>
+    <string>fb-messenger-share-api</string>
+    <string>fbauth2</string>
+    <string>fbshareextension</string>
 </array>
-
 ```
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/ios
