@@ -32,6 +32,8 @@
     </array>
     <key>FacebookAppID</key>
     <string>105890006170720</string>
+    <key>FacebookClientToken</key>
+    <string>09b4eb59089a06888eb1e15345ecb8b0</string>
     <key>FacebookDisplayName</key>
     <string>sandboxページ</string>
     <key>LSApplicationQueriesSchemes</key>

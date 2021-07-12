@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import com.facebook.FacebookSdk;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -19,6 +20,9 @@ import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+import com.getcapacitor.annotation.CapacitorPlugin;
+import com.getcapacitor.annotation.Permission;
+
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -41,11 +45,7 @@ public class FacebookLogin extends Plugin {
     private String dateToJson(Date date) {
         SimpleDateFormat simpleDateFormat;
 
-        try {
-            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        } catch (Exception e) {
-            simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-        }
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
 
         return simpleDateFormat.format(date);
     }
@@ -99,7 +99,7 @@ public class FacebookLogin extends Plugin {
                             ret.put("recentlyGrantedPermissions", collectionToJson(loginResult.getRecentlyGrantedPermissions()));
                             ret.put("recentlyDeniedPermissions", collectionToJson(loginResult.getRecentlyDeniedPermissions()));
 
-                            savedCall.success(ret);
+                            savedCall.resolve(ret);
 
                             saveCall(null);
                         }
@@ -117,7 +117,7 @@ public class FacebookLogin extends Plugin {
                             JSObject ret = new JSObject();
                             ret.put("accessToken", null);
 
-                            savedCall.success(ret);
+                            savedCall.resolve(ret);
 
                             saveCall(null);
                         }
@@ -191,7 +191,7 @@ public class FacebookLogin extends Plugin {
 
         LoginManager.getInstance().logOut();
 
-        call.success();
+        call.resolve();
     }
 
     @PluginMethod
@@ -210,7 +210,7 @@ public class FacebookLogin extends Plugin {
             ret.put("accessToken", accessTokenToJson(accessToken));
         }
 
-        call.success(ret);
+        call.resolve(ret);
     }
 
     @PluginMethod
@@ -221,14 +221,14 @@ public class FacebookLogin extends Plugin {
 
         if (accessToken == null) {
             Log.d(getLogTag(), "getProfile: accessToken is null");
-            call.error("You're not logged in. Call FacebookLogin.login() first to obtain an access token.");
+            call.reject("You're not logged in. Call FacebookLogin.login() first to obtain an access token.");
 
             return;
         }
 
         if (accessToken.isExpired()) {
             Log.d(getLogTag(), "getProfile: accessToken is expired");
-            call.error("AccessToken is expired.");
+            call.reject("AccessToken is expired.");
 
             return;
         }
@@ -241,7 +241,7 @@ public class FacebookLogin extends Plugin {
 
             parameters.putString("fields", fieldsString);
         } catch (JSONException e) {
-            call.error("Can't handle fields", e);
+            call.reject("Can't handle fields", e);
 
             return;
         }
@@ -254,7 +254,7 @@ public class FacebookLogin extends Plugin {
                     FacebookRequestError requestError = response.getError();
 
                     if (requestError != null) {
-                        call.error(requestError.getErrorMessage());
+                        call.reject(requestError.getErrorMessage());
 
                         return;
                     }
@@ -263,9 +263,9 @@ public class FacebookLogin extends Plugin {
                         JSONObject jsonObject = response.getJSONObject();
                         JSObject jsObject = JSObject.fromJSONObject(jsonObject);
 
-                        call.success(jsObject);
+                        call.resolve(jsObject);
                     } catch (JSONException e) {
-                        call.error("Can't create response", e);
+                        call.reject("Can't create response", e);
                     }
                 }
             }
