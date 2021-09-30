@@ -9,12 +9,12 @@ end
 
 target 'Plugin' do
   capacitor_pods
-  pod 'FBSDKCoreKit', '~> 11.0.0'
-  pod 'FBSDKLoginKit', '~> 11.0.0'
+  pod 'FBSDKCoreKit', '~> 11.1.0'
+  pod 'FBSDKLoginKit', '~> 11.1.0'
 end
 
 target 'PluginTests' do
   capacitor_pods
-  pod 'FBSDKCoreKit', '~> 11.0.0'
-  pod 'FBSDKLoginKit', '~> 11.0.0'
+  pod 'FBSDKCoreKit', '~> 11.1.0'
+  pod 'FBSDKLoginKit', '~> 11.1.0'
 end
