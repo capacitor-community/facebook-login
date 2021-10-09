@@ -22,6 +22,13 @@
 
 Mainteinance Status: Actively Maintained
 
+## Contributors ✨
+<a href="https://github.com/capacitor-community/facebook-login/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=capacitor-community/facebook-login" />
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
+
 ## Demo
 [Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
 
@@ -323,10 +330,3 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 | **`accessToken`** | <code><a href="#accesstoken">AccessToken</a> \| null</code> |
 
 </docgen-api>
-
-## Contributors ✨
-<a href="https://github.com/capacitor-community/facebook-login/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=capacitor-community/facebook-login" />
-</a>
-
-Made with [contributors-img](https://contrib.rocks).
