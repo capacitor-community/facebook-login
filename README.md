@@ -325,9 +325,6 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 </docgen-api>
 
 ## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
 <a href="https://github.com/capacitor-community/facebook-login/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=capacitor-community/facebook-login" />
 </a>
