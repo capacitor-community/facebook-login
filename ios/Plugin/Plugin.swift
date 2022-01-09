@@ -43,9 +43,11 @@ public class FacebookLogin: CAPPlugin {
                     print("User cancelled login")
                     call.resolve()
 
-                case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                case .success(_, _, _):
                     print("Logged in")
                     return self.getCurrentAccessToken(call)
+                @unknown default:
+                    call.reject("LoginManager.logIn failed")
                 }
             }
         }
