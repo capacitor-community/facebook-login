@@ -160,24 +160,11 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 
 ### Web configuration
 
-```javascript
-window.fbAsyncInit = function() {
-  FB.init({
-    appId: '[APP_ID]',
-    cookie: true, // enable cookies to allow the server to access the session
-    xfbml: true, // parse social plugins on this page
-    version: 'v5.0' // use graph api current version
-  });
-};
+```typescript
+import {FacebookLogin} from "@capacitor-community/facebook-login";
 
-// Load the SDK asynchronously
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "https://connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+// use hook after platform dom ready
+await FacebookLogin.initialize({appId: '105890006170720'});
 ```
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
