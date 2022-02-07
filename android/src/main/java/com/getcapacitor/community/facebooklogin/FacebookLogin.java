@@ -153,6 +153,11 @@ public class FacebookLogin extends Plugin {
     }
 
     @PluginMethod
+    public void initialize(PluginCall call) {
+        call.resolve();
+    }
+
+    @PluginMethod
     public void login(PluginCall call) {
         Log.d(getLogTag(), "Entering login()");
 
