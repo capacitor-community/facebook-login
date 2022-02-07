@@ -223,16 +223,31 @@ console.log(`Facebook user's email is ${result.email}`);
 
 <docgen-index>
 
+* [`initialize(...)`](#initialize)
 * [`login(...)`](#login)
 * [`logout()`](#logout)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### initialize(...)
+
+```typescript
+initialize(options: Partial<FacebookConfiguration>) => Promise<void>
+```
+
+| Param         | Type                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#partial">Partial</a>&lt;<a href="#facebookconfiguration">FacebookConfiguration</a>&gt;</code> |
+
+--------------------
+
 
 ### login(...)
 
@@ -287,6 +302,17 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 ### Interfaces
 
 
+#### FacebookConfiguration
+
+| Prop                   | Type                 |
+| ---------------------- | -------------------- |
+| **`appId`**            | <code>string</code>  |
+| **`autoLogAppEvents`** | <code>boolean</code> |
+| **`xfbml`**            | <code>boolean</code> |
+| **`version`**          | <code>string</code>  |
+| **`locale`**           | <code>string</code>  |
+
+
 #### FacebookLoginResponse
 
 | Prop                             | Type                                                        |
@@ -315,5 +341,15 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 | Prop              | Type                                                        |
 | ----------------- | ----------------------------------------------------------- |
 | **`accessToken`** | <code><a href="#accesstoken">AccessToken</a> \| null</code> |
+
+
+### Type Aliases
+
+
+#### Partial
+
+Make all properties in T optional
+
+<code>{ [P in keyof T]?: T[P]; }</code>
 
 </docgen-api>
