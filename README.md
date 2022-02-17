@@ -43,6 +43,8 @@ Made with [contributors-img](https://contrib.rocks).
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
 
++ import android.os.Bundle; // required for onCreate parameter
+
 ```java
 public class MainActivity extends BridgeActivity {
     @Override
@@ -350,6 +352,8 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 
 Make all properties in T optional
 
-<code>{ [P in keyof T]?: T[P]; }</code>
+<code>{
+ [P in keyof T]?: T[P];
+ }</code>
 
 </docgen-api>
