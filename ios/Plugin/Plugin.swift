@@ -27,7 +27,7 @@ public class FacebookLogin: CAPPlugin {
     @objc func initialize(_ call: CAPPluginCall) {
         call.resolve()
     }
-        
+
     @objc func login(_ call: CAPPluginCall) {
         guard let permissions = call.getArray("permissions", String.self) else {
             call.reject("Missing permissions argument")
