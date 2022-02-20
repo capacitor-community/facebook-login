@@ -81,6 +81,8 @@ public class FacebookLogin extends Plugin {
         this.callbackManager = CallbackManager.Factory.create();
 
         LoginManager
+                .getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
+        LoginManager
             .getInstance()
             .registerCallback(
                 callbackManager,
