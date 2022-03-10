@@ -49,9 +49,10 @@ If you want to know facebook library version, you should check:
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
 
-+ import android.os.Bundle; // required for onCreate parameter
 
 ```java
+import android.os.Bundle; // required for onCreate parameter
+
 public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
