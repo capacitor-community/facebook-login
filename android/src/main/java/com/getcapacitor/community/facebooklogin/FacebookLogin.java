@@ -191,6 +191,11 @@ public class FacebookLogin extends Plugin {
     }
 
     @PluginMethod
+    public void loginWithLimitedTracking(PluginCall call) {
+        call.unavailable("Not available in Android.");
+    }
+
+    @PluginMethod
     public void logout(PluginCall call) {
         Log.d(getLogTag(), "Entering logout()");
 

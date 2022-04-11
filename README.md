@@ -196,6 +196,22 @@ if (result.accessToken) {
 }
 ```
 
+### Login with Limited Tracking (IOS only)
+
+```ts
+import { FacebookLogin, FacebookLoginResponse, } from '@capacitor-community/facebook-login';
+
+const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+const result = await (<FacebookLoginResponse>(
+  FacebookLogin.loginWithLimitedTracking({ permissions: FACEBOOK_PERMISSIONS })
+));
+
+if (result.accessToken) {
+  // Login successful.
+  console.log(`Facebook access token is ${result.accessToken.token}`);
+}
+```
+
 ### Logout
 
 ```ts
@@ -234,6 +250,7 @@ console.log(`Facebook user's email is ${result.email}`);
 
 * [`initialize(...)`](#initialize)
 * [`login(...)`](#login)
+* [`loginWithLimitedTracking(...)`](#loginwithlimitedtracking)
 * [`logout()`](#logout)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
@@ -269,6 +286,21 @@ login(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>
 | **`options`** | <code>{ permissions: string[]; }</code> |
 
 **Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
+
+--------------------
+
+
+### loginWithLimitedTracking(...)
+
+```typescript
+loginWithLimitedTracking(options: { permissions: string[]; }) => Promise<FacebookLimitedLoginResponse>
+```
+
+| Param         | Type                                    |
+| ------------- | --------------------------------------- |
+| **`options`** | <code>{ permissions: string[]; }</code> |
+
+**Returns:** <code>Promise&lt;<a href="#facebooklimitedloginresponse">FacebookLimitedLoginResponse</a>&gt;</code>
 
 --------------------
 
@@ -345,6 +377,21 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 | **`userId`**              | <code>string</code>   |
 
 
+#### FacebookLimitedLoginResponse
+
+| Prop                      | Type                                                                        |
+| ------------------------- | --------------------------------------------------------------------------- |
+| **`authenticationToken`** | <code><a href="#authenticationtoken">AuthenticationToken</a> \| null</code> |
+
+
+#### AuthenticationToken
+
+| Prop         | Type                |
+| ------------ | ------------------- |
+| **`token`**  | <code>string</code> |
+| **`userId`** | <code>string</code> |
+
+
 #### FacebookCurrentAccessTokenResponse
 
 | Prop              | Type                                                        |
@@ -359,8 +406,6 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 
 Make all properties in T optional
 
-<code>{
- [P in keyof T]?: T[P];
- }</code>
+<code>{ [P in keyof T]?: T[P]; }</code>
 
 </docgen-api>

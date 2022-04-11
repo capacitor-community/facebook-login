@@ -57,6 +57,45 @@ public class FacebookLogin: CAPPlugin {
         }
     }
 
+    @objc func loginWithLimitedTracking(_ call: CAPPluginCall) {
+        guard let permissions = call.getArray("permissions", String.self) else {
+            call.reject("Missing permissions argument")
+            return
+        }
+
+        let perm = permissions.map { Permission.custom($0) }
+
+        // Ensure the configuration object is valid
+        guard let configuration = LoginConfiguration(
+            permissions: Set(perm),
+            tracking: .limited
+        ) else {
+            print("Invalid config")
+            call.reject("Invalid config")
+            return
+        }
+
+        DispatchQueue.main.async {
+            self.loginManager.logIn(viewController: self.bridge?.viewController, configuration: configuration) { loginResult in
+                switch loginResult {
+                case .failed(let error):
+                    print(error)
+                    call.reject("LoginManager.logIn failed")
+
+                case .cancelled:
+                    print("User cancelled login")
+                    call.resolve()
+
+                case .success(_, _, _):
+                    print("Logged in")
+                    return self.getCurrentAuthenticationToken(call)
+                @unknown default:
+                    call.reject("LoginManager.logIn failed")
+                }
+            }
+        }
+    }
+
     @objc func logout(_ call: CAPPluginCall) {
         loginManager.logOut()
 
@@ -110,5 +149,21 @@ public class FacebookLogin: CAPPlugin {
 
             call.resolve(result as! [String: Any])
         }
+    }
+
+    private func getCurrentAuthenticationToken(_ call: CAPPluginCall) {
+        guard let authenticationToken = AuthenticationToken.current else {
+            call.resolve()
+            return
+        }
+
+        call.resolve([ "authenticationToken": authenticationTokenToJson(authenticationToken) ])
+    }
+
+    private func authenticationTokenToJson(_ authenticationToken: AuthenticationToken) -> [String: Any?] {
+        return [
+            "token": authenticationToken.tokenString,
+            "userId": Profile.current?.userID
+        ]
     }
 }

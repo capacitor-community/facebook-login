@@ -9,10 +9,19 @@ export interface AccessToken {
   userId?: string;
 }
 
+export interface AuthenticationToken {
+  token: string;
+  userId?: string;
+}
+
 export interface FacebookLoginResponse {
   accessToken: AccessToken | null;
   recentlyGrantedPermissions?: string[];
   recentlyDeniedPermissions?: string[];
+}
+
+export interface FacebookLimitedLoginResponse {
+  authenticationToken: AuthenticationToken | null;
 }
 
 export interface FacebookCurrentAccessTokenResponse {
@@ -22,6 +31,9 @@ export interface FacebookCurrentAccessTokenResponse {
 export interface FacebookLoginPlugin {
   initialize(options: Partial<FacebookConfiguration>): Promise<void>;
   login(options: { permissions: string[] }): Promise<FacebookLoginResponse>;
+  loginWithLimitedTracking(options: {
+    permissions: string[];
+  }): Promise<FacebookLimitedLoginResponse>;
   logout(): Promise<void>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
   getProfile<T extends object>(options: {
