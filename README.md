@@ -198,17 +198,21 @@ if (result.accessToken) {
 
 ### Login with Limited Tracking (IOS only)
 
+A successful login in Limited Login returns an `AuthenticationToken` instance instead of a `AccessToken`. This is a JSON web token (JWT) containing a signature, and other pieces of information. Your app should validate the token to make sure it is authentic.
+
+More information can be found here: https://developers.facebook.com/docs/facebook-login/limited-login/token/validating
+
 ```ts
-import { FacebookLogin, FacebookLoginResponse, } from '@capacitor-community/facebook-login';
+import { FacebookLogin, FacebookLimitedLoginResponse, } from '@capacitor-community/facebook-login';
 
 const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
-const result = await (<FacebookLoginResponse>(
+const result = await (<FacebookLimitedLoginResponse>(
   FacebookLogin.loginWithLimitedTracking({ permissions: FACEBOOK_PERMISSIONS })
 ));
 
-if (result.accessToken) {
+if (result.authenticationToken) {
   // Login successful.
-  console.log(`Facebook access token is ${result.accessToken.token}`);
+  console.log(`Facebook authentication token is ${result.authenticationToken.token}`);
 }
 ```
 
@@ -386,10 +390,10 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 
 #### AuthenticationToken
 
-| Prop         | Type                |
-| ------------ | ------------------- |
-| **`token`**  | <code>string</code> |
-| **`userId`** | <code>string</code> |
+| Prop         | Type                | Description |
+| ------------ | ------------------- | ----------- |
+| **`token`**  | <code>string</code> | JWT token   |
+| **`userId`** | <code>string</code> |             |
 
 
 #### FacebookCurrentAccessTokenResponse

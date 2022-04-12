@@ -10,6 +10,7 @@ export interface AccessToken {
 }
 
 export interface AuthenticationToken {
+  /** JWT token */
   token: string;
   userId?: string;
 }
@@ -67,5 +68,5 @@ export interface FacebookConfiguration {
   autoLogAppEvents: boolean;
   xfbml: boolean;
   version: string;
-  locale:string;
+  locale: string;
 }
