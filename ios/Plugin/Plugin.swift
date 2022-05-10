@@ -24,6 +24,10 @@ public class FacebookLogin: CAPPlugin {
         return dateFormatter.string(from: date)
     }
 
+    @objc func initialize(_ call: CAPPluginCall) {
+        call.resolve()
+    }
+
     @objc func login(_ call: CAPPluginCall) {
         guard let permissions = call.getArray("permissions", String.self) else {
             call.reject("Missing permissions argument")
@@ -43,9 +47,11 @@ public class FacebookLogin: CAPPlugin {
                     print("User cancelled login")
                     call.resolve()
 
-                case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                case .success(_, _, _):
                     print("Logged in")
                     return self.getCurrentAccessToken(call)
+                @unknown default:
+                    call.reject("LoginManager.logIn failed")
                 }
             }
         }

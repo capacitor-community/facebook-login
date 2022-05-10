@@ -6,15 +6,12 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/maintenance/yes/2021?style=flat-square" />
+  <img src="https://img.shields.io/maintenance/yes/2022?style=flat-square" />
   <!-- <a href="https://github.com/capacitor-community/example/actions?query=workflow%3A%22CI%22"><img src="https://img.shields.io/github/workflow/status/capacitor-community/example/CI?style=flat-square" /></a> -->
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/l/@capacitor-community/facebook-login?style=flat-square" /></a>
 <br>
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/dw/@capacitor-community/facebook-login?style=flat-square" /></a>
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/v/@capacitor-community/facebook-login?style=flat-square" /></a>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="#contributors-"><img src="https://img.shields.io/badge/all%20contributors-2-orange?style=flat-square" /></a>
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
 ## Maintainers
@@ -25,8 +22,21 @@
 
 Mainteinance Status: Actively Maintained
 
+## Contributors ✨
+<a href="https://github.com/capacitor-community/facebook-login/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=capacitor-community/facebook-login" />
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
+
 ## Demo
 [Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
+
+## Dependency version
+If you want to know facebook library version, you should check:
+
+- [iOS](https://github.com/capacitor-community/facebook-login/blob/master/CapacitorCommunityFacebookLogin.podspec#L18-L19)
+- [Android](https://github.com/capacitor-community/facebook-login/blob/master/android/build.gradle#L52)
 
 ## Installation
 
@@ -39,7 +49,10 @@ Mainteinance Status: Actively Maintained
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
 
+
 ```java
+import android.os.Bundle; // required for onCreate parameter
+
 public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,24 +169,11 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 
 ### Web configuration
 
-```javascript
-window.fbAsyncInit = function() {
-  FB.init({
-    appId: '[APP_ID]',
-    cookie: true, // enable cookies to allow the server to access the session
-    xfbml: true, // parse social plugins on this page
-    version: 'v5.0' // use graph api current version
-  });
-};
+```typescript
+import {FacebookLogin} from "@capacitor-community/facebook-login";
 
-// Load the SDK asynchronously
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "https://connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+// use hook after platform dom ready
+await FacebookLogin.initialize({appId: '105890006170720'});
 ```
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
@@ -232,17 +232,32 @@ console.log(`Facebook user's email is ${result.email}`);
 
 <docgen-index>
 
+* [`initialize(...)`](#initialize)
 * [`login(...)`](#login)
 * [`logout()`](#logout)
 * [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### initialize(...)
+
+```typescript
+initialize(options: Partial<FacebookConfiguration>) => Promise<void>
+```
+
+| Param         | Type                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#partial">Partial</a>&lt;<a href="#facebookconfiguration">FacebookConfiguration</a>&gt;</code> |
+
+--------------------
+
 
 ### login(...)
 
@@ -308,6 +323,17 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 ### Interfaces
 
 
+#### FacebookConfiguration
+
+| Prop                   | Type                 |
+| ---------------------- | -------------------- |
+| **`appId`**            | <code>string</code>  |
+| **`autoLogAppEvents`** | <code>boolean</code> |
+| **`xfbml`**            | <code>boolean</code> |
+| **`version`**          | <code>string</code>  |
+| **`locale`**           | <code>string</code>  |
+
+
 #### FacebookLoginResponse
 
 | Prop                             | Type                                                        |
@@ -337,25 +363,16 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 | ----------------- | ----------------------------------------------------------- |
 | **`accessToken`** | <code><a href="#accesstoken">AccessToken</a> \| null</code> |
 
+
+### Type Aliases
+
+
+#### Partial
+
+Make all properties in T optional
+
+<code>{
+ [P in keyof T]?: T[P];
+ }</code>
+
 </docgen-api>
-
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://www.mapianist.com"><img src="https://avatars.githubusercontent.com/u/7777929?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Heo</b></sub></a><br /><a href="https://github.com/capacitor-community/facebook-login/commits?author=leo6104" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/vildhjarta8"><img src="https://avatars.githubusercontent.com/u/2393640?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Artur Tiupa</b></sub></a><br /><a href="https://github.com/capacitor-community/facebook-login/commits?author=vildhjarta8" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

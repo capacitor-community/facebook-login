@@ -5,15 +5,18 @@ import {
   FacebookCurrentAccessTokenResponse,
   FacebookGetLoginStatusResponse,
   FacebookGetProfileResponse,
+  FacebookConfiguration,
 } from './definitions';
 
 declare interface Facebook {
-  init(options: {
-    appId: string;
-    autoLogAppEvents: boolean;
-    xfbml: boolean;
-    version: string;
-  }): void;
+  init(
+    options: Partial<{
+      appId: string;
+      autoLogAppEvents: boolean;
+      xfbml: boolean;
+      version: string;
+    }>,
+  ): void;
 
   login(handle: (response: any) => void, options?: { scope: string }): void;
 
@@ -52,6 +55,44 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
     super({
       name: 'FacebookLogin',
       platforms: ['web'],
+    });
+  }
+
+  initialize(options: Partial<FacebookConfiguration>): Promise<void> {
+    const defaultOptions = { version: 'v10.0' };
+    return new Promise((resolve, reject) => {
+      try {
+        return this.loadScript(options.locale).then(() => {
+          FB.init({ ...defaultOptions, ...options });
+          resolve();
+        });
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  private loadScript(locale: string | undefined): Promise<void> {
+    if (typeof document === 'undefined') {
+      return Promise.resolve();
+    }
+    const scriptId = 'fb';
+    const scriptEl = document?.getElementById(scriptId);
+    if (scriptEl) {
+      return Promise.resolve();
+    }
+
+    const head = document.getElementsByTagName('head')[0];
+    const script = document.createElement('script');
+    return new Promise<void>(resolve => {
+      script.defer = true;
+      script.async = true;
+      script.id = scriptId;
+      script.onload = () => {
+        resolve();
+      };
+      script.src = `https://connect.facebook.net/${locale ?? 'en_US'}/sdk.js`;
+      head.appendChild(script);
     });
   }
 
