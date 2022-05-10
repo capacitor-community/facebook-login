@@ -2,7 +2,9 @@ import { WebPlugin } from '@capacitor/core';
 import {
   FacebookLoginPlugin,
   FacebookLoginResponse,
-  FacebookCurrentAccessTokenResponse, FacebookGetLoginStatusResponse, FacebookGetProfileResponse,
+  FacebookCurrentAccessTokenResponse,
+  FacebookGetLoginStatusResponse,
+  FacebookGetProfileResponse,
 } from './definitions';
 
 declare interface Facebook {
@@ -16,6 +18,8 @@ declare interface Facebook {
   login(handle: (response: any) => void, options?: { scope: string }): void;
 
   logout(handle: (response: any) => void): void;
+
+  reauthorize(handle: (response: any) => void): void;
 
   getLoginStatus(
     handle: (response: FacebookGetLoginStatusResponse) => void,
@@ -83,6 +87,12 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   async logout(): Promise<void> {
     return new Promise<void>(resolve => {
       FB.logout(() => resolve());
+    });
+  }
+
+  async reauthorize(): Promise<FacebookLoginResponse> {
+    return new Promise<FacebookLoginResponse>(resolve => {
+      FB.reauthorize(it => resolve(it));
     });
   }
 

@@ -22,6 +22,7 @@ export interface FacebookCurrentAccessTokenResponse {
 export interface FacebookLoginPlugin {
   login(options: { permissions: string[] }): Promise<FacebookLoginResponse>;
   logout(): Promise<void>;
+  reauthorize(): Promise<FacebookLoginResponse>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
   getProfile<T extends object>(options: {
     fields: readonly string[];

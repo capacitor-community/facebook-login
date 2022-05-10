@@ -234,6 +234,7 @@ console.log(`Facebook user's email is ${result.email}`);
 
 * [`login(...)`](#login)
 * [`logout()`](#logout)
+* [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
 * [Interfaces](#interfaces)
@@ -263,6 +264,17 @@ login(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>
 ```typescript
 logout() => Promise<void>
 ```
+
+--------------------
+
+
+### reauthorize()
+
+```typescript
+reauthorize() => Promise<FacebookLoginResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
 
 --------------------
 
