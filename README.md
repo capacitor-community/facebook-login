@@ -42,6 +42,15 @@ If you want to know facebook library version, you should check:
 
 ## Installation
 
+If you use capacitor 4:
+
+```bash
+% npm i --save @capacitor-community/facebook-login@next
+% npx cap update
+```
+
+capacitor 3:
+
 ```bash
 % npm i --save @capacitor-community/facebook-login
 % npx cap update
@@ -395,6 +404,8 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 
 Make all properties in T optional
 
-<code>{ [P in keyof T]?: T[P]; }</code>
+<code>{
+ [P in keyof T]?: T[P];
+ }</code>
 
 </docgen-api>
