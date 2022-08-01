@@ -34,24 +34,18 @@ public class FacebookLogin: CAPPlugin {
             return
         }
 
-        let perm = permissions.map { Permission.custom($0) }
 
         DispatchQueue.main.async {
-            self.loginManager.logIn(permissions: perm, viewController: self.bridge?.viewController) { loginResult in
-                switch loginResult {
-                case .failed(let error):
+            self.loginManager.logIn(permissions: permissions, from: self.bridge?.viewController) { result, error in
+                if let error = error {
                     print(error)
                     call.reject("LoginManager.logIn failed")
-
-                case .cancelled:
+                } else if let result = result, result.isCancelled {
                     print("User cancelled login")
                     call.resolve()
-
-                case .success(_, _, _):
+                } else {
                     print("Logged in")
                     return self.getCurrentAccessToken(call)
-                @unknown default:
-                    call.reject("LoginManager.logIn failed")
                 }
             }
         }
