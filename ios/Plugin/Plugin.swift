@@ -57,6 +57,23 @@ public class FacebookLogin: CAPPlugin {
         call.resolve()
     }
 
+    @objc func reauthorize(_ call: CAPPluginCall) {
+        DispatchQueue.main.async {
+            if let token = AccessToken.current, !token.isDataAccessExpired {
+                return self.getCurrentAccessToken(call)
+            } else {
+                self.loginManager.reauthorizeDataAccess(from: (self.bridge?.viewController)!) { (loginResult, error) in
+                    if (loginResult?.token) != nil {
+                        return self.getCurrentAccessToken(call)
+                    } else {
+                        print(error!)
+                        call.reject("LoginManager.reauthorize failed")
+                    }
+                }
+            }
+        }
+    }
+
     private func accessTokenToJson(_ accessToken: AccessToken) -> [String: Any?] {
         return [
             "applicationId": accessToken.appID,

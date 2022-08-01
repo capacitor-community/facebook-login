@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import com.facebook.FacebookSdk;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookRequestError;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
@@ -22,7 +22,6 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
-
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -197,6 +196,25 @@ public class FacebookLogin extends Plugin {
         LoginManager.getInstance().logOut();
 
         call.resolve();
+    }
+
+    @PluginMethod
+    public void reauthorize(PluginCall call) {
+        Log.d(getLogTag(), "Entering reauthorize()");
+
+        PluginCall savedCall = getSavedCall();
+
+        if (savedCall != null) {
+            Log.e(getLogTag(), "reauthorize: overlapped calls not supported");
+
+            call.reject("Overlapped calls call not supported");
+
+            return;
+        }
+
+        LoginManager.getInstance().reauthorizeDataAccess(this.getActivity());
+
+        saveCall(call);
     }
 
     @PluginMethod

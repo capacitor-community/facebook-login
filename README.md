@@ -16,13 +16,13 @@
 
 ## Maintainers
 
-| Maintainer | GitHub  | Social | Sponsoring Company |
-| --- | --- | --- | --- |
-| Masahiko Sakakibara  | [rdlabo](https://github.com/rdlabo)  | [@rdlabo](https://twitter.com/rdlabo) | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION |
-
-Mainteinance Status: Actively Maintained
+| Maintainer          | GitHub                                  | Social                                    | Sponsoring Company                             |
+| ------------------- | --------------------------------------- | ----------------------------------------- | ---------------------------------------------- |
+| Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo)     | [@rdlabo](https://twitter.com/rdlabo)     | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION |
+| Stewan Silva        | [stewones](https://github.com/stewones) | [@stewones](https://twitter.com/stewones) | [Intenseloop Inc.](https://intenseloop.com)    |
 
 ## Contributors ✨
+
 <a href="https://github.com/capacitor-community/facebook-login/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=capacitor-community/facebook-login" />
 </a>
@@ -30,9 +30,11 @@ Mainteinance Status: Actively Maintained
 Made with [contributors-img](https://contrib.rocks).
 
 ## Demo
+
 [Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
 
 ## Dependency version
+
 If you want to know facebook library version, you should check:
 
 - [iOS](https://github.com/capacitor-community/facebook-login/blob/master/CapacitorCommunityFacebookLogin.podspec#L18-L19)
@@ -49,16 +51,20 @@ If you want to know facebook library version, you should check:
 
 In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
 
-+ import android.os.Bundle; // required for onCreate parameter
-
 ```java
+import android.os.Bundle; // required for onCreate parameter
+
 public class MainActivity extends BridgeActivity {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        registerPlugin(com.getcapacitor.community.facebooklogin.FacebookLogin.class);
-    }
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    registerPlugin(
+      com.getcapacitor.community.facebooklogin.FacebookLogin.class
+    );
+  }
 }
+
 ```
 
 In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
@@ -80,6 +86,7 @@ Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook applica
 More information can be found here: https://developers.facebook.com/docs/android/getting-started
 
 #### If you have trouble.
+
 Please restart Android Studio, and do clean build.
 
 ### iOS configuration
@@ -169,10 +176,10 @@ More information can be found here: https://developers.facebook.com/docs/faceboo
 ### Web configuration
 
 ```typescript
-import {FacebookLogin} from "@capacitor-community/facebook-login";
+import { FacebookLogin } from '@capacitor-community/facebook-login';
 
 // use hook after platform dom ready
-await FacebookLogin.initialize({appId: '105890006170720'});
+await FacebookLogin.initialize({ appId: '105890006170720' });
 ```
 
 More information can be found here: https://developers.facebook.com/docs/facebook-login/web
@@ -184,10 +191,20 @@ not same type for default web facebook login!
 ### Login
 
 ```ts
-import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import {
+  FacebookLogin,
+  FacebookLoginResponse,
+} from '@capacitor-community/facebook-login';
 
-const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
-const result = await <FacebookLoginResponse>FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
+const FACEBOOK_PERMISSIONS = [
+  'email',
+  'user_birthday',
+  'user_photos',
+  'user_gender',
+];
+const result = await (<FacebookLoginResponse>(
+  FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS })
+));
 
 if (result.accessToken) {
   // Login successful.
@@ -206,9 +223,14 @@ await FacebookLogin.logout();
 ### CurrentAccessToken
 
 ```ts
-import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import {
+  FacebookLogin,
+  FacebookLoginResponse,
+} from '@capacitor-community/facebook-login';
 
-const result = await <FacebookLoginResponse>FacebookLogin.getCurrentAccessToken();
+const result = await (<FacebookLoginResponse>(
+  FacebookLogin.getCurrentAccessToken()
+));
 
 if (result.accessToken) {
   console.log(`Facebook access token is ${result.accessToken.token}`);
@@ -218,11 +240,14 @@ if (result.accessToken) {
 ### getProfile
 
 ```ts
-import { FacebookLogin, FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import {
+  FacebookLogin,
+  FacebookLoginResponse,
+} from '@capacitor-community/facebook-login';
 
 const result = await FacebookLogin.getProfile<{
-      email: string;
-    }>({ fields: ['email'] });
+  email: string;
+}>({ fields: ['email'] });
 
 console.log(`Facebook user's email is ${result.email}`);
 ```
@@ -234,6 +259,7 @@ console.log(`Facebook user's email is ${result.email}`);
 * [`initialize(...)`](#initialize)
 * [`login(...)`](#login)
 * [`logout()`](#logout)
+* [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
 * [Interfaces](#interfaces)
@@ -277,6 +303,17 @@ login(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>
 ```typescript
 logout() => Promise<void>
 ```
+
+--------------------
+
+
+### reauthorize()
+
+```typescript
+reauthorize() => Promise<FacebookLoginResponse>
+```
+
+**Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
 
 --------------------
 
@@ -358,8 +395,6 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 
 Make all properties in T optional
 
-<code>{
- [P in keyof T]?: T[P];
- }</code>
+<code>{ [P in keyof T]?: T[P]; }</code>
 
 </docgen-api>

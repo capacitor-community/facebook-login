@@ -9,16 +9,20 @@ import {
 } from './definitions';
 
 declare interface Facebook {
-  init(options: Partial<{
-    appId: string;
-    autoLogAppEvents: boolean;
-    xfbml: boolean;
-    version: string;
-  }>): void;
+  init(
+    options: Partial<{
+      appId: string;
+      autoLogAppEvents: boolean;
+      xfbml: boolean;
+      version: string;
+    }>,
+  ): void;
 
   login(handle: (response: any) => void, options?: { scope: string }): void;
 
   logout(handle: (response: any) => void): void;
+
+  reauthorize(handle: (response: any) => void): void;
 
   getLoginStatus(
     handle: (response: FacebookGetLoginStatusResponse) => void,
@@ -53,14 +57,14 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
       platforms: ['web'],
     });
   }
-  
-  initialize(options:Partial<FacebookConfiguration>): Promise<void> {
-    const defaultOptions={version: 'v10.0'};
+
+  initialize(options: Partial<FacebookConfiguration>): Promise<void> {
+    const defaultOptions = { version: 'v10.0' };
     return new Promise((resolve, reject) => {
       try {
-         return this.loadScript(options.locale).then(()=> {
-            FB.init({...defaultOptions,...options});
-            resolve();
+        return this.loadScript(options.locale).then(() => {
+          FB.init({ ...defaultOptions, ...options });
+          resolve();
         });
       } catch (err) {
         reject(err);
@@ -68,24 +72,30 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
     });
   }
 
-  private loadScript(locale:string|undefined):Promise<void> {
-    if (typeof document === 'undefined') {return Promise.resolve();}
+  private loadScript(locale: string | undefined): Promise<void> {
+    if (typeof document === 'undefined') {
+      return Promise.resolve();
+    }
     const scriptId = 'fb';
     const scriptEl = document?.getElementById(scriptId);
-    if (scriptEl) {return Promise.resolve();}
+    if (scriptEl) {
+      return Promise.resolve();
+    }
 
     const head = document.getElementsByTagName('head')[0];
     const script = document.createElement('script');
-    return new Promise<void>((resolve) => {
+    return new Promise<void>(resolve => {
       script.defer = true;
       script.async = true;
       script.id = scriptId;
-      script.onload = () => {resolve();};
+      script.onload = () => {
+        resolve();
+      };
       script.src = `https://connect.facebook.net/${locale ?? 'en_US'}/sdk.js`;
       head.appendChild(script);
     });
   }
-  
+
   async login(options: {
     permissions: string[];
   }): Promise<FacebookLoginResponse> {
@@ -118,6 +128,12 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   async logout(): Promise<void> {
     return new Promise<void>(resolve => {
       FB.logout(() => resolve());
+    });
+  }
+
+  async reauthorize(): Promise<FacebookLoginResponse> {
+    return new Promise<FacebookLoginResponse>(resolve => {
+      FB.reauthorize(it => resolve(it));
     });
   }
 
