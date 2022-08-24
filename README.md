@@ -221,6 +221,26 @@ if (result.accessToken) {
 }
 ```
 
+### Login with Limited Tracking (IOS only)
+
+A successful login in Limited Login returns an `AuthenticationToken` instance instead of a `AccessToken`. This is a JSON web token (JWT) containing a signature, and other pieces of information. Your app should validate the token to make sure it is authentic.
+
+More information can be found here: https://developers.facebook.com/docs/facebook-login/limited-login/token/validating
+
+```ts
+import { FacebookLogin, FacebookLimitedLoginResponse, } from '@capacitor-community/facebook-login';
+
+const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+const result = await (<FacebookLimitedLoginResponse>(
+  FacebookLogin.loginWithLimitedTracking({ permissions: FACEBOOK_PERMISSIONS })
+));
+
+if (result.authenticationToken) {
+  // Login successful.
+  console.log(`Facebook authentication token is ${result.authenticationToken.token}`);
+}
+```
+
 ### Logout
 
 ```ts
@@ -267,6 +287,7 @@ console.log(`Facebook user's email is ${result.email}`);
 
 * [`initialize(...)`](#initialize)
 * [`login(...)`](#login)
+* [`loginWithLimitedTracking(...)`](#loginwithlimitedtracking)
 * [`logout()`](#logout)
 * [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
@@ -303,6 +324,21 @@ login(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>
 | **`options`** | <code>{ permissions: string[]; }</code> |
 
 **Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
+
+--------------------
+
+
+### loginWithLimitedTracking(...)
+
+```typescript
+loginWithLimitedTracking(options: { permissions: string[]; }) => Promise<FacebookLimitedLoginResponse>
+```
+
+| Param         | Type                                    |
+| ------------- | --------------------------------------- |
+| **`options`** | <code>{ permissions: string[]; }</code> |
+
+**Returns:** <code>Promise&lt;<a href="#facebooklimitedloginresponse">FacebookLimitedLoginResponse</a>&gt;</code>
 
 --------------------
 
@@ -388,6 +424,21 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 | **`permissions`**         | <code>string[]</code> |
 | **`token`**               | <code>string</code>   |
 | **`userId`**              | <code>string</code>   |
+
+
+#### FacebookLimitedLoginResponse
+
+| Prop                      | Type                                                                        |
+| ------------------------- | --------------------------------------------------------------------------- |
+| **`authenticationToken`** | <code><a href="#authenticationtoken">AuthenticationToken</a> \| null</code> |
+
+
+#### AuthenticationToken
+
+| Prop         | Type                | Description |
+| ------------ | ------------------- | ----------- |
+| **`token`**  | <code>string</code> | JWT token   |
+| **`userId`** | <code>string</code> |             |
 
 
 #### FacebookCurrentAccessTokenResponse
