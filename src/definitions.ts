@@ -28,6 +28,7 @@ export interface FacebookLoginPlugin {
   getProfile<T extends object>(options: {
     fields: readonly string[];
   }): Promise<T>;
+  logEvent(options: { eventName: string }): Promise<void>;
 }
 
 export interface FacebookGetLoginStatusResponse {

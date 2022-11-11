@@ -12,6 +12,7 @@ import com.facebook.FacebookRequestError;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.getcapacitor.JSArray;
@@ -296,5 +297,15 @@ public class FacebookLogin extends Plugin {
 
         graphRequest.setParameters(parameters);
         graphRequest.executeAsync();
+    }
+
+    @PluginMethod
+    public void logEvent(final PluginCall call) {
+        Log.d(getLogTag(), "Entering logEvent()");
+        AppEventsLogger logger = AppEventsLogger.newLogger(this.getContext());
+        String eventName = call.getString("eventName");
+        if (eventName != null) {
+            logger.logEvent(eventName);
+        }
     }
 }

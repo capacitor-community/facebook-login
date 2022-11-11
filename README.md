@@ -271,6 +271,7 @@ console.log(`Facebook user's email is ${result.email}`);
 * [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
+* [`logEvent(...)`](#logevent)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -349,6 +350,19 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 | **`options`** | <code>{ fields: readonly string[]; }</code> |
 
 **Returns:** <code>Promise&lt;T&gt;</code>
+
+--------------------
+
+
+### logEvent(...)
+
+```typescript
+logEvent(options: { eventName: string; }) => Promise<void>
+```
+
+| Param         | Type                                |
+| ------------- | ----------------------------------- |
+| **`options`** | <code>{ eventName: string; }</code> |
 
 --------------------
 

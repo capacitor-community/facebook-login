@@ -10,4 +10,5 @@ CAP_PLUGIN(FacebookLogin, "FacebookLogin",
            CAP_PLUGIN_METHOD(getCurrentAccessToken, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getProfile, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(reauthorize, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(logEvent, CAPPluginReturnPromise);
 )

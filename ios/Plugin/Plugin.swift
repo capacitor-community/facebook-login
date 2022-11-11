@@ -122,4 +122,12 @@ public class FacebookLogin: CAPPlugin {
             call.resolve(result as! [String: Any])
         }
     }
+
+    @objc func logEvent(_ call: CAPPluginCall) {
+        if let eventName = call.getString("eventName") {
+            AppEvents.shared.logEvent(AppEvents.Name(eventName))
+        }
+
+        call.resolve()
+    }
 }
