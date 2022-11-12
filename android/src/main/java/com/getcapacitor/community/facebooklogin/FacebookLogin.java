@@ -38,6 +38,7 @@ public class FacebookLogin extends Plugin {
     CallbackManager callbackManager;
 
     public static final int FACEBOOK_SDK_REQUEST_CODE_OFFSET = 0xface;
+    private AppEventsLogger logger;
 
     /**
      * Convert date to ISO 8601 format.
@@ -79,6 +80,7 @@ public class FacebookLogin extends Plugin {
         Log.d(getLogTag(), "Entering load()");
 
         this.callbackManager = CallbackManager.Factory.create();
+        this.logger = AppEventsLogger.newLogger(getContext());
 
         LoginManager
             .getInstance()
@@ -302,7 +304,6 @@ public class FacebookLogin extends Plugin {
     @PluginMethod
     public void logEvent(final PluginCall call) {
         Log.d(getLogTag(), "Entering logEvent()");
-        AppEventsLogger logger = AppEventsLogger.newLogger(this.getContext());
         String eventName = call.getString("eventName");
         if (eventName != null) {
             logger.logEvent(eventName);
