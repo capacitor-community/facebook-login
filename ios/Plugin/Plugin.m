@@ -11,4 +11,7 @@ CAP_PLUGIN(FacebookLogin, "FacebookLogin",
            CAP_PLUGIN_METHOD(getProfile, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(reauthorize, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(logEvent, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setAutoLogAppEventsEnabled, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setAdvertiserTrackingEnabled, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(setAdvertiserIDCollectionEnabled, CAPPluginReturnPromise);
 )

@@ -272,6 +272,9 @@ console.log(`Facebook user's email is ${result.email}`);
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
 * [`logEvent(...)`](#logevent)
+* [`setAutoLogAppEventsEnabled(...)`](#setautologappeventsenabled)
+* [`setAdvertiserTrackingEnabled(...)`](#setadvertisertrackingenabled)
+* [`setAdvertiserIDCollectionEnabled(...)`](#setadvertiseridcollectionenabled)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -357,12 +360,51 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 ### logEvent(...)
 
 ```typescript
-logEvent(options: { eventName: string; }) => Promise<void>
+logEvent(options: { name: string; }) => Promise<void>
 ```
 
-| Param         | Type                                |
-| ------------- | ----------------------------------- |
-| **`options`** | <code>{ eventName: string; }</code> |
+| Param         | Type                           |
+| ------------- | ------------------------------ |
+| **`options`** | <code>{ name: string; }</code> |
+
+--------------------
+
+
+### setAutoLogAppEventsEnabled(...)
+
+```typescript
+setAutoLogAppEventsEnabled(options: { enabled: boolean; }) => Promise<void>
+```
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setAdvertiserTrackingEnabled(...)
+
+```typescript
+setAdvertiserTrackingEnabled(options: { enabled: boolean; }) => Promise<void>
+```
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setAdvertiserIDCollectionEnabled(...)
+
+```typescript
+setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void>
+```
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
 
 --------------------
 

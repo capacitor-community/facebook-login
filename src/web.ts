@@ -40,7 +40,10 @@ declare interface Facebook {
     params: TParams,
     callback: (response: TResponse) => void,
   ): void;
-  logEvent(handle: (response: any) => void, options: { eventName: string }): void;
+  logEvent(handle: (response: any) => void, options: { name: string }): void;
+  setAutoLogAppEventsEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
+  setAdvertiserTrackingEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
+  setAdvertiserIDCollectionEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
 }
 
 declare var FB: Facebook;
@@ -190,11 +193,19 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
     });
   }
 
-  async logEvent(options: {
-    eventName: string;
-  }): Promise<void> {
-    return new Promise<void>(resolve => {
-      FB.logEvent(() => resolve(), {eventName: options.eventName});
-    });
+  async logEvent(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  async setAutoLogAppEventsEnabled(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  async setAdvertiserTrackingEnabled(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  async setAdvertiserIDCollectionEnabled(): Promise<void> {
+    return Promise.resolve();
   }
 }
