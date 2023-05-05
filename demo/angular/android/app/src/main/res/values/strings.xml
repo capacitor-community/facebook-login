@@ -5,5 +5,6 @@
     <string name="package_name">io.ionic.starter</string>
     <string name="custom_url_scheme">io.ionic.starter</string>
     <string name="facebook_app_id">105890006170720</string>
+    <string name="fb_login_protocol_scheme">fb105890006170720</string>
     <string name="facebook_client_token">09b4eb59089a06888eb1e15345ecb8b0</string>
 </resources>
