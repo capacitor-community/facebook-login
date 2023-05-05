@@ -262,6 +262,10 @@ console.log(`Facebook user's email is ${result.email}`);
 * [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
 * [`getProfile(...)`](#getprofile)
+* [`logEvent(...)`](#logevent)
+* [`setAutoLogAppEventsEnabled(...)`](#setautologappeventsenabled)
+* [`setAdvertiserTrackingEnabled(...)`](#setadvertisertrackingenabled)
+* [`setAdvertiserIDCollectionEnabled(...)`](#setadvertiseridcollectionenabled)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -340,6 +344,58 @@ getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise
 | **`options`** | <code>{ fields: readonly string[]; }</code> |
 
 **Returns:** <code>Promise&lt;T&gt;</code>
+
+--------------------
+
+
+### logEvent(...)
+
+```typescript
+logEvent(options: { name: string; }) => Promise<void>
+```
+
+| Param         | Type                           |
+| ------------- | ------------------------------ |
+| **`options`** | <code>{ name: string; }</code> |
+
+--------------------
+
+
+### setAutoLogAppEventsEnabled(...)
+
+```typescript
+setAutoLogAppEventsEnabled(options: { enabled: boolean; }) => Promise<void>
+```
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setAdvertiserTrackingEnabled(...)
+
+```typescript
+setAdvertiserTrackingEnabled(options: { enabled: boolean; }) => Promise<void>
+```
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### setAdvertiserIDCollectionEnabled(...)
+
+```typescript
+setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void>
+```
+
+| Param         | Type                               |
+| ------------- | ---------------------------------- |
+| **`options`** | <code>{ enabled: boolean; }</code> |
 
 --------------------
 

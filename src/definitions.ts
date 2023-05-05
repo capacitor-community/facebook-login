@@ -28,6 +28,10 @@ export interface FacebookLoginPlugin {
   getProfile<T extends object>(options: {
     fields: readonly string[];
   }): Promise<T>;
+  logEvent(options: { name: string }): Promise<void>;
+  setAutoLogAppEventsEnabled(options: { enabled: boolean }): Promise<void>;
+  setAdvertiserTrackingEnabled(options: { enabled: boolean }): Promise<void>;
+  setAdvertiserIDCollectionEnabled(options: { enabled: boolean }): Promise<void>;
 }
 
 export interface FacebookGetLoginStatusResponse {
