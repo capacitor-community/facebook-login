@@ -55,46 +55,30 @@ declare global {
 }
 
 export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
-  constructor() {
-    super({
-      name: 'FacebookLogin',
-      platforms: ['web'],
-    });
-  }
-
-  initialize(options: Partial<FacebookConfiguration>): Promise<void> {
-    const defaultOptions = { version: 'v10.0' };
-    return new Promise((resolve, reject) => {
-      try {
-        return this.loadScript(options.locale).then(() => {
-          FB.init({ ...defaultOptions, ...options });
-          resolve();
-        });
-      } catch (err) {
-        reject(err);
-      }
-    });
+  async initialize(options: Partial<FacebookConfiguration>): Promise<void> {
+    const defaultOptions = { version: 'v17.0' };
+    await this.loadScript(options.locale);
+    return FB.init({ ...defaultOptions, ...options });
   }
 
   private loadScript(locale: string | undefined): Promise<void> {
     if (typeof document === 'undefined') {
-      return Promise.resolve();
+      return Promise.reject('document global not found');
     }
     const scriptId = 'fb';
-    const scriptEl = document?.getElementById(scriptId);
+    const scriptEl = document.getElementById(scriptId);
     if (scriptEl) {
+      // already loaded
       return Promise.resolve();
     }
 
     const head = document.getElementsByTagName('head')[0];
     const script = document.createElement('script');
     return new Promise<void>(resolve => {
+      script.onload = () => resolve();
       script.defer = true;
       script.async = true;
       script.id = scriptId;
-      script.onload = () => {
-        resolve();
-      };
       script.src = `https://connect.facebook.net/${locale ?? 'en_US'}/sdk.js`;
       head.appendChild(script);
     });
@@ -103,13 +87,9 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   async login(options: {
     permissions: string[];
   }): Promise<FacebookLoginResponse> {
-    console.log('FacebookLoginWeb.login', options);
-
     return new Promise<FacebookLoginResponse>((resolve, reject) => {
       FB.login(
         response => {
-          console.debug('FB.login', response);
-
           if (response.status === 'connected') {
             resolve({
               accessToken: {
@@ -130,15 +110,11 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   }
 
   async logout(): Promise<void> {
-    return new Promise<void>(resolve => {
-      FB.logout(() => resolve());
-    });
+    return new Promise<void>(resolve => FB.logout(() => resolve()));
   }
 
   async reauthorize(): Promise<FacebookLoginResponse> {
-    return new Promise<FacebookLoginResponse>(resolve => {
-      FB.reauthorize(it => resolve(it));
-    });
+    return new Promise<FacebookLoginResponse>(resolve => FB.reauthorize(it => resolve(it)));
   }
 
   async getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse> {
@@ -183,10 +159,8 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
         response => {
           if (response.error) {
             reject(response.error.message);
-
             return;
           }
-
           resolve(<T>response);
         },
       );
