@@ -318,7 +318,7 @@ getCurrentAccessToken() => Promise<FacebookCurrentAccessTokenResponse>
 ### getProfile(...)
 
 ```typescript
-getProfile<T extends object>(options: { fields: readonly string[]; }) => Promise<T>
+getProfile<T extends Record<string, unknown>>(options: { fields: readonly string[]; }) => Promise<T>
 ```
 
 | Param         | Type                                        |
@@ -433,8 +433,13 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 
 Make all properties in T optional
 
-<code>{
- [P in keyof T]?: T[P];
- }</code>
+<code>{ [P in keyof T]?: T[P]; }</code>
+
+
+#### Record
+
+Construct a type with a set of properties K of type T
+
+<code>{ [P in K]: T; }</code>
 
 </docgen-api>

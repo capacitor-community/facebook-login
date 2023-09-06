@@ -34,7 +34,6 @@ public class FacebookLogin: CAPPlugin {
             return
         }
 
-
         DispatchQueue.main.async {
             self.loginManager.logIn(permissions: permissions, from: self.bridge?.viewController) { result, error in
                 if let error = error {

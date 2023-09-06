@@ -1,5 +1,6 @@
 import { WebPlugin } from '@capacitor/core';
-import {
+
+import type {
   FacebookLoginPlugin,
   FacebookLoginResponse,
   FacebookCurrentAccessTokenResponse,
@@ -29,28 +30,37 @@ declare interface Facebook {
   ): void;
 
   api<TResponse>(path: string, callback: (response: TResponse) => void): void;
-  api<TParams extends object, TResponse>(
+  api<TParams extends Record<string, unknown>, TResponse>(
     path: string,
     params: TParams,
     callback: (response: TResponse) => void,
   ): void;
-  api<TParams extends object, TResponse>(
+  api<TParams extends Record<string, unknown>, TResponse>(
     path: string,
     method: 'get' | 'post' | 'delete',
     params: TParams,
     callback: (response: TResponse) => void,
   ): void;
   logEvent(handle: (response: any) => void, options: { name: string }): void;
-  setAutoLogAppEventsEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
-  setAdvertiserTrackingEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
-  setAdvertiserIDCollectionEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
+  setAutoLogAppEventsEnabled(
+    handle: (response: any) => void,
+    options: { enabled: boolean },
+  ): void;
+  setAdvertiserTrackingEnabled(
+    handle: (response: any) => void,
+    options: { enabled: boolean },
+  ): void;
+  setAdvertiserIDCollectionEnabled(
+    handle: (response: any) => void,
+    options: { enabled: boolean },
+  ): void;
 }
 
-declare var FB: Facebook;
+declare let FB: Facebook;
 
 declare global {
   interface Window {
-    fbAsyncInit: Function;
+    fbAsyncInit: () => void;
   }
 }
 
@@ -114,7 +124,9 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   }
 
   async reauthorize(): Promise<FacebookLoginResponse> {
-    return new Promise<FacebookLoginResponse>(resolve => FB.reauthorize(it => resolve(it)));
+    return new Promise<FacebookLoginResponse>(resolve =>
+      FB.reauthorize(it => resolve(it)),
+    );
   }
 
   async getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse> {
@@ -147,7 +159,7 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
     );
   }
 
-  async getProfile<T extends object>(options: {
+  async getProfile<T extends Record<string, unknown>>(options: {
     fields: readonly string[];
   }): Promise<T> {
     const fields = options.fields.join(',');
@@ -161,7 +173,7 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
             reject(response.error.message);
             return;
           }
-          resolve(<T>response);
+          resolve(response as unknown as T);
         },
       );
     });

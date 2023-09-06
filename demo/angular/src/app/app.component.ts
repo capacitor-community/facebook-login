@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
-
-import { Platform } from '@ionic/angular';
-import { FacebookLogin } from "@capacitor-community/facebook-login";
+import { FacebookLogin } from '@capacitor-community/facebook-login';
+import type { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  constructor(
-    private platform: Platform,
-  ) {
+  constructor(private platform: Platform) {
     this.initializeApp();
   }
 
-  initializeApp() {
+  initializeApp(): void {
     this.platform.ready().then(() => {
-      FacebookLogin.initialize({appId: '105890006170720'});
+      FacebookLogin.initialize({ appId: '105890006170720' });
     });
   }
 }

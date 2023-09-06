@@ -25,13 +25,15 @@ export interface FacebookLoginPlugin {
   logout(): Promise<void>;
   reauthorize(): Promise<FacebookLoginResponse>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
-  getProfile<T extends object>(options: {
+  getProfile<T extends Record<string, unknown>>(options: {
     fields: readonly string[];
   }): Promise<T>;
   logEvent(options: { name: string }): Promise<void>;
   setAutoLogAppEventsEnabled(options: { enabled: boolean }): Promise<void>;
   setAdvertiserTrackingEnabled(options: { enabled: boolean }): Promise<void>;
-  setAdvertiserIDCollectionEnabled(options: { enabled: boolean }): Promise<void>;
+  setAdvertiserIDCollectionEnabled(options: {
+    enabled: boolean;
+  }): Promise<void>;
 }
 
 export interface FacebookGetLoginStatusResponse {
@@ -60,5 +62,5 @@ export interface FacebookConfiguration {
   autoLogAppEvents: boolean;
   xfbml: boolean;
   version: string;
-  locale:string;
+  locale: string;
 }

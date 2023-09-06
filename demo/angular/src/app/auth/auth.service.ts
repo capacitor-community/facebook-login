@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
+import type { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +9,10 @@ export class AuthService {
   constructor(public navCtrl: NavController) {}
 
   async getCurrentState(): Promise<boolean> {
-    const result = await FacebookLogin.getCurrentAccessToken().catch(() => undefined);
-    return !(result === undefined || !result.hasOwnProperty('accessToken'));
+    const result = await FacebookLogin.getCurrentAccessToken().catch(
+      () => undefined,
+    );
+    return !(result === undefined || !result.accessToken);
   }
 
   async getEmail(): Promise<string> {
@@ -36,7 +38,7 @@ export class AuthService {
     const result = await FacebookLogin.login({
       permissions: FACEBOOK_PERMISSIONS,
     });
-    if (result && result.accessToken) {
+    if (result?.accessToken) {
       this.navCtrl.navigateRoot(['/']);
     }
   }
