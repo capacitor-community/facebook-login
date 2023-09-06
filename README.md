@@ -49,24 +49,6 @@ If you want to know facebook library version, you should check:
 
 ### Android configuration
 
-In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
-
-```java
-import android.os.Bundle; // required for onCreate parameter
-
-public class MainActivity extends BridgeActivity {
-
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    registerPlugin(
-      com.getcapacitor.community.facebooklogin.FacebookLogin.class
-    );
-  }
-}
-
-```
-
 In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
 
 ```xml
@@ -451,6 +433,8 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 
 Make all properties in T optional
 
-<code>{ [P in keyof T]?: T[P]; }</code>
+<code>{
+ [P in keyof T]?: T[P];
+ }</code>
 
 </docgen-api>
