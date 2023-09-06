@@ -83,6 +83,8 @@ public class FacebookLogin extends Plugin {
         this.logger = AppEventsLogger.newLogger(getContext());
 
         LoginManager
+                .getInstance().setLoginBehavior(LoginBehavior.WEB_ONLY);
+        LoginManager
             .getInstance()
             .registerCallback(
                 callbackManager,
