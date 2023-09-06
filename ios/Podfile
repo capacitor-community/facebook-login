@@ -5,8 +5,8 @@ def capacitor_pods
   use_frameworks!
   pod 'Capacitor', :path => '../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../node_modules/@capacitor/ios'
-  pod 'FBSDKCoreKit', '16.0.0'
-  pod 'FBSDKLoginKit', '16.0.0'
+  pod 'FBSDKCoreKit', '16.1.3'
+  pod 'FBSDKLoginKit', '16.1.3'
 end
 
 target 'Plugin' do
