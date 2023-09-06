@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 import org.json.JSONException;
@@ -39,15 +40,14 @@ public class FacebookLogin extends Plugin {
 
     public static final int FACEBOOK_SDK_REQUEST_CODE_OFFSET = 0xface;
     private AppEventsLogger logger;
+    private String latestCallbackId;
 
     /**
      * Convert date to ISO 8601 format.
      */
     private String dateToJson(Date date) {
         SimpleDateFormat simpleDateFormat;
-
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ", Locale.ENGLISH);
         return simpleDateFormat.format(date);
     }
 
@@ -91,11 +91,11 @@ public class FacebookLogin extends Plugin {
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(getLogTag(), "LoginManager.onSuccess");
 
-                        PluginCall savedCall = getSavedCall();
-
-                        if (savedCall == null) {
+                        if (latestCallbackId == null) {
                             Log.e(getLogTag(), "LoginManager.onSuccess: no plugin saved call found.");
                         } else {
+                            PluginCall savedCall = bridge.getSavedCall(latestCallbackId);
+
                             JSObject ret = new JSObject();
                             ret.put("accessToken", accessTokenToJson(loginResult.getAccessToken()));
                             ret.put("recentlyGrantedPermissions", collectionToJson(loginResult.getRecentlyGrantedPermissions()));
@@ -103,7 +103,8 @@ public class FacebookLogin extends Plugin {
 
                             savedCall.resolve(ret);
 
-                            saveCall(null);
+                            latestCallbackId = null;
+                            bridge.releaseCall(savedCall);
                         }
                     }
 
@@ -111,17 +112,18 @@ public class FacebookLogin extends Plugin {
                     public void onCancel() {
                         Log.d(getLogTag(), "LoginManager.onCancel");
 
-                        PluginCall savedCall = getSavedCall();
-
-                        if (savedCall == null) {
+                        if (latestCallbackId == null) {
                             Log.e(getLogTag(), "LoginManager.onCancel: no plugin saved call found.");
                         } else {
+                            PluginCall savedCall = bridge.getSavedCall(latestCallbackId);
+
                             JSObject ret = new JSObject();
                             ret.put("accessToken", null);
 
                             savedCall.resolve(ret);
 
-                            saveCall(null);
+                            latestCallbackId = null;
+                            bridge.releaseCall(savedCall);
                         }
                     }
 
@@ -129,14 +131,14 @@ public class FacebookLogin extends Plugin {
                     public void onError(FacebookException exception) {
                         Log.e(getLogTag(), "LoginManager.onError", exception);
 
-                        PluginCall savedCall = getSavedCall();
-
-                        if (savedCall == null) {
+                        if (latestCallbackId == null) {
                             Log.e(getLogTag(), "LoginManager.onError: no plugin saved call found.");
                         } else {
+                            PluginCall savedCall = bridge.getSavedCall(latestCallbackId);
                             savedCall.reject(exception.toString());
 
-                            saveCall(null);
+                            latestCallbackId = null;
+                            bridge.releaseCall(savedCall);
                         }
                     }
                 }
@@ -163,9 +165,7 @@ public class FacebookLogin extends Plugin {
     public void login(PluginCall call) {
         Log.d(getLogTag(), "Entering login()");
 
-        PluginCall savedCall = getSavedCall();
-
-        if (savedCall != null) {
+        if (this.latestCallbackId != null) {
             Log.e(getLogTag(), "login: overlapped calls not supported");
 
             call.reject("Overlapped calls call not supported");
@@ -189,7 +189,8 @@ public class FacebookLogin extends Plugin {
 
         LoginManager.getInstance().logIn(this.getActivity(), permissions);
 
-        saveCall(call);
+        this.latestCallbackId = call.getCallbackId();
+        bridge.saveCall(call);
     }
 
     @PluginMethod
@@ -205,9 +206,7 @@ public class FacebookLogin extends Plugin {
     public void reauthorize(PluginCall call) {
         Log.d(getLogTag(), "Entering reauthorize()");
 
-        PluginCall savedCall = getSavedCall();
-
-        if (savedCall != null) {
+        if (this.latestCallbackId != null) {
             Log.e(getLogTag(), "reauthorize: overlapped calls not supported");
 
             call.reject("Overlapped calls call not supported");
@@ -217,7 +216,8 @@ public class FacebookLogin extends Plugin {
 
         LoginManager.getInstance().reauthorizeDataAccess(this.getActivity());
 
-        saveCall(call);
+        this.latestCallbackId = call.getCallbackId();
+        bridge.saveCall(call);
     }
 
     @PluginMethod
