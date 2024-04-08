@@ -304,7 +304,7 @@ public class FacebookLogin extends Plugin {
     @PluginMethod
     public void logEvent(final PluginCall call) {
         Log.d(getLogTag(), "Entering logEvent()");
-        String eventName = call.getString("eventName");
+        String eventName = call.getString("name");
         if (eventName != null) {
             logger.logEvent(eventName);
         }
