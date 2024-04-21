@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/maintenance/yes/2022?style=flat-square" />
+  <img src="https://img.shields.io/maintenance/yes/2024?style=flat-square" />
   <!-- <a href="https://github.com/capacitor-community/example/actions?query=workflow%3A%22CI%22"><img src="https://img.shields.io/github/workflow/status/capacitor-community/example/CI?style=flat-square" /></a> -->
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/l/@capacitor-community/facebook-login?style=flat-square" /></a>
 <br>
@@ -19,7 +19,6 @@
 | Maintainer          | GitHub                                  | Social                                    | Sponsoring Company                             |
 | ------------------- | --------------------------------------- | ----------------------------------------- | ---------------------------------------------- |
 | Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo)     | [@rdlabo](https://twitter.com/rdlabo)     | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION |
-| Stewan Silva        | [stewones](https://github.com/stewones) | [@stewones](https://twitter.com/stewones) | [Intenseloop Inc.](https://intenseloop.com)    |
 
 ## Contributors ✨
 
@@ -45,6 +44,14 @@ If you want to know facebook library version, you should check:
 ```bash
 % npm i --save @capacitor-community/facebook-login
 % npx cap update
+```
+
+### Versions
+
+Users of Capacitor v5 should use version v5 of the Plugin.
+
+```bash
+% npm install @capacitor-community/facebook-login@5
 ```
 
 ### Android configuration
@@ -433,13 +440,17 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 
 Make all properties in T optional
 
-<code>{ [P in keyof T]?: T[P]; }</code>
+<code>{
+ [P in keyof T]?: T[P];
+ }</code>
 
 
 #### Record
 
 Construct a type with a set of properties K of type T
 
-<code>{ [P in K]: T; }</code>
+<code>{
+ [P in K]: T;
+ }</code>
 
 </docgen-api>
