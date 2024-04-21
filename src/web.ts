@@ -41,7 +41,7 @@ declare interface Facebook {
     params: TParams,
     callback: (response: TResponse) => void,
   ): void;
-  logEvent(handle: (response: any) => void, options: { name: string }): void;
+  logEvent(handle: (response: any) => void, options: { eventName: string }): void;
   setAutoLogAppEventsEnabled(
     handle: (response: any) => void,
     options: { enabled: boolean },

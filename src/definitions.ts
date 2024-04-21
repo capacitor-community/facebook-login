@@ -28,7 +28,7 @@ export interface FacebookLoginPlugin {
   getProfile<T extends Record<string, unknown>>(options: {
     fields: readonly string[];
   }): Promise<T>;
-  logEvent(options: { name: string }): Promise<void>;
+  logEvent(options: { eventName: string }): Promise<void>;
   setAutoLogAppEventsEnabled(options: { enabled: boolean }): Promise<void>;
   setAdvertiserTrackingEnabled(options: { enabled: boolean }): Promise<void>;
   setAdvertiserIDCollectionEnabled(options: {
