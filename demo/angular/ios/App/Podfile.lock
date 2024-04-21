@@ -1,0 +1,49 @@
+PODS:
+  - Capacitor (6.0.0-rc.2):
+    - CapacitorCordova
+  - CapacitorCommunityFacebookLogin (6.0.0):
+    - Capacitor
+    - FBSDKCoreKit (= 17.0.0)
+    - FBSDKLoginKit (= 17.0.0)
+  - CapacitorCordova (6.0.0-rc.2)
+  - FBAEMKit (17.0.0):
+    - FBSDKCoreKit_Basics (= 17.0.0)
+  - FBSDKCoreKit (17.0.0):
+    - FBAEMKit (= 17.0.0)
+    - FBSDKCoreKit_Basics (= 17.0.0)
+  - FBSDKCoreKit_Basics (17.0.0)
+  - FBSDKLoginKit (17.0.0):
+    - FBSDKCoreKit (= 17.0.0)
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - CapacitorCommunityFacebookLogin (from `../../../..`)
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+
+SPEC REPOS:
+  trunk:
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorCommunityFacebookLogin:
+    :path: "../../../.."
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+
+SPEC CHECKSUMS:
+  Capacitor: 616838064c270088c3c51e0bb2f57259c09f3d55
+  CapacitorCommunityFacebookLogin: f725f1240b8f7ab300723a668591cb8301341cc4
+  CapacitorCordova: 62056f853503fb402c3bd9ea9b93b30f23d1c1ce
+  FBAEMKit: 31a20c2d8744d8c57d3a5b7ae4e27b4fdd819193
+  FBSDKCoreKit: dac911b656816f8d0b06e5fa4bac60e89505bb3b
+  FBSDKCoreKit_Basics: 92b7b7458d57091370b0b6cc197578874c3b4b16
+  FBSDKLoginKit: 5d5271ebfd1e39c6b071de8db5c4bd6255be3561
+
+PODFILE CHECKSUM: 5a3e712f80ddbdc883b5d7499fca4a61050361b8
+
+COCOAPODS: 1.13.0
