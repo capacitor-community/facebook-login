@@ -50,6 +50,47 @@ public class FacebookLogin: CAPPlugin {
         }
     }
 
+    @objc func limitedLogin(_ call: CAPPluginCall) {
+        guard let permissions = call.getArray("permissions", String.self) else {
+            call.reject("Missing permissions argument")
+            return
+        }
+
+        guard let nonce = call.getString("nonce", String.self) else {
+            nonce = nil
+        }
+
+        guard let tracking = call.getString("tracking", String.self) else {
+            tracking = "limited"
+        }
+
+        // Ensure the configuration object is valid
+        guard let configuration = LoginConfiguration(
+            permissions: permissions,  
+            tracking: tracking == "limited" ? .limited : .enabled,
+            nonce: nonce
+        ) 
+        else {
+            return
+        }
+
+        DispatchQueue.main.async {
+            self.loginManager.logIn(configuration: configuration) { result in
+                switch result {
+                case .cancelled:
+                    print("User cancelled login")
+                    call.resolve()
+                case .failed:
+                    print(error)
+                    call.reject("LoginManager.logIn failed")
+                case .success:
+                    print("Logged in")
+                    return self.getCurrentAccessToken(call)
+                }
+            }
+        }
+    }
+
     @objc func logout(_ call: CAPPluginCall) {
         loginManager.logOut()
 
@@ -93,6 +134,29 @@ public class FacebookLogin: CAPPlugin {
 
         call.resolve([ "accessToken": accessTokenToJson(accessToken) ])
     }
+
+    @objc func getAuthToken(_ call: CAPPluginCall) {
+        guard let authToken = AuthenticationToken.current else {
+            call.resolve()
+            return
+        }
+
+        guard let userProfile = Profile.current else {
+            call.resolve()
+            return
+        }
+
+        call.resolve([ "accessToken": [
+            "token": authToken.tokenString,
+            "profile": [
+                "userId": userProfile.userID,
+                "name": userProfile.name,
+                "email": userProfile.email,
+            ]
+        ]
+        ])
+    }
+
 
     @objc func getProfile(_ call: CAPPluginCall) {
         guard let accessToken = AccessToken.current else {
