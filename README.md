@@ -346,6 +346,8 @@ getCurrentAccessToken() => Promise<FacebookCurrentAccessTokenResponse>
 
 ### getProfile(...)
 
+#### Note: This will return an error if limitedLogin is called instaed of login
+
 ```typescript
 getProfile<T extends Record<string, unknown>>(options: { fields: readonly string[]; }) => Promise<T>
 ```
