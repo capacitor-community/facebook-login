@@ -16,7 +16,7 @@ export interface FacebookLoginResponse {
 }
 
 export interface LimitedFacebookLoginResponse {
-  authToken: {
+  authenticationToken: {
     token: string;
     userId?: string;
     name?: string;

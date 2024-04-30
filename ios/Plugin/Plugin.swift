@@ -62,11 +62,22 @@ public class FacebookLogin: CAPPlugin {
         // Ensure the configuration object is valid
         guard let configuration = LoginConfiguration(
             permissions: permissions,
-            tracking: tracking == "limited" ? .limited : .enabled,
-            nonce: nonce
+            tracking: tracking == "limited" ? .limited : .enabled
         )
         else {
             return
+        }
+
+        if (nonce != "") {
+            // add nonce to the config if provided
+            guard let configuration = LoginConfiguration(
+                permissions: permissions,
+                tracking: tracking == "limited" ? .limited : .enabled,
+                nonce: nonce
+            )
+            else {
+                return
+            }
         }
         
         DispatchQueue.main.async {
@@ -76,11 +87,10 @@ public class FacebookLogin: CAPPlugin {
                     print("User cancelled login")
                     call.resolve()
                 case .failed:
-                    print(error)
                     call.reject("LoginManager.logIn failed")
                 case .success:
                     print("Logged in")
-                    return self.getCurrentAccessToken(call)
+                    return self.getAuthToken(call)
                 }
             }
         }
@@ -131,7 +141,7 @@ public class FacebookLogin: CAPPlugin {
     }
 
     @objc func getAuthToken(_ call: CAPPluginCall) {
-        guard let authToken = AuthenticationToken.current else {
+        guard let authenticationToken = AuthenticationToken.current else {
             call.resolve()
             return
         }
@@ -141,13 +151,11 @@ public class FacebookLogin: CAPPlugin {
             return
         }
 
-        call.resolve([ "accessToken": [
-            "token": authToken.tokenString,
-            "profile": [
-                "userId": userProfile.userID,
-                "name": userProfile.name,
-                "email": userProfile.email,
-            ]
+        call.resolve([ "authenticationToken": [
+            "token": authenticationToken.tokenString,
+            "userId": userProfile.userID,
+            "name": userProfile.name,
+            "email": userProfile.email,
         ]
         ])
     }

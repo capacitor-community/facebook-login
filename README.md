@@ -437,7 +437,7 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 
 | Prop                             | Type                                                        |
 | -------------------------------- | ----------------------------------------------------------- |
-| **`authToken`**                | <code><a href="#authtoken">AuthToken</a> \| null</code> |
+| **`authenticationToken`**                | <code><a href="#authtoken">AuthToken</a> \| null</code> |
 
 #### AccessToken
 
