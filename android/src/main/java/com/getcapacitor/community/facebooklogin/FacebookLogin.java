@@ -195,7 +195,7 @@ public class FacebookLogin extends Plugin {
 
     @PluginMethod
     public void limitedLogin(PluginCall call) {
-        call.reject("Limited login is not supported on Android")
+        call.reject("Limited login is not supported on Android");
     }
 
     @PluginMethod
