@@ -194,4 +194,8 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   async setAdvertiserIDCollectionEnabled(): Promise<void> {
     return Promise.resolve();
   }
+
+  async getDeferredDeepLink(): Promise<{uri: string | undefined}> {
+    return Promise.resolve({uri: undefined});
+  }
 }

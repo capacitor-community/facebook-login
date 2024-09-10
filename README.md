@@ -248,6 +248,7 @@ console.log(`Facebook user's email is ${result.email}`);
 * [`setAutoLogAppEventsEnabled(...)`](#setautologappeventsenabled)
 * [`setAdvertiserTrackingEnabled(...)`](#setadvertisertrackingenabled)
 * [`setAdvertiserIDCollectionEnabled(...)`](#setadvertiseridcollectionenabled)
+* [`getDeferredDeepLink()`](#getdeferreddeeplink)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -378,6 +379,17 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
 | **`options`** | <code>{ enabled: boolean; }</code> |
+
+--------------------
+
+
+### getDeferredDeepLink()
+
+```typescript
+getDeferredDeepLink() => Promise<{ uri: string | undefined; }>
+```
+
+**Returns:** <code>Promise&lt;{ uri: string; }&gt;</code>
 
 --------------------
 

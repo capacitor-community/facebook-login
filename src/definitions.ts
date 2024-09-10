@@ -34,6 +34,7 @@ export interface FacebookLoginPlugin {
   setAdvertiserIDCollectionEnabled(options: {
     enabled: boolean;
   }): Promise<void>;
+  getDeferredDeepLink(): Promise<{ uri: string | undefined }>;
 }
 
 export interface FacebookGetLoginStatusResponse {
