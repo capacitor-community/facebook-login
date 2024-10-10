@@ -38,7 +38,7 @@ public class FacebookLogin: CAPPlugin {
             self.loginManager.logIn(permissions: permissions, from: self.bridge?.viewController) { result, error in
                 if let error = error {
                     print(error)
-                    call.reject("LoginManager.logIn failed")
+                    call.reject("LoginManager.logIn failed", nil, error)          
                 } else if let result = result, result.isCancelled {
                     print("User cancelled login")
                     call.resolve()
