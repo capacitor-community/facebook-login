@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookRequestError;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
@@ -22,18 +24,14 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import com.getcapacitor.annotation.Permission;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.Set;
-import java.util.TimeZone;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@NativePlugin(requestCodes = { FacebookLogin.FACEBOOK_SDK_REQUEST_CODE_OFFSET })
+@CapacitorPlugin(requestCodes = { FacebookLogin.FACEBOOK_SDK_REQUEST_CODE_OFFSET })
 public class FacebookLogin extends Plugin {
 
     CallbackManager callbackManager;
@@ -127,7 +125,7 @@ public class FacebookLogin extends Plugin {
                     }
 
                     @Override
-                    public void onError(FacebookException exception) {
+                    public void onError(@NonNull FacebookException exception) {
                         Log.e(getLogTag(), "LoginManager.onError", exception);
 
                         if (latestCallbackId == null) {
@@ -142,17 +140,6 @@ public class FacebookLogin extends Plugin {
                     }
                 }
             );
-    }
-
-    @Override
-    protected void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(getLogTag(), "Entering handleOnActivityResult(" + requestCode + ", " + resultCode + ")");
-
-        if (callbackManager.onActivityResult(requestCode, resultCode, data)) {
-            Log.d(getLogTag(), "onActivityResult succeeded");
-        } else {
-            Log.w(getLogTag(), "onActivityResult failed");
-        }
     }
 
     @PluginMethod

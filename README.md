@@ -39,7 +39,6 @@ Made with [contributors-img](https://contrib.rocks).
 % npx cap update
 ```
 
-
 ### Versions
 
 Users of Capacitor v5 should use version v5 of the Plugin.
