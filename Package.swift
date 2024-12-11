@@ -19,12 +19,13 @@ let package = Package(
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm"),
+                .product(name: "FBSDKCoreKit", package: "facebook-ios-sdk"),
                 .product(name: "FBSDKLoginKit", package: "facebook-ios-sdk"),
             ],
-            path: "ios/Sources/FacebookLogin"),
+            path: "ios/Sources/FacebookLoginPlugin"),
         .testTarget(
-            name: "FacebookLoginTests",
-            dependencies: ["FacebookLogin"],
-            path: "ios/Tests/FacebookLoginTests")
+            name: "FacebookLoginPluginTests",
+            dependencies: ["FacebookLoginPlugin"],
+            path: "ios/Tests/FacebookLoginPluginTests")
     ]
 )
