@@ -78,11 +78,11 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
 
         if nonce != "" {
             // add nonce to the config if provided
-            guard let configuration = LoginConfiguration(
+            guard LoginConfiguration(
                 permissions: permissions,
                 tracking: tracking == "limited" ? .limited : .enabled,
                 nonce: nonce
-            )
+            ) != nil
             else {
                 return
             }
