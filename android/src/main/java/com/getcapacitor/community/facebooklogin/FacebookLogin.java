@@ -300,4 +300,22 @@ public class FacebookLogin extends Plugin {
             logger.logEvent(eventName);
         }
     }
+
+    @PluginMethod
+    public void setAutoLogAppEventsEnabled(final PluginCall call) {
+        Log.d(getLogTag(), "Entering setAutoLogAppEventsEnabled()");
+        Boolean enabled = call.getBoolean("enabled");
+        if (enabled != null) {
+            FacebookSdk.setAutoLogAppEventsEnabled(enabled);
+        }
+    }
+
+    @PluginMethod
+    public void setAdvertiserIDCollectionEnabled(final PluginCall call) {
+        Log.d(getLogTag(), "Entering setAdvertiserIDCollectionEnabled()");
+        Boolean enabled = call.getBoolean("enabled");
+        if (enabled != null) {
+            FacebookSdk.setAdvertiserIDCollectionEnabled(enabled);
+        }
+    }
 }
