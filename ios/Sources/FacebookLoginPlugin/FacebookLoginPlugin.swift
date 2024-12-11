@@ -1,5 +1,6 @@
 import Foundation
 import Capacitor
+import FBSDKLoginKit
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
@@ -22,6 +23,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "setAdvertiserTrackingEnabled", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setAdvertiserIDCollectionEnabled", returnType: CAPPluginReturnPromise)
     ]
+    
     private let loginManager = LoginManager()
     private let dateFormatter = ISO8601DateFormatter()
 
@@ -52,7 +54,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
             self.loginManager.logIn(permissions: permissions, from: self.bridge?.viewController) { result, error in
                 if let error = error {
                     print(error)
-                    call.reject("LoginManager.logIn failed", nil, error.localizedDescription)
+                    call.reject("LoginManager.logIn failed", nil, error.localizedDescription as! Error)
                 } else if let result = result, result.isCancelled {
                     print("User cancelled login")
                     call.resolve()
