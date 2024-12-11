@@ -19,6 +19,7 @@ DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - CapacitorCommunityFacebookLogin (from `../../../..`)
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - FBSDKCoreKit
 
 SPEC REPOS:
   trunk:
@@ -44,6 +45,6 @@ SPEC CHECKSUMS:
   FBSDKCoreKit_Basics: 151b43db8b834d3f0e02f95d36a44ffd36265e45
   FBSDKLoginKit: 5c1cd53c91a2282b3a4fe6e6d3dcf2b8b0d33d55
 
-PODFILE CHECKSUM: 5a3e712f80ddbdc883b5d7499fca4a61050361b8
+PODFILE CHECKSUM: 261d3a45a6d44f5e4821964879ce66de99e0f3fa
 
 COCOAPODS: 1.15.2

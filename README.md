@@ -32,19 +32,13 @@ Made with [contributors-img](https://contrib.rocks).
 
 [Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
 
-## Dependency version
-
-If you want to know facebook library version, you should check:
-
-- [iOS](https://github.com/capacitor-community/facebook-login/blob/master/CapacitorCommunityFacebookLogin.podspec#L18-L19)
-- [Android](https://github.com/capacitor-community/facebook-login/blob/master/android/build.gradle#L52)
-
 ## Installation
 
 ```bash
 % npm i --save @capacitor-community/facebook-login
 % npx cap update
 ```
+
 
 ### Versions
 
@@ -53,6 +47,8 @@ Users of Capacitor v5 should use version v5 of the Plugin.
 ```bash
 % npm install @capacitor-community/facebook-login@5
 ```
+
+## Configuration
 
 ### Android configuration
 
@@ -74,11 +70,17 @@ Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook applica
 
 More information can be found here: https://developers.facebook.com/docs/android/getting-started
 
-#### If you have trouble.
-
-Please restart Android Studio, and do clean build.
-
 ### iOS configuration
+
+In file `ios/App/Podfile` add the following:
+
+```diff
+  target 'App' do
+    capacitor_pods
+    # Add your Pods here
++   pod 'FBSDKCoreKit'
+  end
+```
 
 In file `ios/App/App/AppDelegate.swift` add or replace the following:
 
@@ -463,13 +465,17 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 
 Make all properties in T optional
 
-<code>{ [P in keyof T]?: T[P]; }</code>
+<code>{
+ [P in keyof T]?: T[P];
+ }</code>
 
 
 #### Record
 
 Construct a type with a set of properties K of type T
 
-<code>{ [P in K]: T; }</code>
+<code>{
+ [P in K]: T;
+ }</code>
 
 </docgen-api>
