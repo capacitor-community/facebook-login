@@ -28,12 +28,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
     private let dateFormatter = ISO8601DateFormatter()
 
     override public func load() {
-        if #available(iOS 11.2, *) {
-            dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        } else {
-            dateFormatter.formatOptions = [.withInternetDateTime]
-        }
-
+        dateFormatter.formatOptions = [.withInternetDateTime]
     }
 
     private func dateToJS(_ date: Date) -> String {
@@ -53,13 +48,10 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
         DispatchQueue.main.async {
             self.loginManager.logIn(permissions: permissions, from: self.bridge?.viewController) { result, error in
                 if let error = error {
-                    print(error)
-                    call.reject("LoginManager.logIn failed", nil, error.localizedDescription as! Error)
+                    call.reject("LoginManager.logIn failed", nil, error)
                 } else if let result = result, result.isCancelled {
-                    print("User cancelled login")
                     call.resolve()
                 } else {
-                    print("Logged in")
                     return self.getCurrentAccessToken(call)
                 }
             }
@@ -114,7 +106,6 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
 
     @objc func logout(_ call: CAPPluginCall) {
         loginManager.logOut()
-
         call.resolve()
     }
 
@@ -222,11 +213,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func setAdvertiserTrackingEnabled(_ call: CAPPluginCall) {
-        if let enabled = call.getBool("enabled") {
-            Settings.shared.isAdvertiserTrackingEnabled = enabled
-        } else {
-            Settings.shared.isAdvertiserTrackingEnabled = false
-        }
+        Settings.shared.isAdvertiserTrackingEnabled = call.getBool("enabled", false)
         call.resolve()
     }
 
