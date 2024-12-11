@@ -7,7 +7,22 @@ import FBSDKLoginKit
  * here: https://capacitor.ionicframework.com/docs/plugins/ios
  */
 @objc(FacebookLogin)
-public class FacebookLogin: CAPPlugin {
+public class FacebookLogin: CAPPlugin, CAPBridgedPlugin {
+    public let identifier = "FacebookLogin" 
+    public let jsName = "FacebookLogin" 
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "initialize", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "login", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "limitedLogin", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "logout", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getCurrentAccessToken", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getProfile", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "reauthorize", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "logEvent", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setAutoLogAppEventsEnabled", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setAdvertiserTrackingEnabled", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setAdvertiserIDCollectionEnabled", returnType: CAPPluginReturnPromise),
+    ] 
     private let loginManager = LoginManager()
     private let dateFormatter = ISO8601DateFormatter()
 
@@ -38,7 +53,7 @@ public class FacebookLogin: CAPPlugin {
             self.loginManager.logIn(permissions: permissions, from: self.bridge?.viewController) { result, error in
                 if let error = error {
                     print(error)
-                    call.reject("LoginManager.logIn failed", nil, error.localizedDescription)          
+                    call.reject("LoginManager.logIn failed", nil, error.localizedDescription)
                 } else if let result = result, result.isCancelled {
                     print("User cancelled login")
                     call.resolve()
@@ -58,7 +73,7 @@ public class FacebookLogin: CAPPlugin {
 
         let nonce = call.getString("nonce") ?? ""
         let tracking = call.getString("tracking") ?? "limited"
-        
+
         // Ensure the configuration object is valid
         guard let configuration = LoginConfiguration(
             permissions: permissions,
@@ -79,7 +94,7 @@ public class FacebookLogin: CAPPlugin {
                 return
             }
         }
-        
+
         DispatchQueue.main.async {
             self.loginManager.logIn(configuration: configuration) { result in
                 switch result {
