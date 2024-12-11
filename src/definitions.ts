@@ -15,6 +15,15 @@ export interface FacebookLoginResponse {
   recentlyDeniedPermissions?: string[];
 }
 
+export interface LimitedFacebookLoginResponse {
+  authenticationToken: {
+    token: string;
+    userId?: string;
+    name?: string;
+    email?: string;
+  }
+}
+
 export interface FacebookCurrentAccessTokenResponse {
   accessToken: AccessToken | null;
 }
@@ -22,6 +31,11 @@ export interface FacebookCurrentAccessTokenResponse {
 export interface FacebookLoginPlugin {
   initialize(options: Partial<FacebookConfiguration>): Promise<void>;
   login(options: { permissions: string[] }): Promise<FacebookLoginResponse>;
+  limitedLogin(options: {
+    permissions: string[];
+    tracking?: 'limited' | 'enabled';
+    nonce?: string;
+  }): Promise<LimitedFacebookLoginResponse>;
   logout(): Promise<void>;
   reauthorize(): Promise<FacebookLoginResponse>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
