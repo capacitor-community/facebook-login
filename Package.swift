@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", branch: "main"),
-        .package(url: "https://github.com/facebook/facebook-ios-sdk.git", branch: "main",
+        .package(url: "https://github.com/facebook/facebook-ios-sdk.git", branch: "main")
     ],
     targets: [
         .target(
@@ -20,7 +20,7 @@ let package = Package(
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm"),
                 .product(name: "FBSDKCoreKit", package: "facebook-ios-sdk"),
-                .product(name: "FBSDKLoginKit", package: "facebook-ios-sdk"),
+                .product(name: "FBSDKLoginKit", package: "facebook-ios-sdk")
             ],
             path: "ios/Sources/FacebookLoginPlugin"),
         .testTarget(

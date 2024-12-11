@@ -7,12 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { Tab2Page } from './tab2.page';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild([{ path: '', component: Tab2Page }]),
-  ],
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule.forChild([{ path: '', component: Tab2Page }])],
   declarations: [Tab2Page],
 })
 export class Tab2PageModule {}

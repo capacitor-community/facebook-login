@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import  { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import type { Routes } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { AuthPage } from './auth.page';
@@ -15,12 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes),
-  ],
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule.forChild(routes)],
   declarations: [AuthPage],
 })
 export class AuthPageModule {}

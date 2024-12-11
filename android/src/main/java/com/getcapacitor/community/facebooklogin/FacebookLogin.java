@@ -82,8 +82,7 @@ public class FacebookLogin extends Plugin {
         this.callbackManager = CallbackManager.Factory.create();
         this.logger = AppEventsLogger.newLogger(getContext());
 
-        LoginManager
-            .getInstance()
+        LoginManager.getInstance()
             .registerCallback(
                 callbackManager,
                 new FacebookCallback<LoginResult>() {

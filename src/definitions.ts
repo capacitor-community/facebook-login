@@ -21,7 +21,7 @@ export interface LimitedFacebookLoginResponse {
     userId?: string;
     name?: string;
     email?: string;
-  }
+  };
 }
 
 export interface FacebookCurrentAccessTokenResponse {
@@ -39,15 +39,11 @@ export interface FacebookLoginPlugin {
   logout(): Promise<void>;
   reauthorize(): Promise<FacebookLoginResponse>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
-  getProfile<T extends Record<string, unknown>>(options: {
-    fields: readonly string[];
-  }): Promise<T>;
+  getProfile<T extends Record<string, unknown>>(options: { fields: readonly string[] }): Promise<T>;
   logEvent(options: { eventName: string }): Promise<void>;
   setAutoLogAppEventsEnabled(options: { enabled: boolean }): Promise<void>;
   setAdvertiserTrackingEnabled(options: { enabled: boolean }): Promise<void>;
-  setAdvertiserIDCollectionEnabled(options: {
-    enabled: boolean;
-  }): Promise<void>;
+  setAdvertiserIDCollectionEnabled(options: { enabled: boolean }): Promise<void>;
 }
 
 export interface FacebookGetLoginStatusResponse {
