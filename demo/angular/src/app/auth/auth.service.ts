@@ -15,14 +15,14 @@ export class AuthService {
     return !(result === undefined || !result.accessToken);
   }
 
-  async getEmail(): Promise<string> {
+  async getEmail(): Promise<string | undefined> {
     const result = await FacebookLogin.getProfile<{
       email: string;
     }>({
       fields: ['email'],
     }).catch(() => undefined);
     if (result === undefined) {
-      return null;
+      return undefined;
     }
     return result.email;
   }

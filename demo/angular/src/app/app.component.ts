@@ -3,8 +3,9 @@ import { FacebookLogin } from '@capacitor-community/facebook-login';
 import { Platform } from '@ionic/angular';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    standalone: false
 })
 export class AppComponent {
   constructor(private platform: Platform) {

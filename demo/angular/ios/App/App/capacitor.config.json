@@ -4,7 +4,6 @@
 	"npmClient": "yarn",
 	"webDir": "www",
 	"packageClassList": [
-		"FacebookLogin",
-		"FacebookLogin"
+		"FacebookLoginPlugin"
 	]
 }
