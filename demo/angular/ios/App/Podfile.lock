@@ -1,7 +1,7 @@
 PODS:
   - Capacitor (6.2.0):
     - CapacitorCordova
-  - CapacitorCommunityFacebookLogin (6.0.0):
+  - CapacitorCommunityFacebookLogin (6.1.0-0):
     - Capacitor
     - FBSDKCoreKit (= 17.4.0)
     - FBSDKLoginKit (= 17.4.0)
@@ -38,7 +38,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Capacitor: 1f3c7b9802d958cd8c4eb63895fff85dff2e1eea
-  CapacitorCommunityFacebookLogin: 5e0900d0f45e8d8649a4e68bd736e88a1a297186
+  CapacitorCommunityFacebookLogin: b4feb493146d7f2ec7bcd9ef9e3a956ce8e41250
   CapacitorCordova: b33e7f4aa4ed105dd43283acdd940964374a87d9
   FBAEMKit: 58cb5f302cdd715a56d4c1d0dfdd2e423ac1421a
   FBSDKCoreKit: 94d7461d0cecf441b1ba7c41acfff41daa8ccd41
