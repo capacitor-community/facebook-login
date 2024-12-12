@@ -29,6 +29,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
 
     override public func load() {
         dateFormatter.formatOptions = [.withInternetDateTime]
+        loginManager.logOut()
     }
 
     private func dateToJS(_ date: Date) -> String {
