@@ -159,7 +159,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
             return
         }
 
-        call.resolve([ "authenticationToken": [
+        call.resolve([ "accessToken": [
             "token": authenticationToken.tokenString,
             "userId": userProfile.userID,
             "name": userProfile.name,
