@@ -14,7 +14,6 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "initialize", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "login", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "limitedLogin", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "logout", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "getCurrentAccessToken", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "getProfile", returnType: CAPPluginReturnPromise),
@@ -24,13 +23,12 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "setAdvertiserTrackingEnabled", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setAdvertiserIDCollectionEnabled", returnType: CAPPluginReturnPromise)
     ]
-    
+
     private let loginManager = LoginManager()
     private let dateFormatter = ISO8601DateFormatter()
 
     override public func load() {
         dateFormatter.formatOptions = [.withInternetDateTime]
-        loginManager.logOut()
     }
 
     private func dateToJS(_ date: Date) -> String {
@@ -42,25 +40,6 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func login(_ call: CAPPluginCall) {
-        guard let permissions = call.getArray("permissions", String.self) else {
-            call.reject("Missing permissions argument")
-            return
-        }
-
-        DispatchQueue.main.async {
-            self.loginManager.logIn(permissions: permissions, from: self.bridge?.viewController) { result, error in
-                if let error = error {
-                    call.reject("LoginManager.logIn failed", nil, error)
-                } else if let result = result, result.isCancelled {
-                    call.resolve()
-                } else {
-                    return self.getCurrentAccessToken(call)
-                }
-            }
-        }
-    }
-
-    @objc func limitedLogin(_ call: CAPPluginCall) {
         guard let permissions = call.getArray("permissions", String.self) else {
             call.reject("Missing permissions argument")
             return
@@ -82,7 +61,6 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
                 tracking: tracking == "limited" ? .limited : .enabled,
                 nonce: self.sha256(nonce)
             )
-            print(nonce)
         }
 
         guard let _ = configuration else {
@@ -100,7 +78,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
                     call.reject("LoginManager.logIn failed")
                 case .success:
                     print("Logged in")
-                    return self.getAuthToken(call)
+                    return self.getCurrentAccessToken(call)
                 }
             }
         }
@@ -134,28 +112,7 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
         }
     }
 
-    private func accessTokenToJson(_ accessToken: AccessToken) -> [String: Any?] {
-        return [
-            "applicationId": accessToken.appID,
-            /*declinedPermissions: accessToken.declinedPermissions,*/
-            "expires": dateToJS(accessToken.expirationDate),
-            "lastRefresh": dateToJS(accessToken.refreshDate),
-            /*permissions: accessToken.grantedPermissions,*/
-            "token": accessToken.tokenString,
-            "userId": accessToken.userID
-        ]
-    }
-
     @objc func getCurrentAccessToken(_ call: CAPPluginCall) {
-        guard let accessToken = AccessToken.current else {
-            call.resolve()
-            return
-        }
-
-        call.resolve([ "accessToken": accessTokenToJson(accessToken) ])
-    }
-
-    @objc func getAuthToken(_ call: CAPPluginCall) {
         guard let authenticationToken = AuthenticationToken.current else {
             call.resolve()
             return

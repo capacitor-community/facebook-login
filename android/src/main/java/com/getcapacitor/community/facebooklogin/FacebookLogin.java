@@ -2,11 +2,10 @@ package com.getcapacitor.community.facebooklogin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.data.NetworkSliceInfo;
 import android.text.TextUtils;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -16,6 +15,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginConfiguration;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.getcapacitor.JSArray;
@@ -25,6 +25,9 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -40,39 +43,6 @@ public class FacebookLogin extends Plugin {
     public static final int FACEBOOK_SDK_REQUEST_CODE_OFFSET = 0xface;
     private AppEventsLogger logger;
     private String latestCallbackId;
-
-    /**
-     * Convert date to ISO 8601 format.
-     */
-    private String dateToJson(Date date) {
-        SimpleDateFormat simpleDateFormat;
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ", Locale.ENGLISH);
-        return simpleDateFormat.format(date);
-    }
-
-    private JSArray collectionToJson(Collection<String> list) {
-        JSArray json = new JSArray();
-
-        for (String item : list) {
-            json.put(item);
-        }
-
-        return json;
-    }
-
-    private JSObject accessTokenToJson(AccessToken accessToken) {
-        JSObject ret = new JSObject();
-        ret.put("applicationId", accessToken.getApplicationId());
-        ret.put("declinedPermissions", collectionToJson(accessToken.getDeclinedPermissions()));
-        ret.put("expires", dateToJson(accessToken.getExpires()));
-        ret.put("lastRefresh", dateToJson(accessToken.getLastRefresh()));
-        ret.put("permissions", collectionToJson(accessToken.getPermissions()));
-        ret.put("token", accessToken.getToken());
-        ret.put("userId", accessToken.getUserId());
-        ret.put("isExpired", accessToken.isExpired());
-
-        return ret;
-    }
 
     @Override
     public void load() {
@@ -154,35 +124,32 @@ public class FacebookLogin extends Plugin {
 
         if (this.latestCallbackId != null) {
             Log.e(getLogTag(), "login: overlapped calls not supported");
-
             call.reject("Overlapped calls call not supported");
-
             return;
         }
 
         JSArray arg = call.getArray("permissions");
-
         Collection<String> permissions;
-
         try {
             permissions = arg.toList();
         } catch (Exception e) {
             Log.e(getLogTag(), "login: invalid 'permissions' argument", e);
-
             call.reject("Invalid permissions argument");
-
             return;
         }
 
-        LoginManager.getInstance().logIn(this.getActivity(), permissions);
+        String nonce = call.getString("nonce", "");
+
+        if (nonce.isEmpty()) {
+            LoginConfiguration configuration = new LoginConfiguration(permissions);
+            LoginManager.getInstance().logIn(this.getActivity(), configuration);
+        } else {
+            LoginConfiguration configuration = new LoginConfiguration(permissions, hashWithSha256(nonce));
+            LoginManager.getInstance().logIn(this.getActivity(), configuration);
+        }
 
         this.latestCallbackId = call.getCallbackId();
         bridge.saveCall(call);
-    }
-
-    @PluginMethod
-    public void limitedLogin(PluginCall call) {
-        call.unavailable("Not available in Android.");
     }
 
     @PluginMethod
@@ -317,6 +284,72 @@ public class FacebookLogin extends Plugin {
         Boolean enabled = call.getBoolean("enabled");
         if (enabled != null) {
             FacebookSdk.setAdvertiserIDCollectionEnabled(enabled);
+        }
+    }
+
+    @Override
+    protected void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(getLogTag(), "Entering handleOnActivityResult(" + requestCode + ", " + resultCode + ")");
+
+        if (callbackManager.onActivityResult(requestCode, resultCode, data)) {
+            Log.d(getLogTag(), "onActivityResult succeeded");
+        } else {
+            Log.w(getLogTag(), "onActivityResult failed");
+        }
+    }
+
+    /**
+     * Convert date to ISO 8601 format.
+     */
+    private String dateToJson(Date date) {
+        SimpleDateFormat simpleDateFormat;
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ", Locale.ENGLISH);
+        return simpleDateFormat.format(date);
+    }
+
+    private JSArray collectionToJson(Collection<String> list) {
+        JSArray json = new JSArray();
+
+        for (String item : list) {
+            json.put(item);
+        }
+
+        return json;
+    }
+
+    private JSObject accessTokenToJson(AccessToken accessToken) {
+        JSObject ret = new JSObject();
+        ret.put("applicationId", accessToken.getApplicationId());
+        ret.put("declinedPermissions", collectionToJson(accessToken.getDeclinedPermissions()));
+        ret.put("expires", dateToJson(accessToken.getExpires()));
+        ret.put("lastRefresh", dateToJson(accessToken.getLastRefresh()));
+        ret.put("permissions", collectionToJson(accessToken.getPermissions()));
+        ret.put("token", accessToken.getToken());
+        ret.put("userId", accessToken.getUserId());
+        ret.put("isExpired", accessToken.isExpired());
+
+        return ret;
+    }
+
+    private static String hashWithSha256(String input) {
+        try {
+            // SHA-256 ハッシュを生成
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(input.getBytes());
+
+            // バイト配列を16進数文字列に変換
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0'); // 1桁の場合、先頭に0を追加
+                }
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256アルゴリズムが見つかりません", e);
         }
     }
 }

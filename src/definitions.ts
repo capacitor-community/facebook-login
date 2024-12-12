@@ -30,16 +30,19 @@ export interface FacebookCurrentAccessTokenResponse {
 
 export interface FacebookLoginPlugin {
   initialize(options: Partial<FacebookConfiguration>): Promise<void>;
-  login(options: { permissions: string[] }): Promise<FacebookLoginResponse>;
-  limitedLogin(options: {
+  login(options: {
     permissions: string[];
+    /**
+     * Limited Login: iOS Only.
+     * https://developers.facebook.com/docs/facebook-login/limited-login/ios/
+     */
     tracking?: 'limited' | 'enabled';
     /**
      * A random string used to verify the identity of the person who is logging in.
      * This requires raw string, not sha256 hash.
      */
     nonce?: string;
-  }): Promise<LimitedFacebookLoginResponse>;
+  }): Promise<FacebookLoginResponse>;
   logout(): Promise<void>;
   reauthorize(): Promise<FacebookLoginResponse>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;

@@ -248,7 +248,6 @@ console.log(`Facebook user's email is ${result.email}`);
 
 * [`initialize(...)`](#initialize)
 * [`login(...)`](#login)
-* [`limitedLogin(...)`](#limitedlogin)
 * [`logout()`](#logout)
 * [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
@@ -281,29 +280,14 @@ initialize(options: Partial<FacebookConfiguration>) => Promise<void>
 ### login(...)
 
 ```typescript
-login(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>
-```
-
-| Param         | Type                                    |
-| ------------- | --------------------------------------- |
-| **`options`** | <code>{ permissions: string[]; }</code> |
-
-**Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
-
---------------------
-
-
-### limitedLogin(...)
-
-```typescript
-limitedLogin(options: { permissions: string[]; tracking?: 'limited' | 'enabled'; nonce?: string; }) => Promise<LimitedFacebookLoginResponse>
+login(options: { permissions: string[]; tracking?: 'limited' | 'enabled'; nonce?: string; }) => Promise<FacebookLoginResponse>
 ```
 
 | Param         | Type                                                                                       |
 | ------------- | ------------------------------------------------------------------------------------------ |
 | **`options`** | <code>{ permissions: string[]; tracking?: 'limited' \| 'enabled'; nonce?: string; }</code> |
 
-**Returns:** <code>Promise&lt;<a href="#limitedfacebookloginresponse">LimitedFacebookLoginResponse</a>&gt;</code>
+**Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
 
 --------------------
 
@@ -441,13 +425,6 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 | **`permissions`**         | <code>string[]</code> |
 | **`token`**               | <code>string</code>   |
 | **`userId`**              | <code>string</code>   |
-
-
-#### LimitedFacebookLoginResponse
-
-| Prop                      | Type                                                                            |
-| ------------------------- | ------------------------------------------------------------------------------- |
-| **`authenticationToken`** | <code>{ token: string; userId?: string; name?: string; email?: string; }</code> |
 
 
 #### FacebookCurrentAccessTokenResponse
