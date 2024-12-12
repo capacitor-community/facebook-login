@@ -1,6 +1,7 @@
 import Foundation
 import Capacitor
 import FBSDKLoginKit
+import CryptoKit
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
@@ -68,25 +69,25 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
         let nonce = call.getString("nonce") ?? ""
         let tracking = call.getString("tracking") ?? "limited"
 
-        // Ensure the configuration object is valid
-        guard let configuration = LoginConfiguration(
-            permissions: permissions,
-            tracking: tracking == "limited" ? .limited : .enabled
-        )
-        else {
-            return
-        }
+        var configuration: LoginConfiguration?
 
-        if nonce != "" {
-            // add nonce to the config if provided
-            guard LoginConfiguration(
+        if nonce.isEmpty {
+            configuration = LoginConfiguration(
+                permissions: permissions,
+                tracking: tracking == "limited" ? .limited : .enabled
+            )
+        } else {
+            configuration = LoginConfiguration(
                 permissions: permissions,
                 tracking: tracking == "limited" ? .limited : .enabled,
-                nonce: nonce
-            ) != nil
-            else {
-                return
-            }
+                nonce: self.sha256(nonce)
+            )
+            print(nonce)
+        }
+
+        guard let _ = configuration else {
+            // エラー処理
+            return
         }
 
         DispatchQueue.main.async {
@@ -103,6 +104,12 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
                 }
             }
         }
+    }
+
+    func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashed = SHA256.hash(data: inputData)
+        return hashed.compactMap { String(format: "%02x", $0) }.joined()
     }
 
     @objc func logout(_ call: CAPPluginCall) {

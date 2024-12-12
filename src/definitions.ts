@@ -34,6 +34,10 @@ export interface FacebookLoginPlugin {
   limitedLogin(options: {
     permissions: string[];
     tracking?: 'limited' | 'enabled';
+    /**
+     * A random string used to verify the identity of the person who is logging in.
+     * This requires raw string, not sha256 hash.
+     */
     nonce?: string;
   }): Promise<LimitedFacebookLoginResponse>;
   logout(): Promise<void>;
