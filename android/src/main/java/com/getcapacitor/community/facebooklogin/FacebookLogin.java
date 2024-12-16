@@ -194,6 +194,11 @@ public class FacebookLogin extends Plugin {
     }
 
     @PluginMethod
+    public void limitedLogin(PluginCall call) {
+        call.unavailable("Not available in Android.");
+    }
+
+    @PluginMethod
     public void logout(PluginCall call) {
         Log.d(getLogTag(), "Entering logout()");
 
@@ -307,6 +312,24 @@ public class FacebookLogin extends Plugin {
         String eventName = call.getString("eventName");
         if (eventName != null) {
             logger.logEvent(eventName);
+        }
+    }
+
+    @PluginMethod
+    public void setAutoLogAppEventsEnabled(final PluginCall call) {
+        Log.d(getLogTag(), "Entering setAutoLogAppEventsEnabled()");
+        Boolean enabled = call.getBoolean("enabled");
+        if (enabled != null) {
+            FacebookSdk.setAutoLogAppEventsEnabled(enabled);
+        }
+    }
+
+    @PluginMethod
+    public void setAdvertiserIDCollectionEnabled(final PluginCall call) {
+        Log.d(getLogTag(), "Entering setAdvertiserIDCollectionEnabled()");
+        Boolean enabled = call.getBoolean("enabled");
+        if (enabled != null) {
+            FacebookSdk.setAdvertiserIDCollectionEnabled(enabled);
         }
     }
 }
