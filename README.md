@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/maintenance/yes/2022?style=flat-square" />
+  <img src="https://img.shields.io/maintenance/yes/2024?style=flat-square" />
   <!-- <a href="https://github.com/capacitor-community/example/actions?query=workflow%3A%22CI%22"><img src="https://img.shields.io/github/workflow/status/capacitor-community/example/CI?style=flat-square" /></a> -->
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/l/@capacitor-community/facebook-login?style=flat-square" /></a>
 <br>
@@ -19,7 +19,6 @@
 | Maintainer          | GitHub                                  | Social                                    | Sponsoring Company                             |
 | ------------------- | --------------------------------------- | ----------------------------------------- | ---------------------------------------------- |
 | Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo)     | [@rdlabo](https://twitter.com/rdlabo)     | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION |
-| Stewan Silva        | [stewones](https://github.com/stewones) | [@stewones](https://twitter.com/stewones) | [Intenseloop Inc.](https://intenseloop.com)    |
 
 ## Contributors ✨
 
@@ -45,6 +44,14 @@ If you want to know facebook library version, you should check:
 ```bash
 % npm i --save @capacitor-community/facebook-login
 % npx cap update
+```
+
+### Versions
+
+Users of Capacitor v5 should use version v5 of the Plugin.
+
+```bash
+% npm install @capacitor-community/facebook-login@5
 ```
 
 ### Android configuration
@@ -240,6 +247,7 @@ console.log(`Facebook user's email is ${result.email}`);
 
 * [`initialize(...)`](#initialize)
 * [`login(...)`](#login)
+* [`limitedLogin(...)`](#limitedlogin)
 * [`logout()`](#logout)
 * [`reauthorize()`](#reauthorize)
 * [`getCurrentAccessToken()`](#getcurrentaccesstoken)
@@ -281,6 +289,21 @@ login(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>
 | **`options`** | <code>{ permissions: string[]; }</code> |
 
 **Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
+
+--------------------
+
+
+### limitedLogin(...)
+
+```typescript
+limitedLogin(options: { permissions: string[]; tracking?: 'limited' | 'enabled'; nonce?: string; }) => Promise<LimitedFacebookLoginResponse>
+```
+
+| Param         | Type                                                                                       |
+| ------------- | ------------------------------------------------------------------------------------------ |
+| **`options`** | <code>{ permissions: string[]; tracking?: 'limited' \| 'enabled'; nonce?: string; }</code> |
+
+**Returns:** <code>Promise&lt;<a href="#limitedfacebookloginresponse">LimitedFacebookLoginResponse</a>&gt;</code>
 
 --------------------
 
@@ -429,6 +452,13 @@ getDeferredDeepLink() => Promise<{ uri: string | undefined; }>
 | **`permissions`**         | <code>string[]</code> |
 | **`token`**               | <code>string</code>   |
 | **`userId`**              | <code>string</code>   |
+
+
+#### LimitedFacebookLoginResponse
+
+| Prop                      | Type                                                                            |
+| ------------------------- | ------------------------------------------------------------------------------- |
+| **`authenticationToken`** | <code>{ token: string; userId?: string; name?: string; email?: string; }</code> |
 
 
 #### FacebookCurrentAccessTokenResponse
