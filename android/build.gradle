@@ -51,5 +51,5 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation 'com.facebook.android:facebook-login:17.0.0'
-    implementation 'com.facebook.android:facebook-applinks:16.0.1'
+    implementation 'com.facebook.android:facebook-applinks:17.0.0'
 }

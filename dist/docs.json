@@ -1,0 +1,402 @@
+{
+  "api": {
+    "name": "FacebookLoginPlugin",
+    "slug": "facebookloginplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "initialize",
+        "signature": "(options: Partial<FacebookConfiguration>) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "Partial<FacebookConfiguration>"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "Partial",
+          "FacebookConfiguration"
+        ],
+        "slug": "initialize"
+      },
+      {
+        "name": "login",
+        "signature": "(options: { permissions: string[]; }) => Promise<FacebookLoginResponse>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ permissions: string[]; }"
+          }
+        ],
+        "returns": "Promise<FacebookLoginResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "FacebookLoginResponse"
+        ],
+        "slug": "login"
+      },
+      {
+        "name": "limitedLogin",
+        "signature": "(options: { permissions: string[]; tracking?: 'limited' | 'enabled'; nonce?: string; }) => Promise<LimitedFacebookLoginResponse>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ permissions: string[]; tracking?: 'limited' | 'enabled' | undefined; nonce?: string | undefined; }"
+          }
+        ],
+        "returns": "Promise<LimitedFacebookLoginResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "LimitedFacebookLoginResponse"
+        ],
+        "slug": "limitedlogin"
+      },
+      {
+        "name": "logout",
+        "signature": "() => Promise<void>",
+        "parameters": [],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "logout"
+      },
+      {
+        "name": "reauthorize",
+        "signature": "() => Promise<FacebookLoginResponse>",
+        "parameters": [],
+        "returns": "Promise<FacebookLoginResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "FacebookLoginResponse"
+        ],
+        "slug": "reauthorize"
+      },
+      {
+        "name": "getCurrentAccessToken",
+        "signature": "() => Promise<FacebookCurrentAccessTokenResponse>",
+        "parameters": [],
+        "returns": "Promise<FacebookCurrentAccessTokenResponse>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "FacebookCurrentAccessTokenResponse"
+        ],
+        "slug": "getcurrentaccesstoken"
+      },
+      {
+        "name": "getProfile",
+        "signature": "<T extends Record<string, unknown>>(options: { fields: readonly string[]; }) => Promise<T>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ fields: readonly string[]; }"
+          }
+        ],
+        "returns": "Promise<T>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "T",
+          "Record"
+        ],
+        "slug": "getprofile"
+      },
+      {
+        "name": "logEvent",
+        "signature": "(options: { eventName: string; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ eventName: string; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "logevent"
+      },
+      {
+        "name": "setAutoLogAppEventsEnabled",
+        "signature": "(options: { enabled: boolean; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ enabled: boolean; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "setautologappeventsenabled"
+      },
+      {
+        "name": "setAdvertiserTrackingEnabled",
+        "signature": "(options: { enabled: boolean; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ enabled: boolean; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "setadvertisertrackingenabled"
+      },
+      {
+        "name": "setAdvertiserIDCollectionEnabled",
+        "signature": "(options: { enabled: boolean; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ enabled: boolean; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "setadvertiseridcollectionenabled"
+      },
+      {
+        "name": "getDeferredDeepLink",
+        "signature": "() => Promise<{ uri: string | undefined; }>",
+        "parameters": [],
+        "returns": "Promise<{ uri: string | undefined; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "getdeferreddeeplink"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "FacebookConfiguration",
+      "slug": "facebookconfiguration",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "appId",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "autoLogAppEvents",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "xfbml",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "version",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "locale",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "FacebookLoginResponse",
+      "slug": "facebookloginresponse",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "accessToken",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "AccessToken"
+          ],
+          "type": "AccessToken | null"
+        },
+        {
+          "name": "recentlyGrantedPermissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "recentlyDeniedPermissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AccessToken",
+      "slug": "accesstoken",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "applicationId",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "declinedPermissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "expires",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "isExpired",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "lastRefresh",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        },
+        {
+          "name": "permissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "token",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "userId",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "LimitedFacebookLoginResponse",
+      "slug": "limitedfacebookloginresponse",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "authenticationToken",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "{ token: string; userId?: string | undefined; name?: string | undefined; email?: string | undefined; }"
+        }
+      ]
+    },
+    {
+      "name": "FacebookCurrentAccessTokenResponse",
+      "slug": "facebookcurrentaccesstokenresponse",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "accessToken",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "AccessToken"
+          ],
+          "type": "AccessToken | null"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [
+    {
+      "name": "Partial",
+      "slug": "partial",
+      "docs": "Make all properties in T optional",
+      "types": [
+        {
+          "text": "{\r\n    [P in keyof T]?: T[P];\r\n}",
+          "complexTypes": [
+            "T",
+            "P"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Record",
+      "slug": "record",
+      "docs": "Construct a type with a set of properties K of type T",
+      "types": [
+        {
+          "text": "{\r\n    [P in K]: T;\r\n}",
+          "complexTypes": [
+            "K",
+            "T"
+          ]
+        }
+      ]
+    }
+  ],
+  "pluginConfigs": []
+}
