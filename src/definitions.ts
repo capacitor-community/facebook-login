@@ -15,15 +15,6 @@ export interface FacebookLoginResponse {
   recentlyDeniedPermissions?: string[];
 }
 
-export interface LimitedFacebookLoginResponse {
-  authenticationToken: {
-    token: string;
-    userId?: string;
-    name?: string;
-    email?: string;
-  };
-}
-
 export interface FacebookCurrentAccessTokenResponse {
   accessToken: AccessToken | null;
 }
