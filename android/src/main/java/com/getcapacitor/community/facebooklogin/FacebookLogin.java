@@ -341,19 +341,50 @@ public class FacebookLogin extends Plugin {
             @Override
             public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
                 if (appLinkData != null) {
-                    Uri targetUri = appLinkData.getTargetUri();
-                    if (targetUri != null) {
-                        JSObject result = new JSObject();
-                        result.put("deepLink", targetUri.toString());
-                        Log.d(getLogTag(), "Deferred deep link: " + targetUri.toString());
+                    JSObject result = new JSObject();
 
-                        JSObject response = new JSObject();
-                        response.put("uri", result.getString("deepLink"));
-                        call.resolve(response);
-                    } else {
-                        Log.d(getLogTag(), "No deferred deep link found");
-                        call.reject("No deferred deep link found");
+                    // Get the target URI
+                    result.put("deepLink", appLinkData.getTargetUri() != null ? appLinkData.getTargetUri().toString() : null);
+
+                    // Get the promotion code
+                    result.put("promotionCode", appLinkData.getPromotionCode());
+
+                    // Process arguments bundle
+                    Bundle arguments = appLinkData.getArgumentBundle();
+                    JSObject argumentsObject = new JSObject();
+                    if (arguments != null) {
+                        for (String key : arguments.keySet()) {
+                            argumentsObject.put(key, arguments.get(key));
+                        }
                     }
+                    result.put("arguments", argumentsObject);
+
+                    // Process target_url
+                    if (arguments != null && arguments.containsKey("target_url")) {
+                        result.put("targetUrl", arguments.getString("target_url"));
+                    }
+
+                    // Process referer_data
+                    Bundle refererData = arguments != null ? arguments.getBundle("referer_data") : null;
+                    JSObject refererObject = new JSObject();
+                    if (refererData != null) {
+                        for (String key : refererData.keySet()) {
+                            refererObject.put(key, refererData.get(key));
+                        }
+                    }
+                    result.put("refererData", refererObject);
+
+                    // Process extras
+                    Bundle extras = arguments != null ? arguments.getBundle("extras") : null;
+                    JSObject extrasObject = new JSObject();
+                    if (extras != null) {
+                        for (String key : extras.keySet()) {
+                            extrasObject.put(key, extras.get(key));
+                        }
+                    }
+                    result.put("extras", extrasObject);
+
+                    call.resolve(result);
                 } else {
                     Log.d(getLogTag(), "No deferred deep link data available");
                     call.reject("No deferred deep link data available");
