@@ -333,10 +333,7 @@ public class FacebookLogin extends Plugin {
         }
     }
 
-    @PluginMethod
-    public void getDeferredDeepLink(PluginCall call) {
-        Log.d(getLogTag(), "Entering getDeferredDeepLink()");
-
+    private void fetchDeferredDeepLinkWithRetry(PluginCall call, int retries, long delayMillis) {
         AppLinkData.fetchDeferredAppLinkData(this.getContext(), new AppLinkData.CompletionHandler() {
             @Override
             public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
@@ -344,7 +341,7 @@ public class FacebookLogin extends Plugin {
                     JSObject result = new JSObject();
 
                     // Get the target URI
-                    result.put("deepLink", appLinkData.getTargetUri() != null ? appLinkData.getTargetUri().toString() : null);
+                    result.put("uri", appLinkData.getTargetUri() != null ? appLinkData.getTargetUri().toString() : null);
 
                     // Get the promotion code
                     result.put("promotionCode", appLinkData.getPromotionCode());
@@ -359,38 +356,29 @@ public class FacebookLogin extends Plugin {
                     }
                     result.put("arguments", argumentsObject);
 
-                    // Process target_url
-                    if (arguments != null && arguments.containsKey("target_url")) {
-                        result.put("targetUrl", arguments.getString("target_url"));
-                    }
-
-                    // Process referer_data
-                    Bundle refererData = arguments != null ? arguments.getBundle("referer_data") : null;
-                    JSObject refererObject = new JSObject();
-                    if (refererData != null) {
-                        for (String key : refererData.keySet()) {
-                            refererObject.put(key, refererData.get(key));
-                        }
-                    }
-                    result.put("refererData", refererObject);
-
-                    // Process extras
-                    Bundle extras = arguments != null ? arguments.getBundle("extras") : null;
-                    JSObject extrasObject = new JSObject();
-                    if (extras != null) {
-                        for (String key : extras.keySet()) {
-                            extrasObject.put(key, extras.get(key));
-                        }
-                    }
-                    result.put("extras", extrasObject);
-
                     call.resolve(result);
+                } else if (retries > 0) {
+                    Log.w(getLogTag(), "No deferred deep link data available. Retrying in " + delayMillis + " ms... Remaining retries: " + (retries - 1));
+                    new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                        fetchDeferredDeepLinkWithRetry(call, retries - 1, delayMillis);
+                    }, delayMillis);
                 } else {
-                    Log.d(getLogTag(), "No deferred deep link data available");
-                    call.reject("No deferred deep link data available");
+                    Log.d(getLogTag(), "No deferred deep link data available after retries");
+                    call.reject("No deferred deep link data available after retries");
                 }
             }
         });
     }
 
+
+    @PluginMethod
+    public void getDeferredDeepLink(PluginCall call) {
+        Log.d(getLogTag(), "Entering getDeferredDeepLink()");
+        FacebookSdk.setAutoInitEnabled(true);
+        FacebookSdk.fullyInitialize();
+
+        int maxRetries = 5;
+        long retryDelayMillis = 2000;
+        fetchDeferredDeepLinkWithRetry(call, maxRetries, retryDelayMillis);
+    }
 }
