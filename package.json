@@ -3,7 +3,7 @@
   "version": "7.0.0",
   "description": "A native plugin for Facebook Login",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
