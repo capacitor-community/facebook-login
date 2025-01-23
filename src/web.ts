@@ -4,7 +4,6 @@ import type {
   FacebookLoginPlugin,
   FacebookLoginResponse,
   FacebookCurrentAccessTokenResponse,
-  LimitedFacebookLoginResponse,
   FacebookGetLoginStatusResponse,
   FacebookGetProfileResponse,
   FacebookConfiguration,
@@ -104,17 +103,6 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
         },
         { scope: options.permissions.join(',') },
       );
-    });
-  }
-
-  async limitedLogin(options: {
-    permissions: string[];
-    tracking?: 'limited' | 'enabled';
-    nonce?: string;
-  }): Promise<LimitedFacebookLoginResponse> {
-    return new Promise<LimitedFacebookLoginResponse>((_, reject) => {
-      console.log(options);
-      reject('Not implemented');
     });
   }
 
