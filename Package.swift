@@ -10,7 +10,7 @@ let package = Package(
             targets: ["FacebookLogin"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", branch: "main"),
+        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "6.0.0"),
         .package(url: "https://github.com/facebook/facebook-ios-sdk.git", branch: "main")
     ],
     targets: [
