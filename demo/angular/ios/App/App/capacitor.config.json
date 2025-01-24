@@ -1,8 +1,8 @@
 {
 	"appId": "io.ionic.starter",
 	"appName": "capacitor-facebook-login-tutorial",
-	"npmClient": "yarn",
-	"webDir": "www",
+	"npmClient": "npm",
+	"webDir": "www/browser",
 	"packageClassList": [
 		"FacebookLoginPlugin"
 	]
