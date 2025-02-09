@@ -3,14 +3,14 @@ import PackageDescription
 
 let package = Package(
     name: "CapacitorCommunityFacebookLogin",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v14)],
     products: [
         .library(
             name: "FacebookLogin",
             targets: ["FacebookLogin"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "6.0.0"),
+        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "7.0.0"),
         .package(url: "https://github.com/facebook/facebook-ios-sdk.git", branch: "main")
     ],
     targets: [
