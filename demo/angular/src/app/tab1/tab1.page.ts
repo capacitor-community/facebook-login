@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import type { ViewWillEnter } from '@ionic/angular';
 
-import type { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-tab1',
