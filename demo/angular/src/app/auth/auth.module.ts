@@ -15,7 +15,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule.forChild(routes)],
-  declarations: [AuthPage],
+    imports: [CommonModule, FormsModule, IonicModule, RouterModule.forChild(routes), AuthPage],
 })
 export class AuthPageModule {}

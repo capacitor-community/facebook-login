@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { Tab3Page } from './tab3.page';
 
 @NgModule({
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule.forChild([{ path: '', component: Tab3Page }])],
-  declarations: [Tab3Page],
+    imports: [IonicModule, CommonModule, FormsModule, RouterModule.forChild([{ path: '', component: Tab3Page }]), Tab3Page],
 })
 export class Tab3PageModule {}

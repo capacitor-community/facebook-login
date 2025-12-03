@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import type { ViewWillEnter } from '@ionic/angular';
 
 import { AuthService } from '../auth/auth.service';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
-  standalone: false,
+    selector: 'app-tab1',
+    templateUrl: 'tab1.page.html',
+    styleUrls: ['tab1.page.scss'],
+    imports: [IonicModule],
 })
 export class Tab1Page implements ViewWillEnter {
   public email = '';
