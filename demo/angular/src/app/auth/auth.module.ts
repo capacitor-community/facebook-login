@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import type { Routes } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-
 import { AuthPage } from './auth.page';
 
 const routes: Routes = [
@@ -15,6 +13,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, IonicModule, RouterModule.forChild(routes), AuthPage],
+  imports: [CommonModule, FormsModule, RouterModule.forChild(routes), AuthPage],
 })
 export class AuthPageModule {}

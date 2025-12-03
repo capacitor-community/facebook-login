@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 import { AuthService } from './auth.service';
-import { IonicModule } from '@ionic/angular';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText } from '@ionic/angular/standalone';
 
 @Component({
-    selector: 'app-auth',
-    templateUrl: './auth.page.html',
-    styleUrls: ['./auth.page.scss'],
-    imports: [IonicModule],
+  selector: 'app-auth',
+  templateUrl: './auth.page.html',
+  styleUrls: ['./auth.page.scss'],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText],
 })
 export class AuthPage {
   constructor(public auth: AuthService) {}
