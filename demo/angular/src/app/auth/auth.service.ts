@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   async signIn(): Promise<void> {
-    const FACEBOOK_PERMISSIONS = ['email', 'user_birthday', 'user_photos', 'user_gender'];
+    const FACEBOOK_PERMISSIONS = ['email'];
 
     const result = await FacebookLogin.login({
       permissions: FACEBOOK_PERMISSIONS,
