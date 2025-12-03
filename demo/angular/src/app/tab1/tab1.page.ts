@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import type { ViewWillEnter } from '@ionic/angular/standalone';
 
 import { AuthService } from '../auth/auth.service';
@@ -20,8 +20,12 @@ import {
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonText, IonButton],
 })
 export class Tab1Page implements ViewWillEnter {
+  auth = inject(AuthService);
+
   public email = '';
-  constructor(public auth: AuthService) {}
+
+
+  constructor() {}
 
   async ionViewWillEnter(): Promise<void> {
     const email = await this.auth.getEmail();

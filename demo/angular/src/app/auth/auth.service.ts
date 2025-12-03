@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import { NavController } from '@ionic/angular/standalone';
 
@@ -6,7 +6,11 @@ import { NavController } from '@ionic/angular/standalone';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(public navCtrl: NavController) {}
+  navCtrl = inject(NavController);
+
+
+
+  constructor() {}
 
   async getCurrentState(): Promise<boolean> {
     const result = await FacebookLogin.getCurrentAccessToken().catch(() => undefined);

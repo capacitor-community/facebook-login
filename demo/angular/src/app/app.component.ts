@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FacebookLogin } from '@capacitor-community/facebook-login';
 import { Platform } from '@ionic/angular/standalone';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
@@ -9,7 +9,11 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor(private platform: Platform) {
+  private platform = inject(Platform);
+
+
+
+  constructor() {
     this.initializeApp();
   }
 

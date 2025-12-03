@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { AuthService } from './auth.service';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText } from '@ionic/angular/standalone';
@@ -10,7 +10,9 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText } from 
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText],
 })
 export class AuthPage {
-  constructor(public auth: AuthService) {}
+  auth = inject(AuthService);
+
+  constructor() {}
 
   signIn(): void {
     this.auth.signIn();
