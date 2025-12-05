@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
-import type { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
-import type { AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-  ) {}
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
+
+
+  constructor() {}
 
   async canActivate(_next: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> {
     const loginState = await this.auth.getCurrentState();
