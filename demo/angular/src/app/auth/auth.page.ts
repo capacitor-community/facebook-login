@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import type { AuthService } from './auth.service';
+import { AuthService } from './auth.service';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
-  standalone: false,
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText],
 })
 export class AuthPage {
-  constructor(public auth: AuthService) {}
+  auth = inject(AuthService);
+
+  constructor() {}
 
   signIn(): void {
     this.auth.signIn();
