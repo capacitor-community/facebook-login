@@ -1,9 +1,9 @@
 {
   "name": "@capacitor-community/facebook-login",
-  "version": "8.0.0-beta.0",
+  "version": "8.0.0-0",
   "description": "A native plugin for Facebook Login",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -45,10 +45,10 @@
     "release": "np --no-tests --no-publish"
   },
   "devDependencies": {
-    "@capacitor/android": "^8.0.0-beta.0",
-    "@capacitor/core": "^8.0.0-beta.0",
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
     "@capacitor/docgen": "^0.3.1",
-    "@capacitor/ios": "^8.0.0-beta.0",
+    "@capacitor/ios": "^8.0.0",
     "@ionic/eslint-config": "^0.4.0",
     "@ionic/prettier-config": "^4.0.0",
     "@ionic/swiftlint-config": "^2.0.0",
@@ -62,7 +62,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@capacitor/core": "^8.0.0-beta.0"
+    "@capacitor/core": "^8.0.0"
   },
   "prettier": "@ionic/prettier-config",
   "swiftlint": "@ionic/swiftlint-config",
