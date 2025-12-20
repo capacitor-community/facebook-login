@@ -68,6 +68,12 @@ Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook applica
 
 More information can be found here: https://developers.facebook.com/docs/android/getting-started
 
+### Variables
+
+This plugin will use the following project variables (defined in your app's `variables.gradle` file):
+
+- `facebookSDKVersion`: version of `com.facebook.android:facebook-login` (default: `18.1.3`)
+
 ### iOS configuration
 
 In file `ios/App/Podfile` add the following:
