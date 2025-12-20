@@ -29,7 +29,7 @@ Made with [contributors-img](https://contrib.rocks).
 
 ## Demo
 
-[Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
+[Demo code is here.](./demo/angular)
 
 ## Installation
 
@@ -67,6 +67,12 @@ In file `android/app/src/main/res/values/strings.xml` add the following lines :
 Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook application Id.
 
 More information can be found here: https://developers.facebook.com/docs/android/getting-started
+
+### Variables
+
+This plugin will use the following project variables (defined in your app's `variables.gradle` file):
+
+- `facebookSDKVersion`: version of `com.facebook.android:facebook-login` (default: `18.1.3`)
 
 ### iOS configuration
 

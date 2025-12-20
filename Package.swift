@@ -3,15 +3,15 @@ import PackageDescription
 
 let package = Package(
     name: "CapacitorCommunityFacebookLogin",
-    platforms: [.iOS(.v14)],
+    platforms: [.iOS(.v15)],
     products: [
         .library(
             name: "CapacitorCommunityFacebookLogin",
             targets: ["FacebookLoginPlugin"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "7.0.0"),
-        .package(url: "https://github.com/facebook/facebook-ios-sdk.git", from: "18.0.2")
+        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.0.0-beta.0"),
+        .package(url: "https://github.com/facebook/facebook-ios-sdk.git", from: "17.4.0")
     ],
     targets: [
         .target(
