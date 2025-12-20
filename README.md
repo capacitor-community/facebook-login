@@ -29,7 +29,7 @@ Made with [contributors-img](https://contrib.rocks).
 
 ## Demo
 
-[Demo code is here.](https://github.com/capacitor-community/facebook-login/tree/master/demo/angular)
+[Demo code is here.](./demo/angular)
 
 ## Installation
 
