@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.0.0"),
-        .package(url: "https://github.com/facebook/facebook-ios-sdk.git", from: "17.4.0")
+        .package(url: "https://github.com/facebook/facebook-ios-sdk.git", .upToNextMajor(from: "17.4.0"))
     ],
     targets: [
         .target(
