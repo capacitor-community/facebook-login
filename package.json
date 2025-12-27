@@ -1,6 +1,6 @@
 {
   "name": "@capacitor-community/facebook-login",
-  "version": "8.0.0-1",
+  "version": "8.0.0",
   "description": "A native plugin for Facebook Login",
   "engines": {
     "node": ">=22.0.0"
