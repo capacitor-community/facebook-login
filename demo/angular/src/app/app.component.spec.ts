@@ -1,32 +1,30 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Platform } from '@ionic/angular/standalone';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { vi } from 'vitest';
+
+vi.mock('@capacitor-community/facebook-login', () => ({
+  FacebookLogin: { initialize: vi.fn().mockResolvedValue(undefined) },
+}));
+
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { Platform, provideIonicAngular } from '@ionic/angular/standalone';
+import { FacebookLogin } from '@capacitor-community/facebook-login';
 
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
+  let platformReadySpy, readySpy;
 
-  beforeEach(waitForAsync(() => {
-    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
-    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
+  beforeEach(async () => {
     platformReadySpy = Promise.resolve();
-    platformSpy = jasmine.createSpyObj('Platform', {
-      ready: platformReadySpy,
-    });
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: StatusBar, useValue: statusBarSpy },
-        { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy },
-      ],
+      providers: [provideIonicAngular(), provideRouter([])],
     }).compileComponents();
-  }));
+
+    const platform = TestBed.inject(Platform);
+    readySpy = vi.spyOn(platform, 'ready').mockReturnValue(platformReadySpy);
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -36,10 +34,9 @@ describe('AppComponent', () => {
 
   it('should initialize the app', async () => {
     TestBed.createComponent(AppComponent);
-    expect(platformSpy.ready).toHaveBeenCalled();
+    expect(readySpy).toHaveBeenCalled();
     await platformReadySpy;
-    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
-    expect(splashScreenSpy.hide).toHaveBeenCalled();
+    expect(FacebookLogin.initialize).toHaveBeenCalled();
   });
 
   // TODO: add more tests!
