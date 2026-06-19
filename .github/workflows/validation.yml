@@ -1,13 +1,13 @@
-name: validation
+name: Validation
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
-
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: validation-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   test-demo:
@@ -19,7 +19,15 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: '**/package-lock.json'
+      - name: Cache Angular
+        uses: actions/cache@v5
+        with:
+          path: demo/angular/.angular/cache
+          key: ${{ runner.os }}-angular-${{ hashFiles('demo/angular/package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-angular-${{ hashFiles('demo/angular/package-lock.json') }}-
+            ${{ runner.os }}-angular-
       - run: npm install
       - run: npm run build
-      - run: npm install && npm run test:ci
+      - run: npm ci && npm run test:ci
         working-directory: demo/angular
