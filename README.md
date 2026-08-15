@@ -15,9 +15,9 @@
 
 ## Maintainers
 
-| Maintainer          | GitHub                                  | Social                                    | Sponsoring Company                             |
-| ------------------- | --------------------------------------- | ----------------------------------------- | ---------------------------------------------- |
-| Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo)     | [@rdlabo](https://twitter.com/rdlabo)     | RELATION DESIGN LABO, GENERAL INC. ASSOCIATION |
+| Maintainer          | GitHub                              | Social                                |
+| ------------------- | ----------------------------------- | ------------------------------------- |
+| Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo) | [@rdlabo](https://twitter.com/rdlabo) |
 
 ## Contributors ✨
 

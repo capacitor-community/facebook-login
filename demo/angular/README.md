@@ -1,20 +1,6 @@
 # capacitor-facebook-login-tutorial
 This is tutorial of using [@rdlabo/capacitor-facebook-login](https://github.com/rdlabo/capacitor-facebook-login).
 
-## DONATE THIS PROJECT
-Thanks for considering donate.
-
-If this plugin help you, please share your app income. This help developing this plugin.This also help me easily determine how much time I would spend on the projects each month.
-
-
-|  | TYPE | AMOUNT | LINK |
-|:--:|:--:|:--:|:--:|
-| PayPal.me | Once | Any | [Donate](https://www.paypal.me/rdlabo) |
-| Paypal | Subscription | $15/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JHYSDYQB29MLC) |
-| Paypal | Subscription | $30/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RCJ8A3KXG928A) |
-| Paypal | Subscription | $50/month | [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=U2RQUKRPDA35C) |
-
-
 ## Step by Step
 This tutorial is be step by step using commit history. Title have link of commit. 
 
@@ -82,5 +68,4 @@ Do [Android configuration](https://github.com/rdlabo/capacitor-facebook-login#an
 ### 10. Finished!!
 You can Facebook Login with Device!!
 If you don't understand how to set APP ID, please check [show example facebook APP_ID](https://github.com/rdlabo/capacitor-facebook-login-tutorial/commit/6c9cc2d60db9ee5f5058af58c545e3c7e6c1b8fd).
-
 
