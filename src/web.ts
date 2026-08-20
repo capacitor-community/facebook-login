@@ -57,7 +57,7 @@ declare global {
 
 export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
   async initialize(options: Partial<FacebookConfiguration>): Promise<void> {
-    const defaultOptions = { version: 'v17.0' };
+    const defaultOptions = { version: 'v26.0' };
     await this.loadScript(options.locale);
     return FB.init({ ...defaultOptions, ...options });
   }

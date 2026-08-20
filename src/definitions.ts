@@ -108,7 +108,7 @@ export interface FacebookConfiguration {
   autoLogAppEvents: boolean;
   /** Whether the Web SDK parses XFBML social plugins. */
   xfbml: boolean;
-  /** Facebook Graph API version used by the Web SDK. Defaults to `v17.0`. */
+  /** Facebook Graph API version used by the Web SDK. Defaults to `v26.0`. */
   version: string;
   /** Locale used to load the Web SDK. Defaults to `en_US`. */
   locale: string;

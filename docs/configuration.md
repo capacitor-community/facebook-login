@@ -28,11 +28,14 @@ Override the following in your app's `variables.gradle` only when you need a spe
 
 | Variable             | Artifact                              | Default  |
 | -------------------- | ------------------------------------- | -------- |
-| `facebookSDKVersion` | `com.facebook.android:facebook-login` | `18.1.3` |
+| `facebookSDKVersion` | `com.facebook.android:facebook-login` | `18.3.0` |
 
 ## iOS
 
 The plugin declares `FBSDKCoreKit` and `FBSDKLoginKit` as dependencies for CocoaPods and Swift Package Manager. Do not add the Facebook iOS SDK separately.
+
+The CocoaPods dependencies use `~> 18.1`, and Swift Package Manager resolves
+from `18.1.0` up to the next major version.
 
 In `ios/App/App/AppDelegate.swift`, initialize the SDK and forward the login callback URL:
 
@@ -127,7 +130,7 @@ await FacebookLogin.initialize({
 });
 ```
 
-`initialize` is a no-op on Android and iOS because those SDKs are configured natively. Web defaults to Graph API `v17.0` and locale `en_US` when those options are omitted. See Meta's [Web login guide](https://developers.facebook.com/docs/facebook-login/web).
+`initialize` is a no-op on Android and iOS because those SDKs are configured natively. Web defaults to Graph API `v26.0` and locale `en_US` when those options are omitted. See Meta's [Web login guide](https://developers.facebook.com/docs/facebook-login/web).
 
 ## Next steps
 
