@@ -1,9 +1,14 @@
-import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import {
+  enableProdMode,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 
 import { environment } from './environments/environment';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication } from '@angular/platform-browser';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 
@@ -13,7 +18,9 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideZoneChangeDetection(),importProvidersFrom(BrowserModule, AppRoutingModule),
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    importProvidersFrom(AppRoutingModule),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({}),
   ],
