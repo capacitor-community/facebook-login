@@ -65,14 +65,13 @@ if (result.accessToken) {
 ## Installation
 
 This plugin targets Capacitor 8, iOS 15 or later, and Android API 24 or later.
-It already includes the native Facebook SDK dependencies.
+It declares the native Facebook SDK dependencies for both CocoaPods and Swift
+Package Manager.
 
 ```bash
 npm install @capacitor-community/facebook-login
 npx cap sync
 ```
-
-### Versions
 
 Install the plugin major version that matches your Capacitor major version.
 
@@ -82,263 +81,21 @@ Install the plugin major version that matches your Capacitor major version.
 | 7         | 7.x    |
 | 6         | 6.x    |
 
-For example, a Capacitor 7 application should install
-`@capacitor-community/facebook-login@7`.
+Complete the required native and Web setup in
+[Configuration](./docs/configuration.md) before calling the plugin.
 
-## Configuration
+## Documentation
 
-### Android configuration
+Start with [Configuration](./docs/configuration.md), then use the guide for the
+feature you are implementing. Method signatures and generated type information
+remain in the [API](#api) section below.
 
-In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
-
-```xml
-<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
-```
-
-In file `android/app/src/main/res/values/strings.xml` add the following lines :
-
-```xml
-<string name="facebook_app_id">[APP_ID]</string>
-<string name="facebook_client_token">[CLIENT_TOKEN]</string>
-```
-
-Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook application Id.
-
-More information can be found here: https://developers.facebook.com/docs/android/getting-started
-
-### Variables
-
-This plugin will use the following project variables (defined in your app's `variables.gradle` file):
-
-- `facebookSDKVersion`: version of `com.facebook.android:facebook-login` (default: `18.1.3`)
-
-### iOS configuration
-
-The plugin declares `FBSDKCoreKit` and `FBSDKLoginKit` as dependencies for
-CocoaPods and Swift Package Manager. Do not add the Facebook iOS SDK
-separately. In `ios/App/App/AppDelegate.swift`, add or replace the following:
-
-```swift
-import UIKit
-import Capacitor
-import FBSDKCoreKit
-
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        FBSDKCoreKit.ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions: launchOptions
-        )
-
-        return true
-    }
-
-    ...
-
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        // Called when the app was launched with a url. Feel free to add additional processing here,
-        // but if you want the App API to support tracking app url opens, make sure to keep this call
-        if (FBSDKCoreKit.ApplicationDelegate.shared.application(
-            app,
-            open: url,
-            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-        )) {
-            return true;
-        } else {
-            return ApplicationDelegateProxy.shared.application(app, open: url, options: options)
-        }
-    }
-}
-```
-
-Add the following in the `ios/App/App/info.plist` file inside of the outermost `<dict>`:
-
-```xml
-
-<key>CFBundleURLTypes</key>
-<array>
-    <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>fb[APP_ID]</string>
-        </array>
-    </dict>
-</array>
-<key>FacebookAppID</key>
-<string>[APP_ID]</string>
-<key>FacebookClientToken</key>
-<string>[CLIENT_TOKEN]</string>
-<key>FacebookDisplayName</key>
-<string>[APP_NAME]</string>
-<key>LSApplicationQueriesSchemes</key>
-<array>
-    <string>fbapi</string>
-    <string>fbapi20130214</string>
-    <string>fbapi20130410</string>
-    <string>fbapi20130702</string>
-    <string>fbapi20131010</string>
-    <string>fbapi20131219</string>
-    <string>fbapi20140410</string>
-    <string>fbapi20140116</string>
-    <string>fbapi20150313</string>
-    <string>fbapi20150629</string>
-    <string>fbapi20160328</string>
-    <string>fbauth</string>
-    <string>fb-messenger-share-api</string>
-    <string>fbauth2</string>
-    <string>fbshareextension</string>
-</array>
-```
-
-More information can be found here: https://developers.facebook.com/docs/facebook-login/ios
-
-### Web configuration
-
-```typescript
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-// use hook after platform dom ready
-await FacebookLogin.initialize({ appId: '105890006170720' });
-```
-
-More information can be found here: https://developers.facebook.com/docs/facebook-login/web
-
-## Platform support
-
-| Method                                     | Android                     | iOS                         | Web                         |
-| ------------------------------------------ | --------------------------- | --------------------------- | --------------------------- |
-| `initialize`                               | No-op; configured natively  | No-op; configured natively  | Supported                   |
-| `login`                                    | Supported                   | Limited Login by default    | Supported                   |
-| `logout`                                   | Supported                   | Supported                   | Supported                   |
-| `reauthorize`                              | Supported                   | Supported                   | Not implemented             |
-| `getCurrentAccessToken`                    | Supported                   | Supported                   | Supported                   |
-| `getProfile`                               | Supported                   | Requires a Graph token      | Supported                   |
-| `logEvent`                                 | Supported                   | Supported                   | Supported                   |
-| `setAutoLogAppEventsEnabled`               | Promise remains pending     | Supported                   | No-op                       |
-| `setAdvertiserTrackingEnabled`             | Not implemented             | Supported                   | No-op                       |
-| `setAdvertiserIDCollectionEnabled`         | Promise remains pending     | Supported                   | No-op                       |
-
-`tracking` is an iOS-only login option and defaults to `limited`. In Limited
-Login, iOS returns an OIDC authentication token (JWT), not a Graph API access
-token. The plugin does not currently return the Graph access token obtained by
-`tracking: 'enabled'`. `nonce` is used by the Android and iOS login flows and is
-ignored on Web.
-
-On Android, `setAutoLogAppEventsEnabled` and
-`setAdvertiserIDCollectionEnabled` apply the requested value, but their
-returned promises currently remain pending.
-
-## Usage examples
-
-### Login
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-const FACEBOOK_PERMISSIONS = [
-  'email',
-  'user_birthday',
-  'user_photos',
-  'user_gender',
-];
-const result = await FacebookLogin.login({
-  permissions: FACEBOOK_PERMISSIONS,
-});
-
-if (result.accessToken) {
-  // Login successful.
-  console.log(`Facebook token is ${result.accessToken.token}`);
-} else {
-  // No token was returned by the native platform.
-}
-```
-
-### Logout
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-await FacebookLogin.logout();
-```
-
-### CurrentAccessToken
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-const result = await FacebookLogin.getCurrentAccessToken();
-
-if (result.accessToken) {
-  console.log(`Facebook token is ${result.accessToken.token}`);
-}
-```
-
-### getProfile
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-const result = await FacebookLogin.getProfile<{
-  email: string;
-}>({ fields: ['email'] });
-
-console.log(`Facebook user's email is ${result.email}`);
-```
-
-The requested fields must be permitted for your Meta app and granted by the
-user. The returned object contains only fields returned by the Graph API. On
-iOS, this requires a Graph access token and does not work with the default
-Limited Login token.
-
-### Reauthorize data access
-
-Data access reauthorization is available on Android and iOS only.
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-const result = await FacebookLogin.reauthorize();
-
-if (result.accessToken) {
-  console.log('Data access was renewed.');
-}
-```
-
-### Log an App Event
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-await FacebookLogin.logEvent({
-  eventName: 'completed_tutorial',
-  parameters: {
-    content_name: 'Getting Started',
-    step: 3,
-  },
-});
-```
-
-Event parameter values must be strings or numbers.
-
-### App Event and advertiser settings
-
-These settings can be awaited on iOS. Request App Tracking Transparency
-permission separately when needed.
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-await FacebookLogin.setAutoLogAppEventsEnabled({ enabled: true });
-await FacebookLogin.setAdvertiserIDCollectionEnabled({ enabled: true });
-await FacebookLogin.setAdvertiserTrackingEnabled({ enabled: true });
-```
+- [Configuration](./docs/configuration.md) — Meta app settings and Android, iOS,
+  and Web SDK setup.
+- [Authentication](./docs/authentication.md) — login, logout, current tokens,
+  profile fields, reauthorization, and platform differences.
+- [App Events](./docs/app-events.md) — custom events, parameters, automatic event
+  logging, and advertiser settings.
 
 ## API
 
