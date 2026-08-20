@@ -162,7 +162,12 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
 
     @objc func logEvent(_ call: CAPPluginCall) {
         if let eventName = call.getString("eventName") {
-            AppEvents.shared.logEvent(AppEvents.Name(eventName))
+            let parameters = call.getObject("parameters")?.reduce(into: [AppEvents.ParameterName: Any]()) { result, item in
+                if item.value is String || item.value is NSNumber {
+                    result[AppEvents.ParameterName(item.key)] = item.value
+                }
+            }
+            AppEvents.shared.logEvent(AppEvents.Name(eventName), parameters: parameters ?? [:])
         }
 
         call.resolve()

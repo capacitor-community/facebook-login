@@ -39,7 +39,9 @@ declare interface Facebook {
     params: TParams,
     callback: (response: TResponse) => void,
   ): void;
-  logEvent(handle: (response: any) => void, options: { eventName: string }): void;
+  AppEvents: {
+    logEvent(eventName: string, valueToSum?: number, parameters?: Record<string, string | number>): void;
+  };
   setAutoLogAppEventsEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
   setAdvertiserTrackingEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
   setAdvertiserIDCollectionEnabled(handle: (response: any) => void, options: { enabled: boolean }): void;
@@ -85,21 +87,31 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
 
   async login(options: { permissions: string[] }): Promise<FacebookLoginResponse> {
     return new Promise<FacebookLoginResponse>((resolve, reject) => {
+      const resolveWithAccessToken = (response: FacebookGetLoginStatusResponse): boolean => {
+        const token = response.authResponse?.accessToken;
+        if (response.status !== 'connected' || !token) {
+          return false;
+        }
+
+        resolve({
+          accessToken: {
+            token,
+          },
+        });
+        return true;
+      };
+
       FB.login(
         (response) => {
-          if (response.status === 'connected') {
-            resolve({
-              accessToken: {
-                token: response.authResponse.accessToken,
-              },
-            });
-          } else {
-            reject({
-              accessToken: {
-                token: null,
-              },
-            });
+          if (resolveWithAccessToken(response)) {
+            return;
           }
+
+          FB.getLoginStatus((statusResponse) => {
+            if (!resolveWithAccessToken(statusResponse)) {
+              reject('Facebook login did not return an access token.');
+            }
+          });
         },
         { scope: options.permissions.join(',') },
       );
@@ -156,8 +168,8 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
     });
   }
 
-  async logEvent(): Promise<void> {
-    return Promise.resolve();
+  async logEvent(options: { eventName: string; parameters?: Record<string, string | number> }): Promise<void> {
+    FB.AppEvents.logEvent(options.eventName, undefined, options.parameters);
   }
 
   async setAutoLogAppEventsEnabled(): Promise<void> {

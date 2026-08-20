@@ -346,12 +346,12 @@ getProfile<T extends Record<string, unknown>>(options: { fields: readonly string
 ### logEvent(...)
 
 ```typescript
-logEvent(options: { eventName: string; }) => Promise<void>
+logEvent(options: { eventName: string; parameters?: Record<string, string | number>; }) => Promise<void>
 ```
 
-| Param         | Type                                |
-| ------------- | ----------------------------------- |
-| **`options`** | <code>{ eventName: string; }</code> |
+| Param         | Type                                                                                                           |
+| ------------- | -------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ eventName: string; parameters?: <a href="#record">Record</a>&lt;string, string \| number&gt;; }</code> |
 
 --------------------
 
