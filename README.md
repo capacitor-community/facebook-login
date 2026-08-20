@@ -115,9 +115,9 @@ This plugin will use the following project variables (defined in your app's `var
 
 ### iOS configuration
 
-The plugin already includes `FBSDKCoreKit` and `FBSDKLoginKit`; do not add a
-second Facebook SDK dependency. In `ios/App/App/AppDelegate.swift`, add or
-replace the following:
+The plugin declares `FBSDKCoreKit` and `FBSDKLoginKit` as dependencies for
+CocoaPods and Swift Package Manager. Do not add the Facebook iOS SDK
+separately. In `ios/App/App/AppDelegate.swift`, add or replace the following:
 
 ```swift
 import UIKit
