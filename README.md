@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/maintenance/yes/2025?style=flat-square" />
+  <img src="https://img.shields.io/maintenance/yes/2026?style=flat-square" />
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/l/@capacitor-community/facebook-login?style=flat-square" /></a>
 <br>
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/dw/@capacitor-community/facebook-login?style=flat-square" /></a>
@@ -18,6 +18,8 @@
 | Maintainer          | GitHub                              | Social                                |
 | ------------------- | ----------------------------------- | ------------------------------------- |
 | Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo) | [@rdlabo](https://twitter.com/rdlabo) |
+
+Maintenance Status: Actively Maintained
 
 ## Contributors ✨
 
@@ -31,221 +33,69 @@ Made with [contributors-img](https://contrib.rocks).
 
 [Demo code is here.](./demo/angular)
 
+## Overview
+
+Capacitor community plugin for Facebook Login and Facebook App Events on
+Android, iOS, and Web. It wraps the native Meta SDKs on Android and iOS and the
+Facebook JavaScript SDK on Web.
+
+## Features
+
+- Facebook login and logout, with native data access reauthorization
+- Current access token lookup
+- Facebook Graph API profile requests
+- Facebook App Events with string and number parameters
+- Native App Event and advertiser settings
+
+## Quick start
+
+After [Installation](#installation) and the platform configuration below,
+request the permissions your app needs:
+
+```ts
+import { FacebookLogin } from '@capacitor-community/facebook-login';
+
+const result = await FacebookLogin.login({ permissions: ['email'] });
+
+if (result.accessToken) {
+  console.log('Facebook login completed.');
+}
+```
+
 ## Installation
 
-```bash
-% npm i --save @capacitor-community/facebook-login
-% npx cap update
-```
-
-### Versions
-
-Users of Capacitor v6 should use version v6 of the Plugin.
+This plugin targets Capacitor 8, iOS 15 or later, and Android API 24 or later.
+It declares the native Facebook SDK dependencies for both CocoaPods and Swift
+Package Manager.
 
 ```bash
-% npm install @capacitor-community/facebook-login@6
+npm install @capacitor-community/facebook-login
+npx cap sync
 ```
 
-## Configuration
+Install the plugin major version that matches your Capacitor major version.
 
-### Android configuration
+| Capacitor | Plugin |
+| --------- | ------ |
+| 8         | 8.x    |
+| 7         | 7.x    |
+| 6         | 6.x    |
 
-In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
+Complete the required native and Web setup in
+[Configuration](./docs/configuration.md) before calling the plugin.
 
-```xml
-<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
-```
+## Documentation
 
-In file `android/app/src/main/res/values/strings.xml` add the following lines :
+Start with [Configuration](./docs/configuration.md), then use the guide for the
+feature you are implementing. Method signatures and generated type information
+remain in the [API](#api) section below.
 
-```xml
-<string name="facebook_app_id">[APP_ID]</string>
-<string name="facebook_client_token">[CLIENT_TOKEN]</string>
-```
-
-Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook application Id.
-
-More information can be found here: https://developers.facebook.com/docs/android/getting-started
-
-### Variables
-
-This plugin will use the following project variables (defined in your app's `variables.gradle` file):
-
-- `facebookSDKVersion`: version of `com.facebook.android:facebook-login` (default: `18.1.3`)
-
-### iOS configuration
-
-In file `ios/App/Podfile` add the following:
-
-```diff
-  target 'App' do
-    capacitor_pods
-    # Add your Pods here
-+   pod 'FBSDKCoreKit'
-  end
-```
-
-In file `ios/App/App/AppDelegate.swift` add or replace the following:
-
-```swift
-import UIKit
-import Capacitor
-import FBSDKCoreKit
-
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        FBSDKCoreKit.ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions: launchOptions
-        )
-
-        return true
-    }
-
-    ...
-
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        // Called when the app was launched with a url. Feel free to add additional processing here,
-        // but if you want the App API to support tracking app url opens, make sure to keep this call
-        if (FBSDKCoreKit.ApplicationDelegate.shared.application(
-            app,
-            open: url,
-            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
-        )) {
-            return true;
-        } else {
-            return ApplicationDelegateProxy.shared.application(app, open: url, options: options)
-        }
-    }
-}
-```
-
-Add the following in the `ios/App/App/info.plist` file inside of the outermost `<dict>`:
-
-```xml
-
-<key>CFBundleURLTypes</key>
-<array>
-    <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>fb[APP_ID]</string>
-        </array>
-    </dict>
-</array>
-<key>FacebookAppID</key>
-<string>[APP_ID]</string>
-<key>FacebookClientToken</key>
-<string>[CLIENT_TOKEN]</string>
-<key>FacebookDisplayName</key>
-<string>[APP_NAME]</string>
-<key>LSApplicationQueriesSchemes</key>
-<array>
-    <string>fbapi</string>
-    <string>fbapi20130214</string>
-    <string>fbapi20130410</string>
-    <string>fbapi20130702</string>
-    <string>fbapi20131010</string>
-    <string>fbapi20131219</string>
-    <string>fbapi20140410</string>
-    <string>fbapi20140116</string>
-    <string>fbapi20150313</string>
-    <string>fbapi20150629</string>
-    <string>fbapi20160328</string>
-    <string>fbauth</string>
-    <string>fb-messenger-share-api</string>
-    <string>fbauth2</string>
-    <string>fbshareextension</string>
-</array>
-```
-
-More information can be found here: https://developers.facebook.com/docs/facebook-login/ios
-
-### Web configuration
-
-```typescript
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-// use hook after platform dom ready
-await FacebookLogin.initialize({ appId: '105890006170720' });
-```
-
-More information can be found here: https://developers.facebook.com/docs/facebook-login/web
-And you must confirm return type at https://github.com/rdlabo/capacitor-facebook-login/blob/master/src/web.ts#L55-L57
-not same type for default web facebook login!
-
-## Example
-
-### Login
-
-```ts
-import {
-  FacebookLogin,
-  FacebookLoginResponse,
-} from '@capacitor-community/facebook-login';
-
-const FACEBOOK_PERMISSIONS = [
-  'email',
-  'user_birthday',
-  'user_photos',
-  'user_gender',
-];
-const result = await (<FacebookLoginResponse>(
-  FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS })
-));
-
-if (result.accessToken) {
-  // Login successful.
-  console.log(`Facebook access token is ${result.accessToken.token}`);
-}
-```
-
-### Logout
-
-```ts
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-
-await FacebookLogin.logout();
-```
-
-### CurrentAccessToken
-
-```ts
-import {
-  FacebookLogin,
-  FacebookLoginResponse,
-} from '@capacitor-community/facebook-login';
-
-const result = await (<FacebookLoginResponse>(
-  FacebookLogin.getCurrentAccessToken()
-));
-
-if (result.accessToken) {
-  console.log(`Facebook access token is ${result.accessToken.token}`);
-}
-```
-
-### getProfile
-
-```ts
-import {
-  FacebookLogin,
-  FacebookLoginResponse,
-} from '@capacitor-community/facebook-login';
-
-const result = await FacebookLogin.getProfile<{
-  email: string;
-}>({ fields: ['email'] });
-
-console.log(`Facebook user's email is ${result.email}`);
-```
+- [Configuration](./docs/configuration.md) — Meta app settings and Android, iOS,
+  and Web SDK setup.
+- [Authentication](./docs/authentication.md) — login, logout, current tokens,
+  profile fields, reauthorization, and platform differences.
+- [App Events](./docs/app-events.md) — custom events, parameters, automatic event
+  logging, and advertiser settings.
 
 ## API
 
@@ -275,6 +125,9 @@ console.log(`Facebook user's email is ${result.email}`);
 initialize(options: Partial<FacebookConfiguration>) => Promise<void>
 ```
 
+Initializes the Facebook JavaScript SDK on Web.
+This is a no-op on Android and iOS, where the SDK is configured natively.
+
 | Param         | Type                                                                                                          |
 | ------------- | ------------------------------------------------------------------------------------------------------------- |
 | **`options`** | <code><a href="#partial">Partial</a>&lt;<a href="#facebookconfiguration">FacebookConfiguration</a>&gt;</code> |
@@ -287,6 +140,9 @@ initialize(options: Partial<FacebookConfiguration>) => Promise<void>
 ```typescript
 login(options: { permissions: string[]; tracking?: 'limited' | 'enabled'; nonce?: string; }) => Promise<FacebookLoginResponse>
 ```
+
+Starts the Facebook login flow with the requested permissions.
+A cancelled native login resolves without a token.
 
 | Param         | Type                                                                                       |
 | ------------- | ------------------------------------------------------------------------------------------ |
@@ -303,6 +159,8 @@ login(options: { permissions: string[]; tracking?: 'limited' | 'enabled'; nonce?
 logout() => Promise<void>
 ```
 
+Logs out the current Facebook session.
+
 --------------------
 
 
@@ -311,6 +169,8 @@ logout() => Promise<void>
 ```typescript
 reauthorize() => Promise<FacebookLoginResponse>
 ```
+
+Requests renewed data access for the current Facebook session.
 
 **Returns:** <code>Promise&lt;<a href="#facebookloginresponse">FacebookLoginResponse</a>&gt;</code>
 
@@ -323,6 +183,10 @@ reauthorize() => Promise<FacebookLoginResponse>
 getCurrentAccessToken() => Promise<FacebookCurrentAccessTokenResponse>
 ```
 
+Returns the current token. iOS returns an OIDC authentication token for
+Limited Login. Native platforms resolve without a token when logged out;
+Web rejects when there is no connected Facebook session.
+
 **Returns:** <code>Promise&lt;<a href="#facebookcurrentaccesstokenresponse">FacebookCurrentAccessTokenResponse</a>&gt;</code>
 
 --------------------
@@ -333,6 +197,8 @@ getCurrentAccessToken() => Promise<FacebookCurrentAccessTokenResponse>
 ```typescript
 getProfile<T extends Record<string, unknown>>(options: { fields: readonly string[]; }) => Promise<T>
 ```
+
+Requests the selected fields from the Facebook Graph API `/me` endpoint.
 
 | Param         | Type                                        |
 | ------------- | ------------------------------------------- |
@@ -349,6 +215,8 @@ getProfile<T extends Record<string, unknown>>(options: { fields: readonly string
 logEvent(options: { eventName: string; parameters?: Record<string, string | number>; }) => Promise<void>
 ```
 
+Logs a Facebook App Event with optional string or number parameters.
+
 | Param         | Type                                                                                                           |
 | ------------- | -------------------------------------------------------------------------------------------------------------- |
 | **`options`** | <code>{ eventName: string; parameters?: <a href="#record">Record</a>&lt;string, string \| number&gt;; }</code> |
@@ -361,6 +229,8 @@ logEvent(options: { eventName: string; parameters?: Record<string, string | numb
 ```typescript
 setAutoLogAppEventsEnabled(options: { enabled: boolean; }) => Promise<void>
 ```
+
+Enables or disables automatic App Event logging on native platforms.
 
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
@@ -375,6 +245,8 @@ setAutoLogAppEventsEnabled(options: { enabled: boolean; }) => Promise<void>
 setAdvertiserTrackingEnabled(options: { enabled: boolean; }) => Promise<void>
 ```
 
+Enables or disables advertiser tracking on iOS.
+
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
 | **`options`** | <code>{ enabled: boolean; }</code> |
@@ -388,6 +260,8 @@ setAdvertiserTrackingEnabled(options: { enabled: boolean; }) => Promise<void>
 setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void>
 ```
 
+Enables or disables advertiser ID collection on native platforms.
+
 | Param         | Type                               |
 | ------------- | ---------------------------------- |
 | **`options`** | <code>{ enabled: boolean; }</code> |
@@ -400,43 +274,43 @@ setAdvertiserIDCollectionEnabled(options: { enabled: boolean; }) => Promise<void
 
 #### FacebookConfiguration
 
-| Prop                   | Type                 |
-| ---------------------- | -------------------- |
-| **`appId`**            | <code>string</code>  |
-| **`autoLogAppEvents`** | <code>boolean</code> |
-| **`xfbml`**            | <code>boolean</code> |
-| **`version`**          | <code>string</code>  |
-| **`locale`**           | <code>string</code>  |
+| Prop                   | Type                 | Description                                                          |
+| ---------------------- | -------------------- | -------------------------------------------------------------------- |
+| **`appId`**            | <code>string</code>  | Meta application ID.                                                 |
+| **`autoLogAppEvents`** | <code>boolean</code> | Whether the Web SDK automatically logs App Events.                   |
+| **`xfbml`**            | <code>boolean</code> | Whether the Web SDK parses XFBML social plugins.                     |
+| **`version`**          | <code>string</code>  | Facebook Graph API version used by the Web SDK. Defaults to `v17.0`. |
+| **`locale`**           | <code>string</code>  | Locale used to load the Web SDK. Defaults to `en_US`.                |
 
 
 #### FacebookLoginResponse
 
-| Prop                             | Type                                                        |
-| -------------------------------- | ----------------------------------------------------------- |
-| **`accessToken`**                | <code><a href="#accesstoken">AccessToken</a> \| null</code> |
-| **`recentlyGrantedPermissions`** | <code>string[]</code>                                       |
-| **`recentlyDeniedPermissions`**  | <code>string[]</code>                                       |
+| Prop                             | Type                                                        | Description                                          |
+| -------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------- |
+| **`accessToken`**                | <code><a href="#accesstoken">AccessToken</a> \| null</code> | Token response when one is returned by the platform. |
+| **`recentlyGrantedPermissions`** | <code>string[]</code>                                       | Permissions granted during this login.               |
+| **`recentlyDeniedPermissions`**  | <code>string[]</code>                                       | Permissions denied during this login.                |
 
 
 #### AccessToken
 
-| Prop                      | Type                  |
-| ------------------------- | --------------------- |
-| **`applicationId`**       | <code>string</code>   |
-| **`declinedPermissions`** | <code>string[]</code> |
-| **`expires`**             | <code>string</code>   |
-| **`isExpired`**           | <code>boolean</code>  |
-| **`lastRefresh`**         | <code>string</code>   |
-| **`permissions`**         | <code>string[]</code> |
-| **`token`**               | <code>string</code>   |
-| **`userId`**              | <code>string</code>   |
+| Prop                      | Type                  | Description                                                                                                                              |
+| ------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **`applicationId`**       | <code>string</code>   | Meta application ID that issued the token.                                                                                               |
+| **`declinedPermissions`** | <code>string[]</code> | Permissions declined by the user.                                                                                                        |
+| **`expires`**             | <code>string</code>   | ISO 8601 token expiration date.                                                                                                          |
+| **`isExpired`**           | <code>boolean</code>  | Whether the token is expired.                                                                                                            |
+| **`lastRefresh`**         | <code>string</code>   | ISO 8601 date when the token was last refreshed.                                                                                         |
+| **`permissions`**         | <code>string[]</code> | Permissions granted to the token.                                                                                                        |
+| **`token`**               | <code>string</code>   | Token string returned by the platform. With iOS Limited Login, this is an OIDC authentication token (JWT), not a Graph API access token. |
+| **`userId`**              | <code>string</code>   | Facebook user ID associated with the token.                                                                                              |
 
 
 #### FacebookCurrentAccessTokenResponse
 
-| Prop              | Type                                                        |
-| ----------------- | ----------------------------------------------------------- |
-| **`accessToken`** | <code><a href="#accesstoken">AccessToken</a> \| null</code> |
+| Prop              | Type                                                        | Description                                                  |
+| ----------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| **`accessToken`** | <code><a href="#accesstoken">AccessToken</a> \| null</code> | Current token response when one is returned by the platform. |
 
 
 ### Type Aliases
