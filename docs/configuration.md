@@ -28,11 +28,14 @@ Override the following in your app's `variables.gradle` only when you need a spe
 
 | Variable             | Artifact                              | Default  |
 | -------------------- | ------------------------------------- | -------- |
-| `facebookSDKVersion` | `com.facebook.android:facebook-login` | `18.1.3` |
+| `facebookSDKVersion` | `com.facebook.android:facebook-login` | `18.3.0` |
 
 ## iOS
 
 The plugin declares `FBSDKCoreKit` and `FBSDKLoginKit` as dependencies for CocoaPods and Swift Package Manager. Do not add the Facebook iOS SDK separately.
+
+The CocoaPods dependencies use `~> 18.1`, and Swift Package Manager resolves
+from `18.1.0` up to the next major version.
 
 In `ios/App/App/AppDelegate.swift`, initialize the SDK and forward the login callback URL:
 
