@@ -279,7 +279,7 @@ Enables or disables advertiser ID collection on native platforms.
 | **`appId`**            | <code>string</code>  | Meta application ID.                                                 |
 | **`autoLogAppEvents`** | <code>boolean</code> | Whether the Web SDK automatically logs App Events.                   |
 | **`xfbml`**            | <code>boolean</code> | Whether the Web SDK parses XFBML social plugins.                     |
-| **`version`**          | <code>string</code>  | Facebook Graph API version used by the Web SDK. Defaults to `v17.0`. |
+| **`version`**          | <code>string</code>  | Facebook Graph API version used by the Web SDK. Defaults to `v26.0`. |
 | **`locale`**           | <code>string</code>  | Locale used to load the Web SDK. Defaults to `en_US`.                |
 
 

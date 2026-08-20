@@ -130,7 +130,7 @@ await FacebookLogin.initialize({
 });
 ```
 
-`initialize` is a no-op on Android and iOS because those SDKs are configured natively. Web defaults to Graph API `v17.0` and locale `en_US` when those options are omitted. See Meta's [Web login guide](https://developers.facebook.com/docs/facebook-login/web).
+`initialize` is a no-op on Android and iOS because those SDKs are configured natively. Web defaults to Graph API `v26.0` and locale `en_US` when those options are omitted. See Meta's [Web login guide](https://developers.facebook.com/docs/facebook-login/web).
 
 ## Next steps
 
