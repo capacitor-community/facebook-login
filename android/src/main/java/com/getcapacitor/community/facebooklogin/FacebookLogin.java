@@ -31,6 +31,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -265,8 +266,10 @@ public class FacebookLogin extends Plugin {
         Log.d(getLogTag(), "Entering logEvent()");
         String eventName = call.getString("eventName");
         if (eventName != null) {
-            logger.logEvent(eventName);
+            logger.logEvent(eventName, parametersToBundle(call.getObject("parameters")));
         }
+
+        call.resolve();
     }
 
     @PluginMethod
@@ -315,6 +318,26 @@ public class FacebookLogin extends Plugin {
         }
 
         return json;
+    }
+
+    private Bundle parametersToBundle(JSObject parameters) {
+        Bundle bundle = new Bundle();
+        if (parameters == null) {
+            return bundle;
+        }
+
+        Iterator<String> keys = parameters.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            Object value = parameters.opt(key);
+            if (value instanceof String) {
+                bundle.putString(key, (String) value);
+            } else if (value instanceof Number) {
+                bundle.putDouble(key, ((Number) value).doubleValue());
+            }
+        }
+
+        return bundle;
     }
 
     private JSObject accessTokenToJson(AccessToken accessToken) {
