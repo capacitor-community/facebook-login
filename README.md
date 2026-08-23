@@ -15,9 +15,9 @@
 
 ## Maintainers
 
-| Maintainer          | GitHub                              | Social                                |
-| ------------------- | ----------------------------------- | ------------------------------------- |
-| Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo) | [@rdlabo](https://twitter.com/rdlabo) |
+| Maintainer          | GitHub                              | Social                                | Website                               |
+| ------------------- | ----------------------------------- | ------------------------------------- | ------------------------------------- |
+| Masahiko Sakakibara | [rdlabo](https://github.com/rdlabo) | [@rdlabo](https://twitter.com/rdlabo) | [rdlabo.dev](https://rdlabo.dev/) |
 
 Maintenance Status: Actively Maintained
 
