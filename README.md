@@ -5,6 +5,12 @@
   Capacitor community plugin for native Facebook Login.
 </p>
 
+<!-- rdlabo-docs-omit -->
+<p align="center">
+  <strong><a href="https://docs.rdlabo.dev/projects/capacitor-facebook-login">Read the full documentation</a></strong>
+</p>
+<!-- /rdlabo-docs-omit -->
+
 <p align="center">
   <img src="https://img.shields.io/maintenance/yes/2026?style=flat-square" />
   <a href="https://www.npmjs.com/package/@capacitor-community/facebook-login"><img src="https://img.shields.io/npm/l/@capacitor-community/facebook-login?style=flat-square" /></a>

@@ -29,6 +29,7 @@
   "bugs": {
     "url": "git@github.com:capacitor-community/facebook-login.git/issues"
   },
+  "homepage": "https://docs.rdlabo.dev/projects/capacitor-facebook-login",
   "scripts": {
     "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
     "verify:ios": "xcodebuild -scheme CapacitorCommunityFacebookLogin -destination generic/platform=iOS",
