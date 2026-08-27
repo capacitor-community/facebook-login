@@ -88,19 +88,19 @@ Install the plugin major version that matches your Capacitor major version.
 | 6         | 6.x    |
 
 Complete the required native and Web setup in
-[Configuration](./docs/configuration.md) before calling the plugin.
+[Configuration](https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration) before calling the plugin.
 
 ## Documentation
 
-Start with [Configuration](./docs/configuration.md), then use the guide for the
+Start with [Configuration](https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration), then use the guide for the
 feature you are implementing. Method signatures and generated type information
 remain in the [API](#api) section below.
 
-- [Configuration](./docs/configuration.md) — Meta app settings and Android, iOS,
+- [Configuration](https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/configuration) — Meta app settings and Android, iOS,
   and Web SDK setup.
-- [Authentication](./docs/authentication.md) — login, logout, current tokens,
+- [Authentication](https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/authentication) — login, logout, current tokens,
   profile fields, reauthorization, and platform differences.
-- [App Events](./docs/app-events.md) — custom events, parameters, automatic event
+- [App Events](https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/app-events) — custom events, parameters, automatic event
   logging, and advertiser settings.
 
 ## API
