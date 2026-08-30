@@ -5,6 +5,10 @@ on:
     types: [opened, synchronize, reopened]
   push:
     branches: [main]
+
+permissions:
+  contents: read
+
 concurrency:
   group: validation-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
