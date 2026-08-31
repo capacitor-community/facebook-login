@@ -15,6 +15,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.applinks.AppLinkData;
 import com.facebook.login.LoginConfiguration;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -44,6 +45,17 @@ public class FacebookLogin extends Plugin {
     public static final int FACEBOOK_SDK_REQUEST_CODE_OFFSET = 0xface;
     private AppEventsLogger logger;
     private String latestCallbackId;
+    private final DeferredDeepLinkService deferredDeepLinkService = new DeferredDeepLinkService((callback) -> {
+        String applicationId = FacebookSdk.getApplicationId();
+        FacebookSdk.getClientToken();
+        AppLinkData.fetchDeferredAppLinkData(getContext(), applicationId, (appLinkData) -> {
+            String uri = null;
+            if (appLinkData != null && appLinkData.getTargetUri() != null) {
+                uri = appLinkData.getTargetUri().toString();
+            }
+            callback.onFetched(uri);
+        });
+    });
 
     @Override
     public void load() {
@@ -288,6 +300,29 @@ public class FacebookLogin extends Plugin {
         if (enabled != null) {
             FacebookSdk.setAdvertiserIDCollectionEnabled(enabled);
         }
+    }
+
+    @PluginMethod
+    public void getDeferredDeepLink(final PluginCall call) {
+        Log.d(getLogTag(), "Entering getDeferredDeepLink()");
+        deferredDeepLinkService.fetch(
+            new DeferredDeepLinkService.ResultCallback() {
+                @Override
+                public void onSuccess(String uri) {
+                    JSObject result = new JSObject();
+                    if (uri != null) {
+                        result.put("uri", uri);
+                    }
+                    call.resolve(result);
+                }
+
+                @Override
+                public void onError(RuntimeException error) {
+                    Log.e(getLogTag(), "Failed to fetch deferred App Link", error);
+                    call.reject("Failed to fetch deferred App Link. Check Facebook SDK configuration.", error);
+                }
+            }
+        );
     }
 
     @Override

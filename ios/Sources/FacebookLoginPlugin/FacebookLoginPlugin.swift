@@ -1,5 +1,6 @@
 import Foundation
 import Capacitor
+import FBSDKCoreKit
 import FBSDKLoginKit
 import CryptoKit
 
@@ -21,11 +22,16 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "logEvent", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setAutoLogAppEventsEnabled", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setAdvertiserTrackingEnabled", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "setAdvertiserIDCollectionEnabled", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "setAdvertiserIDCollectionEnabled", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getDeferredDeepLink", returnType: CAPPluginReturnPromise)
     ]
 
     private let loginManager = LoginManager()
     private let dateFormatter = ISO8601DateFormatter()
+    private lazy var deferredDeepLinkService = DeferredDeepLinkService(
+        infoDictionaryProvider: { Bundle.main.infoDictionary ?? [:] },
+        fetcher: FacebookDeferredDeepLinkFetcher()
+    )
 
     override public func load() {
         dateFormatter.formatOptions = [.withInternetDateTime]
@@ -194,5 +200,22 @@ public class FacebookLoginPlugin: CAPPlugin, CAPBridgedPlugin {
             Settings.shared.isAdvertiserIDCollectionEnabled = false
         }
         call.resolve()
+    }
+
+    @objc func getDeferredDeepLink(_ call: CAPPluginCall) {
+        DispatchQueue.main.async {
+            self.deferredDeepLinkService.fetch { result in
+                switch result {
+                case .success(let url):
+                    if let url {
+                        call.resolve(["uri": url.absoluteString])
+                    } else {
+                        call.resolve([:])
+                    }
+                case .failure(let error):
+                    call.reject(error.localizedDescription, nil, error)
+                }
+            }
+        }
     }
 }

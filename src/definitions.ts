@@ -34,6 +34,11 @@ export interface FacebookCurrentAccessTokenResponse {
   accessToken: AccessToken | null;
 }
 
+export interface FacebookDeferredDeepLinkResponse {
+  /** Deferred App Link URI. Omitted when Meta has no link for this install. */
+  uri?: string;
+}
+
 export interface FacebookLoginPlugin {
   /**
    * Initializes the Facebook JavaScript SDK on Web.
@@ -78,6 +83,12 @@ export interface FacebookLoginPlugin {
   setAdvertiserTrackingEnabled(options: { enabled: boolean }): Promise<void>;
   /** Enables or disables advertiser ID collection on native platforms. */
   setAdvertiserIDCollectionEnabled(options: { enabled: boolean }): Promise<void>;
+  /**
+   * Fetches the deferred App Link attributed to this app install.
+   * Native platforms resolve without a URI when no link is available. Web
+   * always resolves without a URI.
+   */
+  getDeferredDeepLink(): Promise<FacebookDeferredDeepLinkResponse>;
 }
 
 export interface FacebookGetLoginStatusResponse {

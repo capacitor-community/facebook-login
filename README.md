@@ -51,6 +51,7 @@ Facebook JavaScript SDK on Web.
 - Current access token lookup
 - Facebook Graph API profile requests
 - Facebook App Events with string and number parameters
+- Deferred App Links for first-install attribution
 - Native App Event and advertiser settings
 
 ## Quick start
@@ -102,6 +103,8 @@ remain in the [API](#api) section below.
   profile fields, reauthorization, and platform differences.
 - [App Events](https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/app-events) — custom events, parameters, automatic event
   logging, and advertiser settings.
+- [Deferred App Links](https://docs.rdlabo.dev/projects/capacitor-facebook-login/docs/deferred-deep-links) — first-install attribution,
+  platform behavior, and testing.
 
 <!-- rdlabo-docs-omit -->
 
@@ -137,6 +140,7 @@ Only `npm run release` creates a release tag. Stable `vX.Y.Z` tags publish to np
 * [`setAutoLogAppEventsEnabled(...)`](#setautologappeventsenabled)
 * [`setAdvertiserTrackingEnabled(...)`](#setadvertisertrackingenabled)
 * [`setAdvertiserIDCollectionEnabled(...)`](#setadvertiseridcollectionenabled)
+* [`getDeferredDeepLink()`](#getdeferreddeeplink)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -295,6 +299,21 @@ Enables or disables advertiser ID collection on native platforms.
 --------------------
 
 
+### getDeferredDeepLink()
+
+```typescript
+getDeferredDeepLink() => Promise<FacebookDeferredDeepLinkResponse>
+```
+
+Fetches the deferred App Link attributed to this app install.
+Native platforms resolve without a URI when no link is available. Web
+always resolves without a URI.
+
+**Returns:** <code>Promise&lt;<a href="#facebookdeferreddeeplinkresponse">FacebookDeferredDeepLinkResponse</a>&gt;</code>
+
+--------------------
+
+
 ### Interfaces
 
 
@@ -337,6 +356,13 @@ Enables or disables advertiser ID collection on native platforms.
 | Prop              | Type                                                        | Description                                                  |
 | ----------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
 | **`accessToken`** | <code><a href="#accesstoken">AccessToken</a> \| null</code> | Current token response when one is returned by the platform. |
+
+
+#### FacebookDeferredDeepLinkResponse
+
+| Prop      | Type                | Description                                                            |
+| --------- | ------------------- | ---------------------------------------------------------------------- |
+| **`uri`** | <code>string</code> | Deferred App Link URI. Omitted when Meta has no link for this install. |
 
 
 ### Type Aliases
