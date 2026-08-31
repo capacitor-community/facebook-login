@@ -306,8 +306,8 @@ getDeferredDeepLink() => Promise<FacebookDeferredDeepLinkResponse>
 ```
 
 Fetches the deferred App Link attributed to this app install.
-Native platforms resolve without a URI when no link is available. Web
-always resolves without a URI.
+Android retries missing attribution data five times before rejecting. iOS
+and Web resolve without a URI when no link is available.
 
 **Returns:** <code>Promise&lt;<a href="#facebookdeferreddeeplinkresponse">FacebookDeferredDeepLinkResponse</a>&gt;</code>
 
@@ -360,9 +360,11 @@ always resolves without a URI.
 
 #### FacebookDeferredDeepLinkResponse
 
-| Prop      | Type                | Description                                                            |
-| --------- | ------------------- | ---------------------------------------------------------------------- |
-| **`uri`** | <code>string</code> | Deferred App Link URI. Omitted when Meta has no link for this install. |
+| Prop                | Type                                                             | Description                                                            |
+| ------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **`uri`**           | <code>string</code>                                              | Deferred App Link URI. Omitted when Meta has no link for this install. |
+| **`promotionCode`** | <code>string</code>                                              | Promotion code returned by the Android SDK, when present.              |
+| **`arguments`**     | <code><a href="#record">Record</a>&lt;string, unknown&gt;</code> | Deferred App Link argument bundle returned by the Android SDK.         |
 
 
 ### Type Aliases

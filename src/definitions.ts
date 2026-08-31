@@ -37,6 +37,10 @@ export interface FacebookCurrentAccessTokenResponse {
 export interface FacebookDeferredDeepLinkResponse {
   /** Deferred App Link URI. Omitted when Meta has no link for this install. */
   uri?: string;
+  /** Promotion code returned by the Android SDK, when present. */
+  promotionCode?: string;
+  /** Deferred App Link argument bundle returned by the Android SDK. */
+  arguments?: Record<string, unknown>;
 }
 
 export interface FacebookLoginPlugin {
@@ -85,8 +89,8 @@ export interface FacebookLoginPlugin {
   setAdvertiserIDCollectionEnabled(options: { enabled: boolean }): Promise<void>;
   /**
    * Fetches the deferred App Link attributed to this app install.
-   * Native platforms resolve without a URI when no link is available. Web
-   * always resolves without a URI.
+   * Android retries missing attribution data five times before rejecting. iOS
+   * and Web resolve without a URI when no link is available.
    */
   getDeferredDeepLink(): Promise<FacebookDeferredDeepLinkResponse>;
 }

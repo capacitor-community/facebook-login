@@ -7,7 +7,6 @@ protocol DeferredDeepLinkFetching {
 
 struct FacebookDeferredDeepLinkFetcher: DeferredDeepLinkFetching {
     func fetch(completion: @escaping (URL?, Error?) -> Void) {
-        ApplicationDelegate.shared.initializeSDK()
         AppLinkUtility.fetchDeferredAppLink(completion)
     }
 }

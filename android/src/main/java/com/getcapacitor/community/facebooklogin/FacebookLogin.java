@@ -2,6 +2,8 @@ package com.getcapacitor.community.facebooklogin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.telephony.data.NetworkSliceInfo;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,7 +35,9 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,17 +49,32 @@ public class FacebookLogin extends Plugin {
     public static final int FACEBOOK_SDK_REQUEST_CODE_OFFSET = 0xface;
     private AppEventsLogger logger;
     private String latestCallbackId;
-    private final DeferredDeepLinkService deferredDeepLinkService = new DeferredDeepLinkService((callback) -> {
-        String applicationId = FacebookSdk.getApplicationId();
-        FacebookSdk.getClientToken();
-        AppLinkData.fetchDeferredAppLinkData(getContext(), applicationId, (appLinkData) -> {
-            String uri = null;
-            if (appLinkData != null && appLinkData.getTargetUri() != null) {
-                uri = appLinkData.getTargetUri().toString();
-            }
-            callback.onFetched(uri);
-        });
-    });
+    private final DeferredDeepLinkService deferredDeepLinkService = new DeferredDeepLinkService(
+        callback ->
+            AppLinkData.fetchDeferredAppLinkData(getContext(), appLinkData -> {
+                if (appLinkData == null) {
+                    callback.onFetched(null);
+                    return;
+                }
+
+                Map<String, Object> arguments = new LinkedHashMap<>();
+                Bundle argumentBundle = appLinkData.getArgumentBundle();
+                if (argumentBundle != null) {
+                    for (String key : argumentBundle.keySet()) {
+                        arguments.put(key, argumentBundle.get(key));
+                    }
+                }
+
+                callback.onFetched(
+                    new DeferredDeepLinkService.Data(
+                        appLinkData.getTargetUri() == null ? null : appLinkData.getTargetUri().toString(),
+                        appLinkData.getPromotionCode(),
+                        arguments
+                    )
+                );
+            }),
+        (action, delayMillis) -> new Handler(Looper.getMainLooper()).postDelayed(action, delayMillis)
+    );
 
     @Override
     public void load() {
@@ -305,21 +324,33 @@ public class FacebookLogin extends Plugin {
     @PluginMethod
     public void getDeferredDeepLink(final PluginCall call) {
         Log.d(getLogTag(), "Entering getDeferredDeepLink()");
+        FacebookSdk.setAutoInitEnabled(true);
+        FacebookSdk.fullyInitialize();
+
         deferredDeepLinkService.fetch(
             new DeferredDeepLinkService.ResultCallback() {
                 @Override
-                public void onSuccess(String uri) {
+                public void onSuccess(DeferredDeepLinkService.Data data) {
                     JSObject result = new JSObject();
-                    if (uri != null) {
-                        result.put("uri", uri);
+                    if (data.getUri() != null) {
+                        result.put("uri", data.getUri());
                     }
+                    if (data.getPromotionCode() != null) {
+                        result.put("promotionCode", data.getPromotionCode());
+                    }
+
+                    JSObject arguments = new JSObject();
+                    for (Map.Entry<String, Object> entry : data.getArguments().entrySet()) {
+                        arguments.put(entry.getKey(), entry.getValue());
+                    }
+                    result.put("arguments", arguments);
                     call.resolve(result);
                 }
 
                 @Override
                 public void onError(RuntimeException error) {
                     Log.e(getLogTag(), "Failed to fetch deferred App Link", error);
-                    call.reject("Failed to fetch deferred App Link. Check Facebook SDK configuration.", error);
+                    call.reject(error.getMessage(), error);
                 }
             }
         );
