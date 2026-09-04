@@ -27,6 +27,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'src/main/consumer-rules.pro'
     }
     buildTypes {
         release {
@@ -54,8 +55,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':capacitor-android')
     testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.json:json:20240303"
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation "com.facebook.android:facebook-login:$facebookSDKVersion"
+    implementation "com.facebook.android:facebook-applinks:$facebookSDKVersion"
 
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"

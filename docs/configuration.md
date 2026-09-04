@@ -26,9 +26,9 @@ Replace `[APP_ID]` and `[CLIENT_TOKEN]` with values from your Meta app. Add your
 
 Override the following in your app's `variables.gradle` only when you need a specific SDK version:
 
-| Variable             | Artifact                              | Default  |
-| -------------------- | ------------------------------------- | -------- |
-| `facebookSDKVersion` | `com.facebook.android:facebook-login` | `18.3.0` |
+| Variable             | Artifacts                                                                       | Default  |
+| -------------------- | ------------------------------------------------------------------------------- | -------- |
+| `facebookSDKVersion` | `com.facebook.android:facebook-login`, `com.facebook.android:facebook-applinks` | `18.3.0` |
 
 ## iOS
 
@@ -136,3 +136,4 @@ await FacebookLogin.initialize({
 
 - [Authentication](./authentication.md)
 - [App Events](./app-events.md)
+- [Deferred App Links](./deferred-deep-links.md)
