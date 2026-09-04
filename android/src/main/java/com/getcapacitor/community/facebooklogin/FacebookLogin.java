@@ -339,11 +339,7 @@ public class FacebookLogin extends Plugin {
                         result.put("promotionCode", data.getPromotionCode());
                     }
 
-                    JSObject arguments = new JSObject();
-                    for (Map.Entry<String, Object> entry : data.getArguments().entrySet()) {
-                        arguments.put(entry.getKey(), entry.getValue());
-                    }
-                    result.put("arguments", arguments);
+                    result.put("arguments", DeferredDeepLinkJson.fromArguments(data.getArguments()));
                     call.resolve(result);
                 }
 
