@@ -21,7 +21,7 @@
     "@angular/core": "^21.2.20",
     "@angular/forms": "^21.2.20",
     "@angular/platform-browser": "^21.2.20",
-    "@angular/router": "^21.2.20",
+    "@angular/router": "^21.2.24",
     "@capacitor-community/facebook-login": "file:../..",
     "@capacitor/android": "^8.0.0",
     "@capacitor/core": "^8.5.1",
